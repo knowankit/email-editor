@@ -2,9 +2,7 @@ import { Box, Button } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import dynamic from "next/dynamic";
 import { useState } from "react";
-import IconButton from "@mui/material/IconButton";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-
+import Alert from "@mui/material/Alert";
 const FullScreenPreview = dynamic(
   () => import("@/components/email-editor/share-modal"),
   {
@@ -18,9 +16,10 @@ const Controls = () => {
   return (
     <Box mb={"1rem"} display="flex" justifyContent="space-between">
       <Box>
-        <IconButton aria-label="delete" size="small">
-          <ArrowBackIosIcon fontSize="small" />
-        </IconButton>
+        <Alert severity="info">
+          This project is currently under development, and there is a high
+          likelihood of issues that I am actively addressing
+        </Alert>
       </Box>
 
       <Box>
