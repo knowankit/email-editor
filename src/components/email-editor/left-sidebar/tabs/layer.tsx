@@ -13,6 +13,7 @@ import { FcAddColumn } from "react-icons/fc";
 import { PiCodeBlockFill } from "react-icons/pi";
 import SmartButtonIcon from "@mui/icons-material/SmartButton";
 import { TbSection } from "react-icons/tb";
+import TitleIcon from "@mui/icons-material/Title";
 
 let nodeIds: string[] = [];
 
@@ -32,6 +33,8 @@ const getTagIcons = (tagName: string) => {
       return <PiCodeBlockFill />;
     case "mj-button":
       return <SmartButtonIcon fontSize="small" />;
+    case "mj-text":
+      return <TitleIcon />;
 
     default:
       break;
