@@ -37,7 +37,7 @@ const RightSidebar = () => {
             variant="fullWidth"
           >
             <Tab
-              label="Configration"
+              label="Configuration"
               value="1"
               sx={{ textTransform: "none" }}
             />

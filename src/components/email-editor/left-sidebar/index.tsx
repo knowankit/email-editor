@@ -38,14 +38,8 @@ export default function ElementsDrawer() {
             </TabList>
           </Box>
           <TabPanel value="1" sx={{ padding: 0 }}>
-            <Content
-              expanded={expanded}
-              handleChange={(value: AccordionType) => setExpanded(value)}
-            />
-            <Layout
-              expanded={expanded}
-              handleChange={(value: AccordionType) => setExpanded(value)}
-            />
+            <Content />
+            <Layout />
           </TabPanel>
           <TabPanel value="2">
             <LayerTab />

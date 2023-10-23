@@ -10,15 +10,8 @@ import Box from "@mui/material/Box";
 import ElementCard from "@/components/email-editor/left-sidebar/drag/element-card";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import { AccordionType } from "@/types/email-editor.types";
-import { FcAddColumn } from "react-icons/fc";
 import { PiCodeBlockFill } from "react-icons/pi";
-import { TbSection } from "react-icons/tb";
-
-interface IContent {
-  expanded: AccordionType;
-  handleChange: (value: AccordionType) => void;
-}
+import { useState } from "react";
 
 const elements = [
   {
@@ -32,11 +25,6 @@ const elements = [
     text: "Text"
   },
   {
-    tagName: "mj-section",
-    icon: <TbSection fontSize="1.5rem" />,
-    text: "Section"
-  },
-  {
     tagName: "mj-hero",
     icon: <PiCodeBlockFill fontSize="1.5rem" />,
     text: "Hero"
@@ -45,19 +33,16 @@ const elements = [
     tagName: "mj-button",
     icon: <SmartButtonIcon />,
     text: "Button"
-  },
-  {
-    tagName: "mj-column",
-    icon: <FcAddColumn fontSize="1.5rem" />,
-    text: "Column"
   }
 ];
 
-const Content = ({ expanded, handleChange }: IContent) => {
+const Content = () => {
+  const [expanded, setExpanded] = useState("content");
+
   return (
     <Accordion
       expanded={expanded === "content"}
-      onChange={() => handleChange(expanded === "content" ? "" : "content")}
+      onChange={() => setExpanded(expanded === "content" ? "" : "content")}
       sx={{ width: "100%" }}
     >
       <AccordionSummary aria-controls="content">

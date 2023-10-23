@@ -27,10 +27,10 @@ export interface SimpleDialogProps {
 const FullScreenPreview = (props: SimpleDialogProps) => {
   const { onClose, open } = props;
   const { emailData } = useEmailStore();
-  const [from, setFrom] = useState("dell41ankit@gmail.com");
+  const [from, setFrom] = useState("");
   const [isAlertOn, setAlertStatus] = useState(false);
 
-  const [to, setTo] = useState("aryan41ankit@gmail.com");
+  const [to, setTo] = useState("");
 
   const loadMjMl = async () => {
     const url = "http://localhost:3000/api/email-editor/generate-mjml";
