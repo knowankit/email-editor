@@ -7,11 +7,9 @@ import TabPanel from "@mui/lab/TabPanel";
 
 import Content from "@/components/email-editor/left-sidebar/accordions/content";
 import Layout from "@/components/email-editor/left-sidebar/accordions/layout";
-import { AccordionType } from "@/types/email-editor.types";
 import LayerTab from "@/components/email-editor/left-sidebar/tabs/layer";
 
 export default function ElementsDrawer() {
-  const [expanded, setExpanded] = useState<AccordionType>("content");
   const [value, setValue] = useState("1");
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
