@@ -11,6 +11,7 @@ import useEmailStore from "@/store/email";
 import SendIcon from "@mui/icons-material/Send";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
+import { getBaseURL } from "@/lib/util/get-email-url";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -33,11 +34,7 @@ const FullScreenPreview = (props: SimpleDialogProps) => {
   const [to, setTo] = useState("");
 
   const loadMjMl = async () => {
-    const url =
-      process.env.NODE_ENV != "development"
-        ? "https://emaileditor.knowankit.com/api/email-editor/generate-mjml"
-        : "http://localhost:3000/api/email-editor/generate-mjml";
-
+    const url = `${getBaseURL()}/api/email-editor/generate-mjml`;
     const withHtml = {
       tagName: "mjml",
       attributes: {},
@@ -59,8 +56,8 @@ const FullScreenPreview = (props: SimpleDialogProps) => {
     if (!to || !from) return;
 
     const data = await loadMjMl();
+    const URL = `${getBaseURL()}/api/email-editor/send-mail`;
 
-    const URL = "http://localhost:3000/api/email-editor/send-mail";
     const response = await fetch(URL, {
       method: "POST",
       headers: {

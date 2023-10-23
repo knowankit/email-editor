@@ -9,8 +9,8 @@ import Box from "@mui/material/Box";
 import { useState, useEffect } from "react";
 import useEmailStore from "@/store/email";
 import { TextareaAutosize } from "@mui/base";
-
 import { SourceAccordionType } from "@/types/email-editor.types";
+import { getBaseURL } from "@/lib/util/get-email-url";
 
 interface ILayout {
   expanded: SourceAccordionType;
@@ -22,7 +22,7 @@ const MjmlSource = ({ expanded, handleChange }: ILayout) => {
 
   useEffect(() => {
     const loadMjMl = async () => {
-      const url = "http://localhost:3000/api/email-editor/generate-mjml";
+      const url = `${getBaseURL()}/api/email-editor/generate-mjml`;
 
       const withHtml = {
         tagName: "mjml",
