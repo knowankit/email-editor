@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import useEmailStore from "@/store/email";
 import { useEffect, useRef } from "react";
+import { getBaseURL } from "@/lib/util/get-email-url";
 
 const PreviewMode = ({ isMobile }: { isMobile: boolean }) => {
   const { emailData } = useEmailStore();
@@ -8,7 +9,7 @@ const PreviewMode = ({ isMobile }: { isMobile: boolean }) => {
 
   useEffect(() => {
     const loadMjMl = async () => {
-      const url = "http://localhost:3000/api/email-editor/generate-mjml";
+      const url = `${getBaseURL()}/api/email-editor/generate-mjml`;
 
       const withHtml = {
         tagName: "mjml",
