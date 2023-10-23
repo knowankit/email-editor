@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Signika+Negative:wght@400;500;600;700&display=swap');
+
+html, body {
+  margin: 0;
+  font-family: 'Open Sans', 'sans-serif';
+}
+
+
+@keyframes floatAnimation {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.image-section {
+  flex: 1;
+  text-align: center;
+  animation: floatAnimation 3s ease infinite; /* Apply the animation to the image */
+}
