@@ -1,10 +1,9 @@
 import { Box } from "@mui/material";
 import useEmailStore from "@/store/email";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const PreviewMode = ({ isMobile }: { isMobile: boolean }) => {
   const { emailData } = useEmailStore();
-  const [htmlString, setHtmlString] = useState("");
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
   useEffect(() => {

@@ -29,7 +29,9 @@ const DropContainer = () => {
   const totalSection = emailData.children.length || 0;
   const [isPopperOpen, setPopperVisibility] = useState(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [currentView, setCurrentView] = useState("edit");
+  const [currentView, setCurrentView] = useState<
+    "edit" | "preview" | "desktop-preview"
+  >("edit");
   const [isMobile, setIsMobile] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -174,9 +176,12 @@ const DropContainer = () => {
       <ResponsiveControl
         setCurrentView={setCurrentView}
         setIsMobile={setIsMobile}
+        currentView={currentView}
       />
       {currentView == "edit" && <EditMode />}
-      {currentView == "preview" && <PreviewMode isMobile={isMobile} />}
+      {["preview", "desktop-preview"].includes(currentView) && (
+        <PreviewMode isMobile={isMobile} />
+      )}
     </Box>
   );
 };

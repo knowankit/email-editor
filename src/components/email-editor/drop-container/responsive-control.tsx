@@ -6,13 +6,17 @@ import RedoIcon from "@mui/icons-material/Redo";
 import PreviewIcon from "@mui/icons-material/Preview";
 import { Box } from "@mui/material";
 interface IResponsiveControl {
-  setCurrentView: (view: string) => void;
+  setCurrentView: (view: currentView) => void;
   setIsMobile: (val: boolean) => void;
+  currentView: currentView;
 }
+
+type currentView = "edit" | "preview" | "desktop-preview";
 
 const ResponsiveControl = ({
   setCurrentView,
-  setIsMobile
+  setIsMobile,
+  currentView
 }: IResponsiveControl) => {
   return (
     <Box
@@ -29,6 +33,7 @@ const ResponsiveControl = ({
       <Box>
         <IconButton
           aria-label="desktop"
+          color={currentView == "edit" ? "primary" : "default"}
           onClick={() => {
             setCurrentView("edit");
             setIsMobile(false);
@@ -38,6 +43,7 @@ const ResponsiveControl = ({
         </IconButton>
         <IconButton
           aria-label="mobile"
+          color={currentView == "preview" ? "primary" : "default"}
           onClick={() => {
             setCurrentView("preview");
             setIsMobile(true);
@@ -47,8 +53,9 @@ const ResponsiveControl = ({
         </IconButton>
         <IconButton
           aria-label="preview"
+          color={currentView == "desktop-preview" ? "primary" : "default"}
           onClick={() => {
-            setCurrentView("preview");
+            setCurrentView("desktop-preview");
             setIsMobile(false);
           }}
         >
@@ -56,10 +63,10 @@ const ResponsiveControl = ({
         </IconButton>
       </Box>
       <Box ml={4}>
-        <IconButton aria-label="delete">
+        <IconButton aria-label="delete" disabled>
           <UndoIcon />
         </IconButton>
-        <IconButton aria-label="delete">
+        <IconButton aria-label="delete" disabled>
           <RedoIcon />
         </IconButton>
       </Box>
