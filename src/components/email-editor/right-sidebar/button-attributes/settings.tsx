@@ -27,7 +27,8 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
   const attributes = section.attributes;
 
   const [formData, setFormData] = useState({
-    "background-color": attributes["background-color"]
+    "background-color": attributes["background-color"],
+    href: attributes["href"]
   });
   const [content, setContent] = useState(section.content);
 
@@ -48,7 +49,7 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
 
     const data = updateAttributes(emailData, activeNode.path, newAttributes);
     const updateContentObj = updateContent(data, activeNode.path, content);
-    console.log(updateContentObj);
+
     setEmailData(updateContentObj);
   };
 
@@ -90,6 +91,17 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
             value={content}
             size="small"
             onChange={event => setContent(event.target.value)}
+            variant="outlined"
+          />
+        </Box>
+        <Box mt={2}>
+          <TextField
+            label="Button link"
+            fullWidth
+            name="href"
+            value={formData["href"]}
+            size="small"
+            onChange={handleChange}
             variant="outlined"
           />
         </Box>

@@ -5,18 +5,15 @@ import {
 } from "@/lib/ui/accordion";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { SourceAccordionType } from "@/types/email-editor.types";
+import { useState } from "react";
 
-interface ILayout {
-  expanded: SourceAccordionType;
-  handleChange: (value: SourceAccordionType) => void;
-}
+const MjmlSource = () => {
+  const [expanded, setExpanded] = useState("mjml");
 
-const MjmlSource = ({ expanded, handleChange }: ILayout) => {
   return (
     <Accordion
       expanded={expanded === "mjml"}
-      onChange={() => handleChange(expanded === "mjml" ? "" : "mjml")}
+      onChange={() => setExpanded(expanded === "mjml" ? "" : "mjml")}
       sx={{ width: "100%" }}
     >
       <AccordionSummary aria-controls="content">

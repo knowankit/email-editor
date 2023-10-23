@@ -5,20 +5,15 @@ import {
 } from "@/lib/ui/accordion";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { SourceAccordionType } from "@/types/email-editor.types";
 import { TextareaAutosize } from "@mui/base";
 import useEmailStore from "@/store/email";
 import { Button } from "@mui/material";
 import { useState } from "react";
 
-interface ILayout {
-  expanded: SourceAccordionType;
-  handleChange: (value: SourceAccordionType) => void;
-}
-
-const JsonSource = ({ expanded, handleChange }: ILayout) => {
+const JsonSource = () => {
   const { emailData, setEmailData } = useEmailStore();
   const [jsonContent, setJSONContent] = useState<any>(emailData);
+  const [expanded, setExpanded] = useState("json");
 
   const applyChanges = () => {
     try {
@@ -32,7 +27,7 @@ const JsonSource = ({ expanded, handleChange }: ILayout) => {
   return (
     <Accordion
       expanded={expanded === "json"}
-      onChange={() => handleChange(expanded === "json" ? "" : "json")}
+      onChange={() => setExpanded(expanded === "json" ? "" : "json")}
       sx={{ width: "100%" }}
     >
       <AccordionSummary aria-controls="content">

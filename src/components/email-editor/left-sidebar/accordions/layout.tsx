@@ -5,18 +5,15 @@ import {
 } from "@/lib/ui/accordion";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { AccordionType } from "@/types/email-editor.types";
+import { useState } from "react";
 
-interface ILayout {
-  expanded: AccordionType;
-  handleChange: (value: AccordionType) => void;
-}
+const Layout = () => {
+  const [expanded, setExpanded] = useState("layout");
 
-const Layout = ({ expanded, handleChange }: ILayout) => {
   return (
     <Accordion
       expanded={expanded === "layout"}
-      onChange={() => handleChange(expanded === "layout" ? "" : "layout")}
+      onChange={() => setExpanded(expanded === "layout" ? "" : "layout")}
       sx={{ width: "100%" }}
     >
       <AccordionSummary aria-controls="content">

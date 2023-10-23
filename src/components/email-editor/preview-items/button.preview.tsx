@@ -28,10 +28,11 @@ const defaultStyle = {
   fontSize: "13px",
   fontWeight: "normal",
   lineHeight: "120%",
-  margin: "0",
   textDecoration: "none",
   textTransform: "none",
-  padding: "10px 25px"
+  margin: "10px 25px",
+  padding: "10px 25px",
+  backgroundPosition: "center center"
 };
 
 const activeStyle = {
