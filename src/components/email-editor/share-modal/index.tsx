@@ -33,7 +33,10 @@ const FullScreenPreview = (props: SimpleDialogProps) => {
   const [to, setTo] = useState("");
 
   const loadMjMl = async () => {
-    const url = "http://localhost:3000/api/email-editor/generate-mjml";
+    const url =
+      process.env.NODE_ENV != "development"
+        ? "https://emaileditor.knowankit.com/api/email-editor/generate-mjml"
+        : "http://localhost:3000/api/email-editor/generate-mjml";
 
     const withHtml = {
       tagName: "mjml",
