@@ -12,6 +12,7 @@ const PreviewMode = ({ isMobile }: { isMobile: boolean }) => {
   useEffect(() => {
     const loadMjMl = async () => {
       setPreviewStatus(true);
+
       const url = `${getBaseURL()}/api/email-editor/generate-mjml`;
 
       const withHtml = {
@@ -29,6 +30,7 @@ const PreviewMode = ({ isMobile }: { isMobile: boolean }) => {
       });
 
       const data = await response.json();
+      setPreviewStatus(false);
 
       if (iframeRef.current) {
         const iframeDocument =
@@ -43,8 +45,6 @@ const PreviewMode = ({ isMobile }: { isMobile: boolean }) => {
           iframeDocument.close();
         }
       }
-
-      setPreviewStatus(false);
     };
 
     loadMjMl();
@@ -76,7 +76,7 @@ const PreviewMode = ({ isMobile }: { isMobile: boolean }) => {
     return desktop;
   };
 
-  if (loadingPreview) return <SkeletonLoader />;
+  // if (loadingPreview) return <SkeletonLoader />;
 
   return (
     <Box
@@ -84,7 +84,7 @@ const PreviewMode = ({ isMobile }: { isMobile: boolean }) => {
       ref={iframeRef}
       title="Email preview"
       sx={getStyle()}
-    />
+    ></Box>
   );
 };
 

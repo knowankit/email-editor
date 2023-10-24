@@ -39,16 +39,16 @@ const HeroPreview = ({ section, index, path }: ITextPreview) => {
 
   const { setActiveNode } = useEmailDataStore();
 
-  const loadHtmlElements = (pSection: any, tindex: number) => {
+  const loadHtmlElements = (pSection: any, nIndex: number) => {
     switch (pSection.tagName) {
       case "mj-button": {
         return (
           <ButtonPreview
             section={pSection}
-            textIndex={tindex}
+            textIndex={nIndex}
             index={index}
-            key={index}
-            path={`${path}.children.${tindex}`}
+            key={nIndex}
+            path={`${path}.children.${nIndex}`}
           />
         );
       }
@@ -58,9 +58,9 @@ const HeroPreview = ({ section, index, path }: ITextPreview) => {
           <TextPreview
             section={pSection}
             index={index}
-            textIndex={tindex}
-            key={index}
-            path={`${path}.children.${tindex}`}
+            textIndex={nIndex}
+            key={nIndex}
+            path={`${path}.children.${nIndex}`}
           />
         );
       }
@@ -107,8 +107,8 @@ const HeroPreview = ({ section, index, path }: ITextPreview) => {
       onClick={handleClick}
     >
       {children &&
-        children.map((element: any, index: number) => {
-          return loadHtmlElements(element, index);
+        children.map((element: any, nIndex: number) => {
+          return loadHtmlElements(element, nIndex);
         })}
       {(isHovered || isActive) && <HoverInfo section={section} path={path} />}
     </Box>

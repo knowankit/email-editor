@@ -66,7 +66,7 @@ const SectionPreview = ({ section, index, path }: ISectionPreview) => {
             section={pSection}
             index={index}
             columnIndex={tindex}
-            key={index}
+            key={tindex}
             path={`children.${index}.children.${tindex}`}
           />
         );
@@ -105,7 +105,7 @@ const SectionPreview = ({ section, index, path }: ISectionPreview) => {
         onClick={handleClick}
       >
         {hasChildren.length > 0 &&
-          hasChildren.map((tsection: any, tindex: any) => {
+          hasChildren.map((tsection: any, tindex: number) => {
             return loadHtmlElements(tsection, tindex);
           })}
         {(isHovered || isActive) && <HoverInfo section={section} path={path} />}
