@@ -17,7 +17,7 @@ export const objectToCSS = (styles: Record<string, string>) => {
     'backgroundHeight': 'height',
     'backgroundWidth': 'width',
     'backgroundUrl': 'background',
-    'containerBackgroundColor': 'background-color',
+    'containerBackgroundColor': 'backgroundColor',
     'align': 'textAlign'
   };
 

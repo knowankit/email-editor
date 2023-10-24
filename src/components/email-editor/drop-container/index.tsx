@@ -21,7 +21,6 @@ const style = {
 
 const DropContainer = () => {
   const { emailData, setEmailData } = useEmailStore();
-  const totalSection = emailData.children.length || 0;
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [currentView, setCurrentView] = useState<
     "edit" | "preview" | "desktop-preview"
@@ -78,9 +77,6 @@ const DropContainer = () => {
     return (
       <Box sx={{ width: "600px", bgcolor: "white" }}>
         {emailData["children"].map((section: any, index: number) => {
-          const isDownDisabled = totalSection - 1 === currentIndex;
-          const isUpDisabled = currentIndex === 0;
-
           return (
             <Box key={index}>
               <Box aria-haspopup="true" sx={{ cursor: "pointer" }}>

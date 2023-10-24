@@ -47,7 +47,6 @@ const TextPreview = ({ section, index, textIndex, path }: ITextPreview) => {
     setIsActive(true);
   };
 
-  console.log("cs", objectToCSS(getCamelCasedAttributes(section.attributes)));
   return (
     <Box
       sx={{
