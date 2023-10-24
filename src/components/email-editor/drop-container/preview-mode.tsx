@@ -1,14 +1,17 @@
 import { Box } from "@mui/material";
 import useEmailStore from "@/store/email";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getBaseURL } from "@/lib/util/get-email-url";
+import SkeletonLoader from "@/components/email-editor/drop-container/skeleton-loader";
 
 const PreviewMode = ({ isMobile }: { isMobile: boolean }) => {
+  const [loadingPreview, setPreviewStatus] = useState(false);
   const { emailData } = useEmailStore();
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
   useEffect(() => {
     const loadMjMl = async () => {
+      setPreviewStatus(true);
       const url = `${getBaseURL()}/api/email-editor/generate-mjml`;
 
       const withHtml = {
@@ -16,6 +19,7 @@ const PreviewMode = ({ isMobile }: { isMobile: boolean }) => {
         attributes: {},
         children: [emailData]
       };
+
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -23,6 +27,7 @@ const PreviewMode = ({ isMobile }: { isMobile: boolean }) => {
         },
         body: JSON.stringify(withHtml) // Convert the data to JSON format
       });
+
       const data = await response.json();
 
       if (iframeRef.current) {
@@ -38,6 +43,8 @@ const PreviewMode = ({ isMobile }: { isMobile: boolean }) => {
           iframeDocument.close();
         }
       }
+
+      setPreviewStatus(false);
     };
 
     loadMjMl();
@@ -68,6 +75,8 @@ const PreviewMode = ({ isMobile }: { isMobile: boolean }) => {
 
     return desktop;
   };
+
+  if (loadingPreview) return <SkeletonLoader />;
 
   return (
     <Box
