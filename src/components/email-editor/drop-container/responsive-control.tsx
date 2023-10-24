@@ -5,6 +5,8 @@ import UndoIcon from "@mui/icons-material/Undo";
 import RedoIcon from "@mui/icons-material/Redo";
 import PreviewIcon from "@mui/icons-material/Preview";
 import { Box } from "@mui/material";
+import useEmailStore from "@/store/email";
+
 interface IResponsiveControl {
   setCurrentView: (view: currentView) => void;
   setIsMobile: (val: boolean) => void;
@@ -18,6 +20,8 @@ const ResponsiveControl = ({
   setIsMobile,
   currentView
 }: IResponsiveControl) => {
+  const { emailData } = useEmailStore();
+
   return (
     <Box
       sx={{
@@ -43,6 +47,7 @@ const ResponsiveControl = ({
         </IconButton>
         <IconButton
           aria-label="mobile"
+          disabled={!emailData["children"].length}
           color={currentView == "preview" ? "primary" : "default"}
           onClick={() => {
             setCurrentView("preview");
@@ -53,6 +58,7 @@ const ResponsiveControl = ({
         </IconButton>
         <IconButton
           aria-label="preview"
+          disabled={!emailData["children"].length}
           color={currentView == "desktop-preview" ? "primary" : "default"}
           onClick={() => {
             setCurrentView("desktop-preview");
@@ -63,10 +69,10 @@ const ResponsiveControl = ({
         </IconButton>
       </Box>
       <Box ml={4}>
-        <IconButton aria-label="delete" disabled>
+        <IconButton aria-label="undo" disabled>
           <UndoIcon />
         </IconButton>
-        <IconButton aria-label="delete" disabled>
+        <IconButton aria-label="redo" disabled>
           <RedoIcon />
         </IconButton>
       </Box>
