@@ -3,11 +3,6 @@ import { useDrop } from "react-dnd";
 import SectionPreview from "../preview-items/section.preview";
 import useEmailStore from "@/store/email";
 import { useState } from "react";
-import Popper from "@/components/email-editor/popper";
-import DeleteIcon from "@mui/icons-material/Delete";
-import IconButton from "@mui/material/IconButton";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { getDefaultTags } from "@/lib/util/get-default-tags";
 import ResponsiveControl from "@/components/email-editor/drop-container/responsive-control";
 import PreviewMode from "@/components/email-editor/drop-container/preview-mode";
@@ -27,14 +22,11 @@ const style = {
 const DropContainer = () => {
   const { emailData, setEmailData } = useEmailStore();
   const totalSection = emailData.children.length || 0;
-  const [isPopperOpen, setPopperVisibility] = useState(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [currentView, setCurrentView] = useState<
     "edit" | "preview" | "desktop-preview"
   >("edit");
   const [isMobile, setIsMobile] = useState(false);
-
-  const [anchorEl, setAnchorEl] = useState(null);
 
   const [collectedProps, drop] = useDrop(() => ({
     accept: ["mj-section", "mj-hero"],
@@ -62,29 +54,6 @@ const DropContainer = () => {
     setEmailData(currentObjClone);
   };
 
-  const handlePopoverOpen = (event: any, index: number) => {
-    if (isPopperOpen && event.currentTarget === anchorEl) {
-      setCurrentIndex(index);
-      setPopperVisibility(false);
-      setAnchorEl(null);
-      return;
-    }
-
-    setCurrentIndex(index);
-    setPopperVisibility(true);
-    setAnchorEl(event.currentTarget);
-  };
-
-  const open = Boolean(anchorEl);
-
-  const handleDelete = () => {
-    setPopperVisibility(false);
-    const emailDataClone = { ...emailData };
-
-    emailDataClone.children.splice(currentIndex, 1);
-    setEmailData(emailDataClone);
-  };
-
   const handleSequence = (direction: "up" | "down") => {
     const emailDataClone = { ...emailData };
 
@@ -100,6 +69,7 @@ const DropContainer = () => {
       sections[currentIndex] = sections[currentIndex + 1];
       sections[currentIndex + 1] = temp;
     }
+
     emailDataClone.children = sections;
     setEmailData(emailDataClone);
   };
@@ -113,12 +83,7 @@ const DropContainer = () => {
 
           return (
             <Box key={index}>
-              <Box
-                onClick={e => handlePopoverOpen(e, index)}
-                aria-owns={open ? "mouse-over-popover" : undefined}
-                aria-haspopup="true"
-                sx={{ cursor: "pointer" }}
-              >
+              <Box aria-haspopup="true" sx={{ cursor: "pointer" }}>
                 {section.tagName === "mj-section" && (
                   <SectionPreview
                     section={section}
@@ -137,33 +102,6 @@ const DropContainer = () => {
                   />
                 )}
               </Box>
-              <Popper open={isPopperOpen} anchorEl={anchorEl}>
-                <Box display="flex" flexDirection="column">
-                  <IconButton aria-label="delete" size="small">
-                    <DeleteIcon
-                      onClick={handleDelete}
-                      fontSize="small"
-                      color="warning"
-                    />
-                  </IconButton>
-                  <IconButton
-                    aria-label="upward"
-                    size="small"
-                    onClick={() => handleSequence("up")}
-                    disabled={isUpDisabled}
-                  >
-                    <ArrowUpwardIcon fontSize="small" />
-                  </IconButton>
-                  <IconButton
-                    aria-label="downward"
-                    size="small"
-                    onClick={() => handleSequence("down")}
-                    disabled={isDownDisabled}
-                  >
-                    <ArrowDownwardIcon fontSize="small" />
-                  </IconButton>
-                </Box>
-              </Popper>
             </Box>
           );
         })}
