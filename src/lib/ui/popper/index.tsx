@@ -6,7 +6,7 @@ interface ISectionControl {
   children: JSX.Element;
   open: boolean;
   anchorEl: any;
-  placement?: "right" | "bottom";
+  placement?: "right" | "bottom" | "left";
 }
 
 const SectionControl = ({

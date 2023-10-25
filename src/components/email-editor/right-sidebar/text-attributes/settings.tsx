@@ -15,6 +15,7 @@ import { useState } from "react";
 import React from "react";
 import { updateAttributes, updateContent } from "@/lib/util/data-crud";
 import IconButton from "@mui/material/IconButton";
+import ColorPicker from "@/lib/ui/color-picker";
 
 interface ISetting {
   expanded: HeroAttributesAccordionType;
@@ -22,6 +23,11 @@ interface ISetting {
 }
 
 const Settings = ({ expanded, changeTab }: ISetting) => {
+  const [isColorPickerOpen, setColorPickerStatus] = useState(false);
+  const [fieldName, setFieldName] = useState("");
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
   const { activeNode, emailData, setEmailData } = useEmailStore();
   const { section } = activeNode;
   const attributes = section.attributes;
@@ -53,6 +59,29 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
     setEmailData(updateContentObj);
   };
 
+  const handleColorPicker = (event: any, name: string) => {
+    setFieldName(name);
+
+    if (isColorPickerOpen) {
+      setColorPickerStatus(false);
+      setAnchorEl(null);
+      return;
+    }
+
+    setColorPickerStatus(true);
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleColorChange = (col: any) => {
+    setFormData({
+      ...formData,
+      [fieldName]: col.hex
+    });
+
+    setColorPickerStatus(false);
+    setAnchorEl(null);
+  };
+
   return (
     <Accordion
       expanded={expanded === "setting"}
@@ -74,7 +103,13 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <IconButton aria-label="color" size="small">
+                  <IconButton
+                    aria-label="color"
+                    size="small"
+                    onClick={event =>
+                      handleColorPicker(event, "container-background-color")
+                    }
+                  >
                     <ColorLensIcon />
                   </IconButton>
                 </InputAdornment>
@@ -94,7 +129,11 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <IconButton aria-label="color" size="small">
+                  <IconButton
+                    aria-label="color"
+                    size="small"
+                    onClick={event => handleColorPicker(event, "color")}
+                  >
                     <ColorLensIcon />
                   </IconButton>
                 </InputAdornment>
@@ -114,6 +153,12 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
             variant="outlined"
           />
         </Box>
+        <ColorPicker
+          open={isColorPickerOpen}
+          color=""
+          anchorEl={anchorEl}
+          onChange={col => handleColorChange(col)}
+        />
         <Box sx={{ mt: "1rem" }}>
           <Button size="small" variant="contained" onClick={applyChanges}>
             Apply
