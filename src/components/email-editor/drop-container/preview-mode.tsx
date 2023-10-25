@@ -51,7 +51,12 @@ const PreviewMode = ({ isMobile }: { isMobile: boolean }) => {
   }, []);
 
   const getStyle = () => {
+    const defaultStyle = {
+      display: loadingPreview ? "none" : "block"
+    };
+
     const mobile = {
+      ...defaultStyle,
       width: "360px",
       height: "640px",
       bgcolor: "white",
@@ -67,6 +72,7 @@ const PreviewMode = ({ isMobile }: { isMobile: boolean }) => {
     if (isMobile) return mobile;
 
     const desktop = {
+      ...defaultStyle,
       width: "600px",
       height: "inherit",
       bgcolor: "white",
@@ -76,15 +82,16 @@ const PreviewMode = ({ isMobile }: { isMobile: boolean }) => {
     return desktop;
   };
 
-  // if (loadingPreview) return <SkeletonLoader />;
-
   return (
-    <Box
-      component="iframe"
-      ref={iframeRef}
-      title="Email preview"
-      sx={getStyle()}
-    ></Box>
+    <>
+      {loadingPreview && <SkeletonLoader />}
+      <Box
+        component="iframe"
+        ref={iframeRef}
+        title="Email preview"
+        sx={getStyle()}
+      ></Box>
+    </>
   );
 };
 
