@@ -27,7 +27,8 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
   const attributes = section.attributes;
 
   const [formData, setFormData] = useState({
-    "container-background-color": attributes["container-background-color"]
+    "container-background-color": attributes["container-background-color"],
+    color: attributes["color"]
   });
   const [content, setContent] = useState(section.content);
 
@@ -73,7 +74,27 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <IconButton aria-label="delete" size="small">
+                  <IconButton aria-label="color" size="small">
+                    <ColorLensIcon />
+                  </IconButton>
+                </InputAdornment>
+              )
+            }}
+            variant="outlined"
+          />
+        </Box>
+        <Box mt={2}>
+          <TextField
+            label="Text color"
+            fullWidth
+            name="color"
+            value={formData["color"]}
+            size="small"
+            onChange={handleChange}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <IconButton aria-label="color" size="small">
                     <ColorLensIcon />
                   </IconButton>
                 </InputAdornment>
