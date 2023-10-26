@@ -58,7 +58,7 @@ const PreviewMode = ({ isMobile }: { isMobile: boolean }) => {
     const mobile = {
       ...defaultStyle,
       width: "360px",
-      height: "640px",
+      height: "600px",
       bgcolor: "white",
       margin: "1rem",
       backgroundColor: "#f0f0f0",
@@ -74,7 +74,7 @@ const PreviewMode = ({ isMobile }: { isMobile: boolean }) => {
     const desktop = {
       ...defaultStyle,
       width: "600px",
-      height: "inherit",
+      height: "600px",
       bgcolor: "white",
       border: "none"
     };
