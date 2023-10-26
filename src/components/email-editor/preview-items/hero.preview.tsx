@@ -16,13 +16,12 @@ interface ITextPreview {
 }
 
 const defaultStyle = {
-  // border: "1px dashed grey",
   position: "relative",
   "&:hover": {
     outline: "2px dashed white"
   },
   backgroundRepeat: "no-repeat !important",
-  backgroundPosition: "center center",
+  backgroundPosition: "center !important",
   backgroundSize: "cover !important",
   verticalAlign: "top",
   bgcolor: "yellow"

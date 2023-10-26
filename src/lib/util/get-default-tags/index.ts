@@ -65,12 +65,13 @@ export const getDefaultTags = (tagName: string) => {
         tagName,
         attributes: {
         'mode':"fixed-height",
-        // "height":"469px",
-        // 'background-height':"469px",
+        "height":"400px",
+        'background-height':"400px",
         'background-width':"600px",
         'background-url': "https://cloud.githubusercontent.com/assets/1830348/15354890/1442159a-1cf0-11e6-92b1-b861dadf1750.jpg",
         'background-color':"#2a3448",
-        'padding':"100px 0px"
+        'padding': "100px 0px 100px 0px",
+
       },
         "children": [{
           tagName: 'mj-text',
