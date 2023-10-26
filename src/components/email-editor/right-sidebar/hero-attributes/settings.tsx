@@ -14,6 +14,7 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import React from "react";
 import { updateAttributes } from "@/lib/util/data-crud";
+import UnsplashModel from "@/lib/ui/unsplash/model";
 
 interface ISetting {
   expanded: HeroAttributesAccordionType;
@@ -44,10 +45,15 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
       ...attributes,
       ...formData
     };
-
     const data = updateAttributes(emailData, activeNode.path, newAttributes);
-
     setEmailData(data);
+  };
+
+  const handleImageChange = (data: any) => {
+    setFormData({
+      ...formData,
+      [data.type]: data.value
+    });
   };
 
   return (
@@ -61,14 +67,21 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
       </AccordionSummary>
       <AccordionDetails>
         <Box>
-          <Box
-            sx={{
-              height: "100px",
-              width: "100px",
-              backgroundImage: `url("${activeNode?.section.attributes["background-url"]}")`,
-              backgroundSize: "cover"
-            }}
-          ></Box>
+          <Box display="flex">
+            <Box
+              sx={{
+                height: "100px",
+                width: "100px",
+                marginRight: "1rem",
+                backgroundImage: `url("${activeNode?.section.attributes["background-url"]}")`,
+                backgroundSize: "cover"
+              }}
+            />
+            <UnsplashModel
+              handleImageChange={data => handleImageChange(data)}
+              field="background-url"
+            />
+          </Box>
           <Box mt={2}>
             <TextField
               label="Image source"

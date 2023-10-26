@@ -1,7 +1,4 @@
 export const updateAttributes = (object: any, path: string, newAttributes: any) => {
-  // Extract the index from the last character of the path
-  const index = parseInt(path.slice(-1));
-
   // Split the path into segments
   const segments = path.split(".");
 
@@ -21,9 +18,6 @@ export const updateAttributes = (object: any, path: string, newAttributes: any) 
 
 
 export const updateContent = (object: any, path: string, newContent: any) => {
-  // Extract the index from the last character of the path
-  const index = parseInt(path.slice(-1));
-
   // Split the path into segments
   const segments = path.split(".");
 
