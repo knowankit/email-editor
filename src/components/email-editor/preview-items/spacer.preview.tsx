@@ -15,8 +15,6 @@ interface IButtonPreview {
 }
 
 const defaultStyle = {
-  backgroundColor: "#414141",
-  color: "#ffffff",
   "&:hover": {
     outline: "2px dashed white",
     outlineOffset: "2px"
@@ -47,11 +45,8 @@ const SpacerPreview = ({ section, index, path }: IButtonPreview) => {
   return (
     <Box textAlign="center">
       <Box
-        id="button"
-        component="a"
+        id="spacer"
         position="relative"
-        className="testbutton"
-        href={section.href}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={handleClick}

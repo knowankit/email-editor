@@ -12,7 +12,6 @@ import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import ImageIcon from "@mui/icons-material/Image";
 // import ColorLensIcon from "@mui/icons-material/ColorLens";
-import Unsplash from "@/lib/ui/unsplash/model";
 import { useState } from "react";
 import React from "react";
 
@@ -89,7 +88,6 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
               }}
               variant="outlined"
             />
-            <Unsplash />
           </Box>
 
           {/* <Box mt={2}>

@@ -29,6 +29,17 @@ export const getDefaultTags = (tagName: string) => {
       }
     }
 
+    case 'mj-spacer': {
+      return {
+        tagName: 'mj-spacer',
+        attributes: {
+          "height": "50px",
+          "line-height": "50px"
+        },
+        children: []
+      }
+    }
+
     case 'mj-text': {
       return {
         tagName,
