@@ -43,8 +43,17 @@ export const getDefaultTags = (tagName: string) => {
     case 'mj-text': {
       return {
         tagName,
-        attributes: {},
-        content: '',
+        attributes: {
+          'padding':"20px",
+            'color':"#ffffff",
+            'font-family':"Helvetica",
+            'align':"center",
+            'font-size':"45px",
+            'line-height':"45px",
+            'font-weight':"900",
+            'container-background-color': 'black'
+        },
+        content: 'Dummy text',
         id: uuidv4()
 
       }
