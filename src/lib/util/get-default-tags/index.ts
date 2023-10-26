@@ -69,6 +69,20 @@ export const getDefaultTags = (tagName: string) => {
       }
     }
 
+    case 'mj-button': {
+      return {
+        tagName,
+        attributes: {
+          "href":"https://mjml.io/",
+          "align":"center",
+          "background-color": "#008000"
+        },
+        content: "Button text",
+        id: uuidv4()
+
+      }
+    }
+
     case 'mj-hero': {
       return {
         tagName,

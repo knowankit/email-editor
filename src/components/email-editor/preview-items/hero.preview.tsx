@@ -65,6 +65,19 @@ const HeroPreview = ({ section, index, path }: ITextPreview) => {
           setEmailData(newData);
         }
         break;
+
+      case "mj-button":
+        {
+          const newData = modifyObjectData(
+            emailData,
+            `${path}.children.push`,
+            getDefaultTags("mj-button"),
+            "add"
+          );
+
+          setEmailData(newData);
+        }
+        break;
     }
   };
 
