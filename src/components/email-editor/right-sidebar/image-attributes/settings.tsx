@@ -3,7 +3,7 @@ import {
   AccordionDetails,
   AccordionSummary
 } from "@/lib/ui/accordion";
-import Box from "@mui/material/Box";
+import { Box, Button } from "@mui/material";
 // import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { ImageAttributesAccordionType } from "@/types/email-editor.types";
@@ -12,7 +12,7 @@ import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import ImageIcon from "@mui/icons-material/Image";
 // import ColorLensIcon from "@mui/icons-material/ColorLens";
-import { Button } from "@mui/material";
+import Unsplash from "@/lib/ui/unsplash/model";
 import { useState } from "react";
 import React from "react";
 
@@ -72,12 +72,12 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
               backgroundSize: "cover"
             }}
           ></Box>
-          <Box mt={2}>
+          <Box mt={2} display="flex">
             <TextField
               label="Image source"
               value={formData.src}
               name="src"
-              fullWidth
+              // fullWidth
               size="small"
               onChange={handleChange}
               InputProps={{
@@ -89,7 +89,9 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
               }}
               variant="outlined"
             />
+            <Unsplash />
           </Box>
+
           {/* <Box mt={2}>
             <TextField
               label="Background color"
