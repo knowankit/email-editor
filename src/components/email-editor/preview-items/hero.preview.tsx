@@ -8,6 +8,9 @@ import ButtonPreview from "@/components/email-editor/preview-items/button.previe
 import TextPreview from "@/components/email-editor/preview-items/text.preview";
 import HoverInfo from "@/lib/ui/hover-info";
 import useEmailDataStore from "@/store/email";
+import { useDrop } from "react-dnd";
+import modifyObjectData from "@/lib/util/modify-data-object";
+import { getDefaultTags } from "@/lib/util/get-default-tags";
 
 interface ITextPreview {
   section: any;
@@ -16,13 +19,12 @@ interface ITextPreview {
 }
 
 const defaultStyle = {
-  // border: "1px dashed grey",
   position: "relative",
   "&:hover": {
     outline: "2px dashed white"
   },
   backgroundRepeat: "no-repeat !important",
-  backgroundPosition: "center center",
+  backgroundPosition: "center !important",
   backgroundSize: "cover !important",
   verticalAlign: "top",
   bgcolor: "yellow"
@@ -36,8 +38,48 @@ const activeStyle = {
 const HeroPreview = ({ section, index, path }: ITextPreview) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isActive, setIsActive] = useState(false);
+  const { setActiveNode, emailData, setEmailData } = useEmailDataStore();
 
-  const { setActiveNode } = useEmailDataStore();
+  const [collectedProps, drop] = useDrop(() => ({
+    accept: ["mj-text", "mj-spacer", "mj-button"],
+    drop: (item: any, monitor) => {
+      if (!monitor.didDrop()) {
+        modifyEmailData(item);
+      }
+    }
+  }));
+
+  const modifyEmailData = (item: any) => {
+    const key = item["type"];
+
+    switch (key) {
+      case "mj-text":
+        {
+          const newData = modifyObjectData(
+            emailData,
+            `${path}.children.push`,
+            getDefaultTags("mj-text"),
+            "add"
+          );
+
+          setEmailData(newData);
+        }
+        break;
+
+      case "mj-button":
+        {
+          const newData = modifyObjectData(
+            emailData,
+            `${path}.children.push`,
+            getDefaultTags("mj-button"),
+            "add"
+          );
+
+          setEmailData(newData);
+        }
+        break;
+    }
+  };
 
   const loadHtmlElements = (pSection: any, nIndex: number) => {
     switch (pSection.tagName) {
@@ -94,13 +136,16 @@ const HeroPreview = ({ section, index, path }: ITextPreview) => {
   };
 
   const children = section.children;
-
+  const objectCss = objectToCSS(getCamelCasedAttributes(section.attributes));
+  const height = objectCss["height"];
   return (
     <Box
       id="hero-preview"
+      ref={drop}
       sx={{
         ...(isActive ? activeStyle : defaultStyle),
-        ...objectToCSS(getCamelCasedAttributes(section.attributes))
+        ...objectCss
+        // height: `calc(${height} - 200px)`
       }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}

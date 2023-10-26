@@ -11,8 +11,7 @@ import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import ColorLensIcon from "@mui/icons-material/ColorLens";
 import { Button } from "@mui/material";
-import { useState } from "react";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { updateAttributes, updateContent } from "@/lib/util/data-crud";
 import IconButton from "@mui/material/IconButton";
 import ColorPicker from "@/lib/ui/color-picker";
@@ -25,18 +24,25 @@ interface ISetting {
 const Settings = ({ expanded, changeTab }: ISetting) => {
   const [isColorPickerOpen, setColorPickerStatus] = useState(false);
   const [fieldName, setFieldName] = useState("");
-
-  const [anchorEl, setAnchorEl] = useState(null);
-
   const { activeNode, emailData, setEmailData } = useEmailStore();
+
   const { section } = activeNode;
+  const [content, setContent] = useState(section.content);
+  const [anchorEl, setAnchorEl] = useState(null);
   const attributes = section.attributes;
+
+  useEffect(() => {
+    setContent(section.content);
+    setFormData({
+      "container-background-color": attributes["container-background-color"],
+      color: attributes["color"]
+    });
+  }, [section]);
 
   const [formData, setFormData] = useState({
     "container-background-color": attributes["container-background-color"],
     color: attributes["color"]
   });
-  const [content, setContent] = useState(section.content);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;

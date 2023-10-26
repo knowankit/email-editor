@@ -43,8 +43,17 @@ export const getDefaultTags = (tagName: string) => {
     case 'mj-text': {
       return {
         tagName,
-        attributes: {},
-        content: '',
+        attributes: {
+          'padding':"20px",
+            'color':"#ffffff",
+            'font-family':"Helvetica",
+            'align':"center",
+            'font-size':"45px",
+            'line-height':"45px",
+            'font-weight':"900",
+            'container-background-color': 'black'
+        },
+        content: 'Dummy text',
         id: uuidv4()
 
       }
@@ -60,17 +69,32 @@ export const getDefaultTags = (tagName: string) => {
       }
     }
 
+    case 'mj-button': {
+      return {
+        tagName,
+        attributes: {
+          "href":"https://mjml.io/",
+          "align":"center",
+          "background-color": "#008000"
+        },
+        content: "Button text",
+        id: uuidv4()
+
+      }
+    }
+
     case 'mj-hero': {
       return {
         tagName,
         attributes: {
         'mode':"fixed-height",
-        // "height":"469px",
-        // 'background-height':"469px",
+        "height":"400px",
+        'background-height':"400px",
         'background-width':"600px",
         'background-url': "https://cloud.githubusercontent.com/assets/1830348/15354890/1442159a-1cf0-11e6-92b1-b861dadf1750.jpg",
         'background-color':"#2a3448",
-        'padding':"100px 0px"
+        'padding': "100px 0px 100px 0px",
+
       },
         "children": [{
           tagName: 'mj-text',

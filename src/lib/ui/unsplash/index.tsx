@@ -51,7 +51,7 @@ const Unsplash = ({ handleImageChange, field, setOpen }: IUnsplash) => {
     setCurrentPage(currentPage + 1);
 
     const response = imagesSet.response.results;
-    console.log(response);
+
     const sumAllImages = images.concat(response);
     setImages(sumAllImages);
 

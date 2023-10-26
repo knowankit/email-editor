@@ -10,7 +10,7 @@ import TextField from "@mui/material/TextField";
 import useEmailStore from "@/store/email";
 import { useState } from "react";
 import { Button } from "@mui/material";
-
+import { updateAttributes } from "@/lib/util/data-crud";
 interface ISetting {
   expanded: HeroAttributesAccordionType;
   changeTab: (value: HeroAttributesAccordionType) => void;
@@ -23,11 +23,10 @@ const Dimension = ({ expanded, changeTab }: ISetting) => {
 
   const [formData, setFormData] = useState({
     width: attributes["width"],
+    "background-height": attributes["background-height"],
+    // "background-position": attributes["background-position"],
     height: attributes["height"],
-    "padding-top": attributes["padding-top"],
-    "padding-bottom": attributes["padding-bottom"],
-    "padding-left": attributes["padding-left"],
-    "padding-right": attributes["padding-right"]
+    padding: attributes["padding"]
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,16 +39,13 @@ const Dimension = ({ expanded, changeTab }: ISetting) => {
   };
 
   const applyChanges = () => {
-    const emailDataClone = { ...emailData };
-
-    emailDataClone.children[sectionIndex].children[columnIndex].children[
-      imageIndex
-    ].attributes = {
+    const newAttributes = {
       ...attributes,
       ...formData
     };
 
-    setEmailData(emailDataClone);
+    const data = updateAttributes(emailData, activeNode.path, newAttributes);
+    setEmailData(data);
   };
 
   return (
@@ -62,81 +58,47 @@ const Dimension = ({ expanded, changeTab }: ISetting) => {
         <Typography fontSize="0.8rem">Dimension</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Box display="flex" justifyContent="space-between">
-          <TextField
-            label="Width"
-            size="small"
-            name="width"
-            value={formData.width}
-            multiline
-            onChange={handleChange}
-            maxRows={4}
-            sx={{ width: "45%" }}
-          />
-          <TextField
-            label="Height"
-            name="height"
-            value={formData.height}
-            onChange={handleChange}
-            size="small"
-            multiline
-            maxRows={4}
-            sx={{ width: "45%" }}
-          />
-        </Box>
+        <TextField
+          label="Height"
+          name="background-height"
+          value={formData["background-height"]}
+          onChange={handleChange}
+          size="small"
+          multiline
+          fullWidth
+          maxRows={4}
+        />
+        <TextField
+          label="Height"
+          sx={{ mt: 1 }}
+          name="height"
+          value={formData["height"]}
+          onChange={handleChange}
+          size="small"
+          multiline
+          fullWidth
+          maxRows={4}
+        />
         <Box component="p">Padding</Box>
-        <Box display="flex" justifyContent="space-between">
-          <TextField
-            label="Top"
-            size="small"
-            name="padding-top"
-            onChange={handleChange}
-            value={formData["padding-top"]}
-            type="number"
-            disabled
-            multiline
-            maxRows={4}
-            sx={{ width: "45%" }}
-          />
-          <TextField
-            label="Right"
-            size="small"
-            name="padding-right"
-            multiline
-            onChange={handleChange}
-            value={formData["padding-right"]}
-            type="number"
-            disabled
-            maxRows={4}
-            sx={{ width: "45%" }}
-          />
-        </Box>
-        <Box display="flex" justifyContent="space-between" mt={1}>
-          <TextField
-            label="Bottom"
-            size="small"
-            name="padding-bottom"
-            onChange={handleChange}
-            value={formData["padding-bottom"]}
-            type="number"
-            multiline
-            maxRows={4}
-            disabled
-            sx={{ width: "45%" }}
-          />
-          <TextField
-            type="number"
-            onChange={handleChange}
-            name="padding-left"
-            label="Left"
-            value={formData["padding-left"]}
-            disabled
-            size="small"
-            multiline
-            maxRows={4}
-            sx={{ width: "45%" }}
-          />
-        </Box>
+        <TextField
+          label="Top"
+          size="small"
+          name="padding"
+          onChange={handleChange}
+          value={formData["padding"]}
+          fullWidth
+          type="number"
+          multiline
+          maxRows={4}
+        />
+        {/* <TextField
+          label="Position"
+          size="small"
+          name="background-position"
+          onChange={handleChange}
+          value={formData["background-position"]}
+          fullWidth
+        /> */}
         <Box sx={{ mt: "1rem" }}>
           <Button size="small" variant="contained" onClick={applyChanges}>
             Apply
