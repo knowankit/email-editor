@@ -136,14 +136,16 @@ const HeroPreview = ({ section, index, path }: ITextPreview) => {
   };
 
   const children = section.children;
-
+  const objectCss = objectToCSS(getCamelCasedAttributes(section.attributes));
+  const height = objectCss["height"];
   return (
     <Box
       id="hero-preview"
       ref={drop}
       sx={{
         ...(isActive ? activeStyle : defaultStyle),
-        ...objectToCSS(getCamelCasedAttributes(section.attributes))
+        ...objectCss
+        // height: `calc(${height} - 200px)`
       }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}

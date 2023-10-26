@@ -30,6 +30,8 @@ interface ActiveNode {
 interface StoreActions {
   setEmailData: (data: MJMLNode) => void;
   setActiveNode: (data: ActiveNode | null) => void;
+  resetEmailData: () => void;
+
 }
 
 const initialState = {
@@ -46,6 +48,14 @@ const useEmailDataStore = create<StoreState & StoreActions>()(
       (set) => ({
         setEmailData: (html) => set(() => ({ emailData: html })),
         setActiveNode: (node) => set(() => ({ activeNode: node  })),
+        resetEmailData: () => set(() => ({
+          emailData: {
+            tagName: 'mj-body',
+            attributes: {},
+            children: []
+          },
+          activeNode: initialState.activeNode,
+        })),
         emailData: initialState.emailData,
         activeNode: initialState.activeNode
       }),

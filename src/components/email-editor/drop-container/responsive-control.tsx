@@ -4,6 +4,7 @@ import IconButton from "@mui/material/IconButton";
 import UndoIcon from "@mui/icons-material/Undo";
 import RedoIcon from "@mui/icons-material/Redo";
 import PreviewIcon from "@mui/icons-material/Preview";
+import ResetTvIcon from "@mui/icons-material/ResetTv";
 import { Box } from "@mui/material";
 import useEmailStore from "@/store/email";
 
@@ -20,14 +21,14 @@ const ResponsiveControl = ({
   setIsMobile,
   currentView
 }: IResponsiveControl) => {
-  const { emailData } = useEmailStore();
+  const { emailData, resetEmailData } = useEmailStore();
 
   return (
     <Box
       sx={{
         width: "inherit",
         backgroundColor: "white",
-        height: "50px",
+        height: "48px",
         textAlign: "center",
         borderBottom: "2px solid #e5e6ec",
         display: "flex",
@@ -74,6 +75,13 @@ const ResponsiveControl = ({
         </IconButton>
         <IconButton aria-label="redo" disabled>
           <RedoIcon />
+        </IconButton>
+        <IconButton
+          aria-label="reset"
+          disabled={!emailData["children"].length}
+          onClick={resetEmailData}
+        >
+          <ResetTvIcon />
         </IconButton>
       </Box>
     </Box>
