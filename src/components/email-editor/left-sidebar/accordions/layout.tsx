@@ -9,6 +9,7 @@ import { TbSection } from "react-icons/tb";
 import { FcAddColumn } from "react-icons/fc";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
+import SpaceBarIcon from "@mui/icons-material/SpaceBar";
 import ElementCard from "@/components/email-editor/left-sidebar/drag/element-card";
 
 const elements = [
@@ -21,6 +22,11 @@ const elements = [
     tagName: "mj-column",
     icon: <FcAddColumn fontSize="1.5rem" />,
     text: "Column"
+  },
+  {
+    tagName: "mj-spacer",
+    icon: <SpaceBarIcon />,
+    text: "Spacer"
   }
 ];
 

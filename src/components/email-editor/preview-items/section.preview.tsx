@@ -3,6 +3,8 @@ import { useDrop } from "react-dnd";
 import useEmailStore from "@/store/email";
 import modifyObjectData from "@/lib/util/modify-data-object";
 import ColumnPreview from "@/components/email-editor/preview-items/column.preview";
+import SpacerPreview from "@/components/email-editor/preview-items/spacer.preview";
+
 import HoverInfo from "@/lib/ui/hover-info";
 import { useState } from "react";
 import { getDefaultTags } from "@/lib/util/get-default-tags";
@@ -30,7 +32,7 @@ const SectionPreview = ({ section, index, path }: ISectionPreview) => {
 
   const { emailData, setEmailData } = useEmailStore();
   const [collectedProps, drop] = useDrop(() => ({
-    accept: ["mj-column"],
+    accept: ["mj-column", "mj-spacer"],
     drop: (item: any, monitor) => {
       if (!monitor.didDrop()) {
         modifyEmailData(item);
@@ -53,6 +55,19 @@ const SectionPreview = ({ section, index, path }: ISectionPreview) => {
           setEmailData(newData);
         }
         break;
+
+      case "mj-spacer":
+        {
+          const newData = modifyObjectData(
+            emailData,
+            `${path}.children.push`,
+            getDefaultTags("mj-spacer"),
+            "add"
+          );
+
+          setEmailData(newData);
+        }
+        break;
     }
   };
 
@@ -66,6 +81,17 @@ const SectionPreview = ({ section, index, path }: ISectionPreview) => {
             section={pSection}
             index={index}
             columnIndex={tindex}
+            key={tindex}
+            path={`children.${index}.children.${tindex}`}
+          />
+        );
+      }
+
+      case "mj-spacer": {
+        return (
+          <SpacerPreview
+            section={pSection}
+            index={index}
             key={tindex}
             path={`children.${index}.children.${tindex}`}
           />

@@ -45,9 +45,7 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
       ...attributes,
       ...formData
     };
-
     const data = updateAttributes(emailData, activeNode.path, newAttributes);
-
     setEmailData(data);
   };
 
