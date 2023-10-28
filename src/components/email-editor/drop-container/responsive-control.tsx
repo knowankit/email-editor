@@ -5,6 +5,7 @@ import UndoIcon from "@mui/icons-material/Undo";
 import RedoIcon from "@mui/icons-material/Redo";
 import PreviewIcon from "@mui/icons-material/Preview";
 import ResetTvIcon from "@mui/icons-material/ResetTv";
+import SaveIcon from "@mui/icons-material/Save";
 import { Box } from "@mui/material";
 import useEmailStore from "@/store/email";
 
@@ -82,6 +83,13 @@ const ResponsiveControl = ({
           onClick={resetEmailData}
         >
           <ResetTvIcon />
+        </IconButton>
+        <IconButton
+          aria-label="save"
+          disabled={!emailData["children"].length}
+          onClick={resetEmailData}
+        >
+          <SaveIcon />
         </IconButton>
       </Box>
     </Box>
