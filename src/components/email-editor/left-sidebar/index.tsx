@@ -7,6 +7,8 @@ import TabPanel from "@mui/lab/TabPanel";
 
 import Content from "@/components/email-editor/left-sidebar/accordions/content";
 import Layout from "@/components/email-editor/left-sidebar/accordions/layout";
+import Templates from "@/components/email-editor/left-sidebar/accordions/templates";
+
 import LayerTab from "@/components/email-editor/left-sidebar/tabs/layer";
 
 export default function ElementsDrawer() {
@@ -38,6 +40,7 @@ export default function ElementsDrawer() {
           <TabPanel value="1" sx={{ padding: 0 }}>
             <Content />
             <Layout />
+            <Templates />
           </TabPanel>
           <TabPanel value="2">
             <LayerTab />
