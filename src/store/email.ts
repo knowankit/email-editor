@@ -34,7 +34,7 @@ interface StoreActions {
 
 }
 
-const initialState = {
+export const initialState = {
   emailData: {
     tagName: 'mj-body',
     attributes: {},
