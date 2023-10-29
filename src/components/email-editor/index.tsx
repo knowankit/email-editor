@@ -21,7 +21,7 @@ const EmailEditor = () => {
         sx={{
           mt: "1rem",
           width: "100vw",
-          height: "85vh",
+          height: "83.7vh",
           display: "flex"
         }}
       >
