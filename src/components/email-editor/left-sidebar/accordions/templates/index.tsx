@@ -9,10 +9,16 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 
 import useTemplatesStore from "@/store/templates";
+import EChip from "@/components/email-editor/left-sidebar/accordions/templates/echip";
 
 const Templates = () => {
   const [expanded, setExpanded] = useState("templates");
-  const { templates } = useTemplatesStore();
+  const { templates, deleteTemplate } = useTemplatesStore();
+
+  const handleClick = (index: number) => {};
+  const handleDelete = (index: number) => {
+    deleteTemplate(index);
+  };
 
   return (
     <Accordion
@@ -32,7 +38,14 @@ const Templates = () => {
           )}
 
           {templates.map((t, index) => {
-            return <Box key={index}>{t.templateName}</Box>;
+            return (
+              <EChip
+                key={index}
+                template={t}
+                handleClick={() => handleClick(index)}
+                handleDelete={() => handleDelete(index)}
+              />
+            );
           })}
         </Box>
       </AccordionDetails>
