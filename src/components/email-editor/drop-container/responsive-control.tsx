@@ -7,8 +7,8 @@ import PreviewIcon from "@mui/icons-material/Preview";
 import ResetTvIcon from "@mui/icons-material/ResetTv";
 import { Box } from "@mui/material";
 import useEmailStore from "@/store/email";
-import { useState } from "react";
 import CreateTemplateButton from "@/components/email-editor/drop-container/create-template-button";
+import useEmailHistoryStore from "@/store/email-history";
 
 interface IResponsiveControl {
   setCurrentView: (view: currentView) => void;
@@ -23,18 +23,11 @@ const ResponsiveControl = ({
   setIsMobile,
   currentView
 }: IResponsiveControl) => {
-  const [isOpen, setOpen] = useState(false);
-  const [templateName, setTemplateName] = useState("");
-
   const { emailData, resetEmailData } = useEmailStore();
+  const { redoStack, undoStack } = useEmailHistoryStore();
 
-  const handleClick = () => {
-    setOpen(prev => !prev);
-  };
-
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTemplateName(event.target.value);
-  };
+  const undoEmail = () => {};
+  const redoEmail = () => {};
 
   return (
     <Box
@@ -90,10 +83,18 @@ const ResponsiveControl = ({
         sx={{ flex: 1, display: "flex", justifyContent: "space-between" }}
       >
         <Box>
-          <IconButton aria-label="undo" disabled>
+          <IconButton
+            aria-label="undo"
+            disabled={!redoStack.length}
+            onClick={undoEmail}
+          >
             <UndoIcon />
           </IconButton>
-          <IconButton aria-label="redo" disabled>
+          <IconButton
+            aria-label="redo"
+            disabled={!undoStack.length}
+            onClick={redoEmail}
+          >
             <RedoIcon />
           </IconButton>
         </Box>
