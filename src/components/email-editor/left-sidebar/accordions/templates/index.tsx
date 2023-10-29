@@ -7,10 +7,12 @@ import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
+import Alert from "@mui/material/Alert";
 
 import useTemplatesStore from "@/store/templates";
 import useEmailDataStore, { initialState } from "@/store/email";
 import EChip from "@/components/email-editor/left-sidebar/accordions/templates/echip";
+
 const Templates = () => {
   const [expanded, setExpanded] = useState("templates");
   const { templates, deleteTemplate } = useTemplatesStore();
@@ -37,9 +39,7 @@ const Templates = () => {
       <AccordionDetails>
         <Box display="flex" flexWrap="wrap">
           {!templates.length && (
-            <Paper elevation={2} sx={{ p: 2 }}>
-              Added tempaltes will be shown here
-            </Paper>
+            <Alert severity="info">Add templates will be shown here</Alert>
           )}
 
           {templates.map((t, index) => {

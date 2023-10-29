@@ -44,11 +44,14 @@ const ResponsiveControl = ({
         height: "48px",
         textAlign: "center",
         borderBottom: "2px solid #e5e6ec",
-        display: "flex",
-        justifyContent: "center"
+        display: "flex"
       }}
     >
-      <Box>
+      <Box
+        sx={{
+          flex: 1
+        }}
+      >
         <IconButton
           aria-label="desktop"
           color={currentView == "edit" ? "primary" : "default"}
@@ -82,21 +85,28 @@ const ResponsiveControl = ({
           <PreviewIcon />
         </IconButton>
       </Box>
-      <Box ml={4}>
-        <IconButton aria-label="undo" disabled>
-          <UndoIcon />
-        </IconButton>
-        <IconButton aria-label="redo" disabled>
-          <RedoIcon />
-        </IconButton>
-        <IconButton
-          aria-label="reset"
-          disabled={!emailData["children"].length}
-          onClick={resetEmailData}
-        >
-          <ResetTvIcon />
-        </IconButton>
-        <CreateTemplateButton />
+      <Box
+        ml={4}
+        sx={{ flex: 1, display: "flex", justifyContent: "space-between" }}
+      >
+        <Box>
+          <IconButton aria-label="undo" disabled>
+            <UndoIcon />
+          </IconButton>
+          <IconButton aria-label="redo" disabled>
+            <RedoIcon />
+          </IconButton>
+        </Box>
+        <Box>
+          <IconButton
+            aria-label="reset"
+            disabled={!emailData["children"].length}
+            onClick={resetEmailData}
+          >
+            <ResetTvIcon />
+          </IconButton>
+          <CreateTemplateButton />
+        </Box>
       </Box>
     </Box>
   );
