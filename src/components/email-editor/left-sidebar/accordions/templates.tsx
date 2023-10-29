@@ -5,13 +5,14 @@ import {
 } from "@/lib/ui/accordion";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
-import { TbSection } from "react-icons/tb";
-import { FcAddColumn } from "react-icons/fc";
 import Box from "@mui/material/Box";
-import SpaceBarIcon from "@mui/icons-material/SpaceBar";
+import Paper from "@mui/material/Paper";
+
+import useTemplatesStore from "@/store/templates";
 
 const Templates = () => {
   const [expanded, setExpanded] = useState("templates");
+  const { templates } = useTemplatesStore();
 
   return (
     <Accordion
@@ -24,7 +25,15 @@ const Templates = () => {
       </AccordionSummary>
       <AccordionDetails>
         <Box display="flex" flexWrap="wrap">
-          <h1>templates</h1>
+          {!templates.length && (
+            <Paper elevation={2} sx={{ p: 2 }}>
+              Added tempaltes will be shown here
+            </Paper>
+          )}
+
+          {templates.map((t, index) => {
+            return <Box key={index}>{t.templateName}</Box>;
+          })}
         </Box>
       </AccordionDetails>
     </Accordion>

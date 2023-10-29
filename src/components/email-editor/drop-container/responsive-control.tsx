@@ -5,9 +5,10 @@ import UndoIcon from "@mui/icons-material/Undo";
 import RedoIcon from "@mui/icons-material/Redo";
 import PreviewIcon from "@mui/icons-material/Preview";
 import ResetTvIcon from "@mui/icons-material/ResetTv";
-import SaveIcon from "@mui/icons-material/Save";
 import { Box } from "@mui/material";
 import useEmailStore from "@/store/email";
+import { useState } from "react";
+import CreateTemplateButton from "@/components/email-editor/drop-container/create-template-button";
 
 interface IResponsiveControl {
   setCurrentView: (view: currentView) => void;
@@ -22,7 +23,18 @@ const ResponsiveControl = ({
   setIsMobile,
   currentView
 }: IResponsiveControl) => {
+  const [isOpen, setOpen] = useState(false);
+  const [templateName, setTemplateName] = useState("");
+
   const { emailData, resetEmailData } = useEmailStore();
+
+  const handleClick = () => {
+    setOpen(prev => !prev);
+  };
+
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTemplateName(event.target.value);
+  };
 
   return (
     <Box
@@ -84,13 +96,7 @@ const ResponsiveControl = ({
         >
           <ResetTvIcon />
         </IconButton>
-        <IconButton
-          aria-label="save"
-          disabled={!emailData["children"].length}
-          onClick={resetEmailData}
-        >
-          <SaveIcon />
-        </IconButton>
+        <CreateTemplateButton />
       </Box>
     </Box>
   );

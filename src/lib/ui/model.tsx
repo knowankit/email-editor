@@ -21,13 +21,17 @@ const Transition = React.forwardRef(function Transition(
 interface ICustomDialog {
   isOpen: boolean;
   handleClick: () => void;
+  handlePrimary?: () => void;
   children: JSX.Element;
+  title: string;
 }
 
 export default function CustomDialog({
   handleClick,
+  handlePrimary,
   isOpen,
-  children
+  children,
+  title
 }: ICustomDialog) {
   return (
     <Dialog
@@ -36,8 +40,8 @@ export default function CustomDialog({
       keepMounted
       onClose={handleClick}
     >
-      <DialogTitle>Image Gallery</DialogTitle>
-      <DialogContent sx={{ borderBottom: "1px solid grey" }}>
+      <DialogTitle>{title}</DialogTitle>
+      <DialogContent sx={{ borderBottom: "1px solid grey", width: "20rem" }}>
         {children}
       </DialogContent>
 
@@ -51,6 +55,17 @@ export default function CustomDialog({
         >
           Close
         </Button>
+        {handlePrimary && (
+          <Button
+            size="small"
+            sx={{ textTransform: "none" }}
+            variant="contained"
+            color="primary"
+            onClick={handlePrimary}
+          >
+            Create
+          </Button>
+        )}
       </DialogActions>
     </Dialog>
   );

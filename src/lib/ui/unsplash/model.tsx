@@ -21,7 +21,7 @@ const UnsplashModel = ({ handleImageChange, field }: IUnsplashModel) => {
       <Button startIcon={<CollectionsIcon />} onClick={handleClick}>
         Gallery
       </Button>
-      <Dialog isOpen={isOpen} handleClick={handleClick}>
+      <Dialog isOpen={isOpen} handleClick={handleClick} title="Image Gallery">
         <Unsplash
           handleImageChange={data => handleImageChange(data)}
           field={field}
