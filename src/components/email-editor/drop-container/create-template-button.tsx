@@ -16,6 +16,7 @@ const CreateTemplateButton = () => {
 
   const handleClick = () => {
     setOpen(prev => !prev);
+    setTemplateName("");
   };
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
