@@ -9,9 +9,8 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 
 import useTemplatesStore from "@/store/templates";
-import useEmailDataStore from "@/store/email";
+import useEmailDataStore, { initialState } from "@/store/email";
 import EChip from "@/components/email-editor/left-sidebar/accordions/templates/echip";
-
 const Templates = () => {
   const [expanded, setExpanded] = useState("templates");
   const { templates, deleteTemplate } = useTemplatesStore();
@@ -20,8 +19,10 @@ const Templates = () => {
   const handleClick = (index: number) => {
     setEmailData(templates[index]);
   };
+
   const handleDelete = (index: number) => {
     deleteTemplate(index);
+    setEmailData(initialState.emailData);
   };
 
   return (
