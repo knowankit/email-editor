@@ -9,7 +9,6 @@ import { Box } from "@mui/material";
 import useEmailStore from "@/store/email";
 import CreateTemplateButton from "@/components/email-editor/drop-container/create-template-button";
 import useEmailHistoryStore from "@/store/email-history";
-
 interface IResponsiveControl {
   setCurrentView: (view: currentView) => void;
   setIsMobile: (val: boolean) => void;
@@ -23,20 +22,31 @@ const ResponsiveControl = ({
   setIsMobile,
   currentView
 }: IResponsiveControl) => {
-  const { emailData, resetEmailData } = useEmailStore();
-  const { redoStack, undoStack } = useEmailHistoryStore();
+  const { emailData, resetEmailData, setEmailData } = useEmailStore();
+  const {
+    redoStack,
+    undoStack,
+    popFromUndoStack,
+    popFromRedoStack
+  } = useEmailHistoryStore();
 
-  const undoEmail = () => {};
-  const redoEmail = () => {};
+  const undoEmail = () => {
+    popFromUndoStack();
+  };
+
+  const redoEmail = () => {
+    popFromRedoStack();
+  };
 
   return (
     <Box
       sx={{
         width: "inherit",
         backgroundColor: "white",
-        height: "48px",
+        height: "52px",
         textAlign: "center",
-        borderBottom: "2px solid #e5e6ec",
+        borderBottom: "0px solid #e5e6ec",
+        borderTop: "2px solid #e5e6ec",
         display: "flex"
       }}
     >
@@ -85,14 +95,14 @@ const ResponsiveControl = ({
         <Box>
           <IconButton
             aria-label="undo"
-            disabled={!redoStack.length}
+            disabled={!undoStack.length}
             onClick={undoEmail}
           >
             <UndoIcon />
           </IconButton>
           <IconButton
             aria-label="redo"
-            disabled={!undoStack.length}
+            disabled={!redoStack.length}
             onClick={redoEmail}
           >
             <RedoIcon />

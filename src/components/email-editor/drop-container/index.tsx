@@ -7,6 +7,7 @@ import { getDefaultTags } from "@/lib/util/get-default-tags";
 import ResponsiveControl from "@/components/email-editor/drop-container/responsive-control";
 import PreviewMode from "@/components/email-editor/drop-container/preview-mode";
 import HeroPreview from "@/components/email-editor/preview-items/hero.preview";
+import useEmailHistoryStore from "@/store/email-history";
 
 const style = {
   width: "50vw",
@@ -21,6 +22,7 @@ const style = {
 
 const DropContainer = () => {
   const { emailData, setEmailData } = useEmailStore();
+  const { pushToUndoStack } = useEmailHistoryStore();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [currentView, setCurrentView] = useState<
     "edit" | "preview" | "desktop-preview"
@@ -31,6 +33,7 @@ const DropContainer = () => {
     accept: ["mj-section", "mj-hero"],
     drop: (item, monitor) => {
       if (!monitor.didDrop()) {
+        pushToUndoStack(emailData);
         addSection(item);
       }
     }
@@ -106,16 +109,18 @@ const DropContainer = () => {
   };
 
   return (
-    <Box sx={style} ref={drop}>
+    <Box display="flex" flexDirection="column">
       <ResponsiveControl
         setCurrentView={setCurrentView}
         setIsMobile={setIsMobile}
         currentView={currentView}
       />
-      {currentView == "edit" && <EditMode />}
-      {["preview", "desktop-preview"].includes(currentView) && (
-        <PreviewMode isMobile={isMobile} />
-      )}
+      <Box sx={style} ref={drop}>
+        {currentView == "edit" && <EditMode />}
+        {["preview", "desktop-preview"].includes(currentView) && (
+          <PreviewMode isMobile={isMobile} />
+        )}
+      </Box>
     </Box>
   );
 };
