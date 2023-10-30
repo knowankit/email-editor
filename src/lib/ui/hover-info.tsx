@@ -11,16 +11,15 @@ interface IHoverInfo {
 
 const defaultStyle = {
   position: "absolute",
-  top: "-35px",
+  top: "0px",
   left: "-5px",
-  zIndex: "1",
   background: "white",
   color: "black",
   padding: "4px",
   display: "flex",
   alignItems: "center",
   fontSize: "1rem",
-  fontWeight: "500",
+  fontWeight: "400",
   lineHeight: "20px"
 };
 

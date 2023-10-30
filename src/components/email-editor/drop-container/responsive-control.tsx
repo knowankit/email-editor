@@ -7,9 +7,8 @@ import PreviewIcon from "@mui/icons-material/Preview";
 import ResetTvIcon from "@mui/icons-material/ResetTv";
 import { Box } from "@mui/material";
 import useEmailStore from "@/store/email";
-import { useState } from "react";
 import CreateTemplateButton from "@/components/email-editor/drop-container/create-template-button";
-
+import useEmailHistoryStore from "@/store/email-history";
 interface IResponsiveControl {
   setCurrentView: (view: currentView) => void;
   setIsMobile: (val: boolean) => void;
@@ -23,17 +22,20 @@ const ResponsiveControl = ({
   setIsMobile,
   currentView
 }: IResponsiveControl) => {
-  const [isOpen, setOpen] = useState(false);
-  const [templateName, setTemplateName] = useState("");
+  const { emailData, resetEmailData, setEmailData } = useEmailStore();
+  const {
+    redoStack,
+    undoStack,
+    popFromUndoStack,
+    popFromRedoStack
+  } = useEmailHistoryStore();
 
-  const { emailData, resetEmailData } = useEmailStore();
-
-  const handleClick = () => {
-    setOpen(prev => !prev);
+  const undoEmail = () => {
+    popFromUndoStack();
   };
 
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTemplateName(event.target.value);
+  const redoEmail = () => {
+    popFromRedoStack();
   };
 
   return (
@@ -41,9 +43,10 @@ const ResponsiveControl = ({
       sx={{
         width: "inherit",
         backgroundColor: "white",
-        height: "48px",
+        height: "52px",
         textAlign: "center",
-        borderBottom: "2px solid #e5e6ec",
+        borderBottom: "0px solid #e5e6ec",
+        borderTop: "2px solid #e5e6ec",
         display: "flex"
       }}
     >
@@ -90,10 +93,18 @@ const ResponsiveControl = ({
         sx={{ flex: 1, display: "flex", justifyContent: "space-between" }}
       >
         <Box>
-          <IconButton aria-label="undo" disabled>
+          <IconButton
+            aria-label="undo"
+            disabled={!undoStack.length}
+            onClick={undoEmail}
+          >
             <UndoIcon />
           </IconButton>
-          <IconButton aria-label="redo" disabled>
+          <IconButton
+            aria-label="redo"
+            disabled={!redoStack.length}
+            onClick={redoEmail}
+          >
             <RedoIcon />
           </IconButton>
         </Box>

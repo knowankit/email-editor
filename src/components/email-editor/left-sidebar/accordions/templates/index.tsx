@@ -39,7 +39,7 @@ const Templates = () => {
       <AccordionDetails>
         <Box display="flex" flexWrap="wrap">
           {!templates.length && (
-            <Alert severity="info">Add templates will be shown here</Alert>
+            <Alert severity="info">Added templates will be shown here</Alert>
           )}
 
           {templates.map((t, index) => {
