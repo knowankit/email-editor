@@ -12,7 +12,6 @@ import InputAdornment from "@mui/material/InputAdornment";
 import ColorLensIcon from "@mui/icons-material/ColorLens";
 import { Button } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import { updateAttributes, updateContent } from "@/lib/util/data-crud";
 import IconButton from "@mui/material/IconButton";
 import ColorPicker from "@/lib/ui/color-picker";
 
@@ -24,7 +23,7 @@ interface ISetting {
 const Settings = ({ expanded, changeTab }: ISetting) => {
   const [isColorPickerOpen, setColorPickerStatus] = useState(false);
   const [fieldName, setFieldName] = useState("");
-  const { activeNode, emailData, setEmailData } = useEmailStore();
+  const { activeNode, updateAttributes, updateContent } = useEmailStore();
 
   const { section } = activeNode;
   const [content, setContent] = useState(section.content);
@@ -33,6 +32,7 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
 
   useEffect(() => {
     setContent(section.content);
+
     setFormData({
       "container-background-color": attributes["container-background-color"],
       color: attributes["color"]
@@ -59,10 +59,8 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
       ...formData
     };
 
-    const data = updateAttributes(emailData, activeNode.path, newAttributes);
-    const updateContentObj = updateContent(data, activeNode.path, content);
-
-    setEmailData(updateContentObj);
+    updateAttributes(newAttributes, activeNode.path);
+    updateContent(content, activeNode.path);
   };
 
   const handleColorPicker = (event: any, name: string) => {
