@@ -37,21 +37,23 @@ const CreateTemplateButton = () => {
       >
         <SaveIcon />
       </IconButton>
-      <TemplateModel
-        isOpen={isOpen}
-        handleClick={handleClick}
-        handlePrimary={handleCreateTemplate}
-        title="Create a template"
-      >
-        <Box textAlign="center" sx={{ p: 1 }}>
-          <TextField
-            label="Template name"
-            variant="outlined"
-            size="small"
-            onChange={handleNameChange}
-          />
-        </Box>
-      </TemplateModel>
+      {isOpen && (
+        <TemplateModel
+          isOpen={isOpen}
+          handleClick={handleClick}
+          handlePrimary={handleCreateTemplate}
+          title="Create a template"
+        >
+          <Box textAlign="center" sx={{ p: 1 }}>
+            <TextField
+              label="Template name"
+              variant="outlined"
+              size="small"
+              onChange={handleNameChange}
+            />
+          </Box>
+        </TemplateModel>
+      )}
     </>
   );
 };

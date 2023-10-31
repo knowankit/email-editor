@@ -1,52 +1,86 @@
-# Survey Builder UI
 
-<p align="center">
-<img src="https://github.com/knowankit/survey-builder-ui/blob/develop/preview.gif" alt="GIF Alt Text" style="width: 60%;">
-</p>
-Welcome to the Survey Builder UI repository! This web application allows you to create, edit, manage, and analyze surveys seamlessly. It provides a user-friendly interface for building surveys, adding questions, and collecting responses. The application is currently deployed at [surveyui.knowankit.com](https://surveyui.knowankit.com), allowing you to easily access and utilize its features.
+# 📧 Email Editor
+
+Email Editor is a web-based email template editor that allows you to create and customize responsive email templates using the MJML package. With drag-and-drop functionality, undo and redo history, template saving, image selection from Unsplash, and a preview feature, it provides a user-friendly interface for designing email templates.
 
 ## Features
 
-### Create a Survey
-Easily create new surveys using an intuitive interface. Define the survey title, description, and other relevant details.
+- **Drag and Drop**: Easily arrange and customize email elements using the MJML package with a simple drag-and-drop interface.
 
-### Add Questions
-Add a variety of question types to your survey, such as multiple-choice, open-text, ratings, and more. Customize each question's options and settings according to your needs.
+- **Undo and Redo History**: Keep track of your changes with the ability to undo and redo previous actions, ensuring a seamless editing experience.
 
-### Edit and Delete Surveys
-Effortlessly edit existing surveys to make changes to titles, descriptions, and questions. You can also delete surveys that are no longer needed.
+- **Local Template Saving**: Save your email templates locally for future use or modification.
 
-### Publish and Unpublish Surveys
-Control the visibility of your surveys by publishing or unpublishing them. Published surveys are accessible to respondents, while unpublished surveys remain hidden.
+- **Image Selection from Unsplash**: Access a vast collection of images from Unsplash directly within the email editor for adding visuals to your emails.
 
-### Collect Responses
-Once a survey is published, respondents can provide their answers. Collect and view responses in real-time through the UI.
+- **Code Editing**: Edit the email template code directly for fine-tuning the structure and design to your preference.
 
-### Analyze Responses
-Gain insights from the collected responses by viewing graphical summaries and exporting response data for further analysis.
+- **Preview Mode**: Preview your email templates in both mobile and desktop views to see how they will appear to recipients.
+
+## Upcoming features
+
+- **Save templates online**
+- **Schedule email send**
+- **Open AI integration**
 
 ## Getting Started
 
-To get started with the Survey Builder UI, follow these steps:
+To get started with the Email Editor, follow these steps:
 
-1. Visit [surveyui.knowankit.com](https://surveyui.knowankit.com) in your web browser.
-2. Create a new account or log in if you already have one.
-3. Start creating surveys by clicking on the "Create Survey" button.
-4. Add questions to your survey using the provided question types and options.
-5. Edit, delete, publish, or unpublish surveys as needed.
-6. Share your published survey link with respondents to start collecting responses.
-7. Access response data and analysis tools within the UI.
+1. **Installation**: Clone the repository to your local machine and install the required dependencies.
 
-## Feedback and Support
+   ```bash
+   git clone https://github.com/knowankit/email-editor
+   cd email-editor
+   yarn
+   ```
 
-We value your feedback and strive to improve the Survey Builder UI continuously. If you encounter any issues, have suggestions, or need assistance, please don't hesitate to contact our support team at support@knowankit.com.
+2. **Run the Application**: Start the development server to launch the email editor in your web browser.
 
-## Contributing
+   ```bash
+   yarn dev
+   ```
 
-We welcome contributions from the open-source community! If you're interested in improving the Survey Builder UI, feel free to fork this repository, make your changes, and submit a pull request.
+3. **Create and Edit Templates**: Begin creating and editing email templates with the easy-to-use editor.
+
+4. **Save and Export Templates**: Save your templates locally and export the generated code for use in your email campaigns.
+
+## Usage
+
+### Drag and Drop
+
+- Drag email elements from the sidebar and drop them into your email template canvas.
+- Customize element attributes and content using the built-in options.
+
+### Undo and Redo History
+
+- Use the undo and redo buttons to navigate through your editing history.
+
+### Local Template Saving
+
+- Save your email templates locally by clicking the "Save" button.
+- Access your saved templates later for further editing.
+
+### Image Selection from Unsplash
+
+- Click the "Unsplash" button to access a library of high-quality images.
+- Choose and insert images directly into your email template.
+
+### Code Editing
+
+- Switch to the "Code" view to directly edit the MJML code of your email template.
+- Make advanced customizations to the template structure.
+
+### Preview Mode
+
+- Click the "Preview" button to see how your email template will appear on both mobile and desktop devices.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE), which means you're free to use, modify, and distribute the software as long as you include the original copyright notice.
+This project is licensed under the [MIT License](LICENSE).
 
-Thank you for choosing the Survey Builder UI. We hope it helps you create engaging surveys and gather valuable insights efficiently!
+## Contributors
+
+- [Ankit Kumar](https://github.com/knowankit)
+
+Feel free to contribute to this project by submitting bug reports, feature requests, or pull requests.

@@ -1,5 +1,6 @@
 import { create } from 'zustand';
-import { devtools } from 'zustand/middleware'
+import { devtools } from 'zustand/middleware';
+import { produce } from 'immer';
 import useEmailDataStore, { initialState } from '@/store/email';
 
 interface StoreState {
@@ -12,7 +13,7 @@ interface MJMLNodeAttributes {
 }
 
 interface MJMLNode {
-  templateName?: string
+  templateName?: string;
   tagName: string;
   attributes: MJMLNodeAttributes;
   children: MJMLNode[];
@@ -24,71 +25,58 @@ interface StoreActions {
   pushToUndoStack: (data: MJMLNode) => void;
   pushToRedoStack: (data: MJMLNode) => void;
   popFromUndoStack: () => any;
-  popFromRedoStack: () => any
+  popFromRedoStack: () => any;
 }
 
-const useEmailHistoryStore = create<StoreState & StoreActions>()(devtools((set) => ({
-  undoStack: [],
-  redoStack: [],
-  pushToUndoStack: (data) =>
-    set((state) => ({
-      undoStack: [...state.undoStack, data],
-    })),
+const useEmailHistoryStore = create<StoreState & StoreActions>()(
+  devtools((set) => ({
+    undoStack: [],
+    redoStack: [],
+    pushToUndoStack: (data) =>
+      set(produce((draft) => {
+        draft.undoStack.push(data);
+      })),
 
-  pushToRedoStack: (data) =>
-    set((state) => ({
-      redoStack: [...state.redoStack, data],
-    })),
+    pushToRedoStack: (data) =>
+      set(produce((draft) => {
+        draft.redoStack.push(data);
+      })),
 
-  popFromUndoStack: () =>
-    set((state) => {
-      if (state.undoStack.length > 0) {
-        const poppedData = state.undoStack.pop()
+    popFromUndoStack: () =>
+      set(produce((draft) => {
+        if (draft.undoStack.length > 0) {
+          const poppedData = draft.undoStack.pop();
 
-        if (poppedData) {
-          state.redoStack.push(poppedData)
+          if (poppedData) {
+            draft.redoStack.push(poppedData);
+          }
+
+          const undoIndex = draft.undoStack.length - 1;
+          const data = undoIndex === -1 ? initialState.emailData : draft.undoStack[undoIndex];
+
+          useEmailDataStore.getState().setEmailData(data);
         }
+      })),
 
-        const undoIndex = state.undoStack.length - 1
-        const data = undoIndex === - 1 ? initialState.emailData : state.undoStack[undoIndex]
+    popFromRedoStack: () =>
+      set(produce((draft) => {
+        if (draft.redoStack.length > 0) {
+          console.log(draft.redoStack)
+          const poppedData = draft.redoStack.pop();
 
-        useEmailDataStore.getState().setEmailData(data)
+          if (poppedData) {
+            draft.undoStack.push(poppedData);
+            useEmailDataStore.getState().setEmailData(poppedData);
+          }
 
-        return {
-          undoStack: [...state.undoStack],
-          redoStack: [...state.redoStack],
+          const redoIndex = draft.redoStack.length - 1;
+          // const data = redoIndex === -1 ? initialState.emailData : draft.redoStack[redoIndex];
+
         }
-      }
-
-      return { undoStack: state.undoStack, redoStack: state.redoStack };
-
-    }),
-
-  popFromRedoStack: () =>
-    set((state) => {
-      if (state.redoStack.length > 0) {
-        const poppedData = state.redoStack.pop();
-
-
-        if (poppedData) {
-          state.undoStack.push(poppedData)
-        }
-
-        const redoIndex = state.redoStack.length - 1
-        const data = redoIndex === - 1 ? initialState.emailData : state.undoStack[redoIndex]
-
-        useEmailDataStore.getState().setEmailData(data)
-
-        return {
-          undoStack: [...state.undoStack],
-          redoStack: [...state.redoStack],
-        }
-      }
-
-      return { redoStack: state.redoStack, undoStack: state.undoStack  };
-    }),
-}), {
+      })),
+  }), {
     name: 'email-history-store',
-}));
+  })
+);
 
 export default useEmailHistoryStore;
