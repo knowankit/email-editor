@@ -22,7 +22,8 @@ const ResponsiveControl = ({
   setIsMobile,
   currentView
 }: IResponsiveControl) => {
-  const { emailData, resetEmailData, setEmailData } = useEmailStore();
+  const { emailData, resetEmailData } = useEmailStore();
+
   const {
     redoStack,
     undoStack,
