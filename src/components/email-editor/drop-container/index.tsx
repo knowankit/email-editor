@@ -3,12 +3,10 @@ import { useDrop } from "react-dnd";
 import SectionPreview from "../preview-items/section.preview";
 import useEmailStore from "@/store/email";
 import { useState } from "react";
-import { getDefaultTags } from "@/lib/util/get-default-tags";
 import ResponsiveControl from "@/components/email-editor/drop-container/responsive-control";
 import PreviewMode from "@/components/email-editor/drop-container/preview-mode";
 import HeroPreview from "@/components/email-editor/preview-items/hero.preview";
 import useEmailHistoryStore from "@/store/email-history";
-import { cloneDeep } from "lodash";
 
 const style = {
   width: "50vw",
