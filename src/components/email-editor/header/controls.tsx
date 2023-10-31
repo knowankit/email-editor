@@ -5,6 +5,8 @@ import { useState } from "react";
 import Alert from "@mui/material/Alert";
 import { LiaStarSolid } from "react-icons/lia";
 import Link from "@mui/material/Link";
+import OnlineOfflineStatus from "@/components/email-editor/header/online-offline-status";
+
 const FullScreenPreview = dynamic(
   () => import("@/components/email-editor/share-modal"),
   {
@@ -25,6 +27,7 @@ const Controls = () => {
       </Box>
 
       <Box display="flex">
+        <OnlineOfflineStatus />
         <Button
           color="secondary"
           size="small"
@@ -42,7 +45,8 @@ const Controls = () => {
             textTransform: "none",
             textDecoration: "none",
             display: "flex",
-            alignItems: "center"
+            alignItems: "center",
+            color: "black"
           }}
         >
           <LiaStarSolid />

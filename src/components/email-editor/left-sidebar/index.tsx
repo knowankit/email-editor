@@ -51,7 +51,7 @@ export default function ElementsDrawer() {
   );
 
   return (
-    <Box sx={{ height: "inherit", overflow: "scroll" }}>
+    <Box>
       <Box
         sx={{
           width: "25vw",
