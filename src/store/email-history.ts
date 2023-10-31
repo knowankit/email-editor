@@ -24,8 +24,9 @@ interface MJMLNode {
 interface StoreActions {
   pushToUndoStack: (data: MJMLNode) => void;
   pushToRedoStack: (data: MJMLNode) => void;
-  popFromUndoStack: () => any;
-  popFromRedoStack: () => any;
+  popFromUndoStack: () => void;
+  popFromRedoStack: () => void;
+  resetStack: () => void
 }
 
 const useEmailHistoryStore = create<StoreState & StoreActions>()(
@@ -40,6 +41,12 @@ const useEmailHistoryStore = create<StoreState & StoreActions>()(
     pushToRedoStack: (data) =>
       set(produce((draft) => {
         draft.redoStack.push(data);
+      })),
+
+    resetStack: () =>
+      set(produce((draft) => {
+        draft.redoStack = []
+        draft.undoStack = []
       })),
 
     popFromUndoStack: () =>

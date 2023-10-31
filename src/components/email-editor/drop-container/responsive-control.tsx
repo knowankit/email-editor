@@ -28,7 +28,8 @@ const ResponsiveControl = ({
     redoStack,
     undoStack,
     popFromUndoStack,
-    popFromRedoStack
+    popFromRedoStack,
+    resetStack
   } = useEmailHistoryStore();
 
   const undoEmail = () => {
@@ -113,7 +114,10 @@ const ResponsiveControl = ({
           <IconButton
             aria-label="reset"
             disabled={!emailData["children"].length}
-            onClick={resetEmailData}
+            onClick={() => {
+              resetEmailData();
+              resetStack();
+            }}
           >
             <ResetTvIcon />
           </IconButton>

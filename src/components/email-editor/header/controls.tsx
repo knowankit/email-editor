@@ -24,9 +24,19 @@ const Controls = () => {
         </Alert>
       </Box>
 
-      <Box>
+      <Box display="flex">
+        <Button
+          color="secondary"
+          size="small"
+          onClick={() => setModalVisibility(true)}
+          startIcon={<SendIcon />}
+          sx={{ textTransform: "none", mr: "1rem" }}
+        >
+          Share
+        </Button>
         <Link
           component="a"
+          fontSize="0.875rem"
           href="https://github.com/knowankit/email-editor"
           sx={{
             textTransform: "none",
@@ -38,18 +48,6 @@ const Controls = () => {
           <LiaStarSolid />
           &nbsp; Github
         </Link>
-      </Box>
-
-      <Box>
-        <Button
-          color="secondary"
-          size="small"
-          onClick={() => setModalVisibility(true)}
-          startIcon={<SendIcon />}
-          sx={{ textTransform: "none" }}
-        >
-          Share
-        </Button>
       </Box>
       <FullScreenPreview
         open={isOpen}
