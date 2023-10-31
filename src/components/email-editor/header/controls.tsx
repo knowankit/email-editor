@@ -5,6 +5,8 @@ import { useState } from "react";
 import Alert from "@mui/material/Alert";
 import { LiaStarSolid } from "react-icons/lia";
 import Link from "@mui/material/Link";
+import OnlineOfflineStatus from "@/components/email-editor/header/online-offline-status";
+
 const FullScreenPreview = dynamic(
   () => import("@/components/email-editor/share-modal"),
   {
@@ -24,32 +26,32 @@ const Controls = () => {
         </Alert>
       </Box>
 
-      <Box>
-        <Link
-          component="a"
-          href="https://github.com/knowankit/email-editor"
-          sx={{
-            textTransform: "none",
-            textDecoration: "none",
-            display: "flex",
-            alignItems: "center"
-          }}
-        >
-          <LiaStarSolid />
-          &nbsp; Github
-        </Link>
-      </Box>
-
-      <Box>
+      <Box display="flex">
+        <OnlineOfflineStatus />
         <Button
           color="secondary"
           size="small"
           onClick={() => setModalVisibility(true)}
           startIcon={<SendIcon />}
-          sx={{ textTransform: "none" }}
+          sx={{ textTransform: "none", mr: "1rem" }}
         >
           Share
         </Button>
+        <Link
+          component="a"
+          fontSize="0.875rem"
+          href="https://github.com/knowankit/email-editor"
+          sx={{
+            textTransform: "none",
+            textDecoration: "none",
+            display: "flex",
+            alignItems: "center",
+            color: "black"
+          }}
+        >
+          <LiaStarSolid />
+          &nbsp; Github
+        </Link>
       </Box>
       <FullScreenPreview
         open={isOpen}
