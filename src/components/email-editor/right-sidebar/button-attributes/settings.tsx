@@ -13,7 +13,6 @@ import ColorLensIcon from "@mui/icons-material/ColorLens";
 import { Button } from "@mui/material";
 import { useState } from "react";
 import React from "react";
-import { updateAttributes, updateContent } from "@/lib/util/data-crud";
 import IconButton from "@mui/material/IconButton";
 import ColorPicker from "@/lib/ui/color-picker";
 
@@ -28,7 +27,7 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
 
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const { activeNode, emailData, setEmailData } = useEmailStore();
+  const { activeNode, updateAttributes, updateContent } = useEmailStore();
   const { section } = activeNode;
   const attributes = section.attributes;
 
@@ -54,10 +53,8 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
       ...formData
     };
 
-    const data = updateAttributes(emailData, activeNode.path, newAttributes);
-    const updateContentObj = updateContent(data, activeNode.path, content);
-
-    setEmailData(updateContentObj);
+    updateAttributes(newAttributes, activeNode.path);
+    updateContent(content, activeNode.path);
   };
 
   const handleColorPicker = (event: any, name: string) => {

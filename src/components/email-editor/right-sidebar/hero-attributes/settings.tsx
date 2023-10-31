@@ -13,7 +13,6 @@ import ImageIcon from "@mui/icons-material/Image";
 import { Button } from "@mui/material";
 import { useState } from "react";
 import React from "react";
-import { updateAttributes } from "@/lib/util/data-crud";
 import UnsplashModel from "@/lib/ui/unsplash/model";
 
 interface ISetting {
@@ -22,7 +21,7 @@ interface ISetting {
 }
 
 const Settings = ({ expanded, changeTab }: ISetting) => {
-  const { activeNode, emailData, setEmailData } = useEmailStore();
+  const { activeNode, updateAttributes } = useEmailStore();
   const { section } = activeNode;
   const attributes = section.attributes;
 
@@ -45,8 +44,8 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
       ...attributes,
       ...formData
     };
-    const data = updateAttributes(emailData, activeNode.path, newAttributes);
-    setEmailData(data);
+
+    updateAttributes(newAttributes, activeNode.path);
   };
 
   const handleImageChange = (data: any) => {

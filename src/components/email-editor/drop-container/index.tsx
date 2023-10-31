@@ -3,7 +3,6 @@ import { useDrop } from "react-dnd";
 import SectionPreview from "../preview-items/section.preview";
 import useEmailStore from "@/store/email";
 import { useState } from "react";
-import { getDefaultTags } from "@/lib/util/get-default-tags";
 import ResponsiveControl from "@/components/email-editor/drop-container/responsive-control";
 import PreviewMode from "@/components/email-editor/drop-container/preview-mode";
 import HeroPreview from "@/components/email-editor/preview-items/hero.preview";
@@ -21,7 +20,7 @@ const style = {
 };
 
 const DropContainer = () => {
-  const { emailData, setEmailData } = useEmailStore();
+  const { emailData, setEmailData, addMainContainer } = useEmailStore();
   const { pushToUndoStack } = useEmailHistoryStore();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [currentView, setCurrentView] = useState<
@@ -31,30 +30,13 @@ const DropContainer = () => {
 
   const [collectedProps, drop] = useDrop(() => ({
     accept: ["mj-section", "mj-hero"],
-    drop: (item, monitor) => {
+    drop: (item: any, monitor) => {
       if (!monitor.didDrop()) {
         pushToUndoStack(emailData);
-        addSection(item);
+        addMainContainer(item["type"], item["keys"]);
       }
     }
   }));
-
-  const addSection = (item: any) => {
-    let currentObjClone: any = { ...emailData };
-    let currentObj = currentObjClone;
-    const keys = item["keys"].split(".");
-
-    for (let i = 0; i < keys.length; i++) {
-      currentObj = currentObj[keys[i]];
-    }
-
-    if (item["type"] == "mj-section")
-      currentObj.push(getDefaultTags("mj-section"));
-
-    if (item["type"] == "mj-hero") currentObj.push(getDefaultTags("mj-hero"));
-
-    setEmailData(currentObjClone);
-  };
 
   const handleSequence = (direction: "up" | "down") => {
     const emailDataClone = { ...emailData };
