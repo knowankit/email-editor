@@ -21,6 +21,7 @@
     "axios": "^1.4.0",
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.6",
+    "immer": "^10.0.3",
     "lodash": "^4.17.21",
     "mjml": "^4.14.1",
     "mjml-react": "^2.0.8",
