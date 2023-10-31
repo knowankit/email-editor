@@ -51,7 +51,7 @@ export default function ElementsDrawer() {
   );
 
   return (
-    <div>
+    <Box sx={{ height: "inherit", overflow: "scroll" }}>
       <Box
         sx={{
           width: "25vw",
@@ -61,6 +61,6 @@ export default function ElementsDrawer() {
       >
         {htmltags()}
       </Box>
-    </div>
+    </Box>
   );
 }

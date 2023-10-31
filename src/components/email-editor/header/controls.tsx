@@ -3,6 +3,8 @@ import SendIcon from "@mui/icons-material/Send";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import Alert from "@mui/material/Alert";
+import { LiaStarSolid } from "react-icons/lia";
+import Link from "@mui/material/Link";
 const FullScreenPreview = dynamic(
   () => import("@/components/email-editor/share-modal"),
   {
@@ -20,6 +22,22 @@ const Controls = () => {
           This project is currently under development, and there is a high
           likelihood of issues that I am actively addressing
         </Alert>
+      </Box>
+
+      <Box>
+        <Link
+          component="a"
+          href="https://github.com/knowankit/email-editor"
+          sx={{
+            textTransform: "none",
+            textDecoration: "none",
+            display: "flex",
+            alignItems: "center"
+          }}
+        >
+          <LiaStarSolid />
+          &nbsp; Github
+        </Link>
       </Box>
 
       <Box>
