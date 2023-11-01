@@ -37,7 +37,7 @@ interface StoreActions {
   pushTagElement: (tagType: string, keys: string) => void
   updateAttributes: (attributes: any, keys: string) => void
   updateContent: (content: string, keys: string) => void
-
+  popTagElement: (path: string) => void
   resetEmailData: () => void;
 }
 
@@ -68,15 +68,34 @@ const useEmailDataStore = create<StoreState & StoreActions>()(
 
     pushTagElement: (tagType: string, keys: string) => {
         set(produce((draft) => {
-          let currentObj = draft.emailData;
+          let currentArray = draft.emailData;
           const keysArray = keys.split(".");
 
           for (let i = 0; i < keysArray.length; i++) {
-            currentObj = currentObj[keysArray[i]];
+            currentArray = currentArray[keysArray[i]];
           }
 
-          currentObj.push(getDefaultTags(tagType));
-        }));
+        if (Array.isArray(currentArray)) {
+          currentArray.push(getDefaultTags(tagType));
+        }
+      }));
+    },
+
+    popTagElement: (path: string) => {
+      set(produce((draft) => {
+        let currentArray = draft.emailData;
+
+        const index = parseInt(path.slice(-1));
+        const keysArray = path.split(".");
+
+        for (let i = 0; i < keysArray.length - 1; i++) {
+          currentArray = currentArray[keysArray[i]];
+        }
+
+        if (Array.isArray(currentArray)) {
+          currentArray.splice(index, 1);
+        }
+      }));
     },
 
     updateAttributes: (newAttributes: any, keys: string) => {
@@ -93,11 +112,11 @@ const useEmailDataStore = create<StoreState & StoreActions>()(
     },
 
     resetEmailData: () =>
-    set(
-      produce((draft) => {
-        draft.emailData = initialState.emailData;
-        draft.activeNode = initialState.activeNode;
-      })
+      set(
+        produce((draft) => {
+          draft.emailData = initialState.emailData;
+          draft.activeNode = initialState.activeNode;
+        })
     ),
 
     updateContent: (newContent: string, keys: string) => {

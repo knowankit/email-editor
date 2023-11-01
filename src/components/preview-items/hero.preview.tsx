@@ -42,7 +42,8 @@ const HeroPreview = ({ section, index, path }: ITextPreview) => {
     accept: ["mj-text", "mj-spacer", "mj-button"],
     drop: (item: any, monitor) => {
       if (!monitor.didDrop()) {
-        pushTagElement(item["type"], path);
+        const nestedPath = `${path}.children`;
+        pushTagElement(item["type"], nestedPath);
       }
     }
   }));
