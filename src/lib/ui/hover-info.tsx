@@ -43,37 +43,12 @@ const getTagName = (tagName: string) => {
   }
 };
 
-const removeFromArray = (object: any, path: string) => {
-  // Extract the index from the last character of the path
-  const index = parseInt(path.slice(-1));
-
-  // Split the path into segments
-  const segments = path.split(".");
-
-  // Start with the root object
-  let current = object;
-
-  // Traverse the path and remove the element at the specified index
-  for (let i = 0; i < segments.length - 1; i++) {
-    const segment = segments[i];
-    current = current[segment];
-  }
-
-  // Remove the element at the specified index from the array
-  if (Array.isArray(current)) {
-    current.splice(index, 1);
-  }
-
-  return object;
-};
-
 const HoverInfo = ({ section, path }: IHoverInfo) => {
-  const { emailData, setEmailData } = useEmailDataStore();
+  console.log("path hover", path);
+  const { popTagElement } = useEmailDataStore();
 
   const handleDelete = () => {
-    const data = removeFromArray(emailData, path);
-
-    setEmailData(data);
+    popTagElement(path);
   };
 
   return (

@@ -68,7 +68,7 @@ const DropContainer = () => {
                 {section.tagName === "mj-section" && (
                   <SectionPreview
                     section={section}
-                    path={`children.${index}.children`}
+                    path={`children.${index}`}
                     index={index}
                     key={index}
                   />
@@ -79,7 +79,7 @@ const DropContainer = () => {
                     section={section}
                     index={index}
                     key={index}
-                    path={`children.${index}.children`}
+                    path={`children.${index}`}
                   />
                 )}
               </Box>
