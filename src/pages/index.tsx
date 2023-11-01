@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 
-const EmailEditor = dynamic(() => import("@/components/email-editor"), {
+const EmailEditor = dynamic(() => import("@/components"), {
   ssr: false
 });
 
