@@ -36,13 +36,13 @@ const activeStyle = {
 const HeroPreview = ({ section, index, path }: ITextPreview) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const { setActiveNode, addMainContainer } = useEmailDataStore();
+  const { setActiveNode, pushTagElement } = useEmailDataStore();
 
   const [collectedProps, drop] = useDrop(() => ({
     accept: ["mj-text", "mj-spacer", "mj-button"],
     drop: (item: any, monitor) => {
       if (!monitor.didDrop()) {
-        addMainContainer(item["type"], path);
+        pushTagElement(item["type"], path);
       }
     }
   }));

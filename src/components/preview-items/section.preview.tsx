@@ -1,13 +1,11 @@
 import { Box } from "@mui/material";
 import { useDrop } from "react-dnd";
 import useEmailStore from "@/store/email";
-import modifyObjectData from "@/lib/util/modify-data-object";
 import ColumnPreview from "@/components/preview-items/column.preview";
 import SpacerPreview from "@/components/preview-items/spacer.preview";
 
 import HoverInfo from "@/lib/ui/hover-info";
 import { useState } from "react";
-import { getDefaultTags } from "@/lib/util/get-default-tags";
 
 const defaultStyle = {
   minHeight: "200px",
@@ -30,46 +28,15 @@ const SectionPreview = ({ section, index, path }: ISectionPreview) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isActive, setIsActive] = useState(false);
 
-  const { emailData, setEmailData } = useEmailStore();
+  const { pushTagElement } = useEmailStore();
   const [collectedProps, drop] = useDrop(() => ({
     accept: ["mj-column", "mj-spacer"],
     drop: (item: any, monitor) => {
       if (!monitor.didDrop()) {
-        modifyEmailData(item);
+        pushTagElement(item["type"], path);
       }
     }
   }));
-
-  const modifyEmailData = (item: any) => {
-    const key = item["type"];
-    switch (key) {
-      case "mj-column":
-        {
-          const newData = modifyObjectData(
-            emailData,
-            `${path}.children.push`,
-            getDefaultTags("mj-column"),
-            "add"
-          );
-
-          setEmailData(newData);
-        }
-        break;
-
-      case "mj-spacer":
-        {
-          const newData = modifyObjectData(
-            emailData,
-            `${path}.children.push`,
-            getDefaultTags("mj-spacer"),
-            "add"
-          );
-
-          setEmailData(newData);
-        }
-        break;
-    }
-  };
 
   const hasChildren = section["children"];
 
@@ -82,7 +49,7 @@ const SectionPreview = ({ section, index, path }: ISectionPreview) => {
             index={index}
             columnIndex={tindex}
             key={tindex}
-            path={`children.${index}.children.${tindex}`}
+            path={`children.${index}.children.${tindex}.children`}
           />
         );
       }
@@ -93,7 +60,7 @@ const SectionPreview = ({ section, index, path }: ISectionPreview) => {
             section={pSection}
             index={index}
             key={tindex}
-            path={`children.${index}.children.${tindex}`}
+            path={`children.${index}.children.${tindex}.children`}
           />
         );
       }

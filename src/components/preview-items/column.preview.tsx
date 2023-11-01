@@ -5,8 +5,6 @@ import useEmailStore from "@/store/email";
 import ImagePreview from "@/components/preview-items/image.preview";
 import TextPreview from "@/components/preview-items/text.preview";
 
-import { getDefaultTags } from "@/lib/util/get-default-tags";
-import modifyObjectData from "@/lib/util/modify-data-object";
 import HoverInfo from "@/lib/ui/hover-info";
 
 interface ITextPreview {
@@ -33,7 +31,7 @@ const activeStyle = {
 };
 
 const ColumnPreview = ({ section, index, columnIndex, path }: ITextPreview) => {
-  const { emailData, setEmailData } = useEmailStore();
+  const { pushTagElement } = useEmailStore();
   const [isHovered, setIsHovered] = useState(false);
   const [isActive, setIsActive] = useState(false);
 
@@ -41,44 +39,12 @@ const ColumnPreview = ({ section, index, columnIndex, path }: ITextPreview) => {
     accept: ["mj-image", "mj-text"],
     drop: (item: any, monitor) => {
       if (!monitor.didDrop()) {
-        modifyEmailData(item);
+        pushTagElement(item["type"], path);
       }
     }
   }));
 
   const hasChildren = section["children"];
-
-  const modifyEmailData = (item: any) => {
-    const key = item["type"];
-
-    switch (key) {
-      case "mj-image":
-        {
-          const newData = modifyObjectData(
-            emailData,
-            `${path}.children.push`,
-            getDefaultTags("mj-image"),
-            "add"
-          );
-
-          setEmailData(newData);
-        }
-        break;
-
-      case "mj-text":
-        {
-          const newData = modifyObjectData(
-            emailData,
-            `${path}.children.push`,
-            getDefaultTags("mj-text"),
-            "add"
-          );
-
-          setEmailData(newData);
-        }
-        break;
-    }
-  };
 
   const loadHtmlElements = (pSection: any, tindex: number) => {
     switch (pSection.tagName) {
@@ -90,7 +56,7 @@ const ColumnPreview = ({ section, index, columnIndex, path }: ITextPreview) => {
             columnIndex={columnIndex}
             index={index}
             key={index}
-            path={`${path}.children.${tindex}`}
+            path={`${path}.children.${tindex}.children`}
           />
         );
       }
@@ -102,7 +68,7 @@ const ColumnPreview = ({ section, index, columnIndex, path }: ITextPreview) => {
             index={index}
             textIndex={tindex}
             key={index}
-            path={`${path}.children.${tindex}`}
+            path={`${path}.children.${tindex}.children`}
           />
         );
       }
