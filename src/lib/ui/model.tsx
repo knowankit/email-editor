@@ -41,9 +41,7 @@ export default function CustomDialog({
       onClose={handleClick}
     >
       <DialogTitle>{title}</DialogTitle>
-      <DialogContent sx={{ borderBottom: "1px solid grey", width: "20rem" }}>
-        {children}
-      </DialogContent>
+      <DialogContent>{children}</DialogContent>
 
       <DialogActions sx={{ padding: "1rem" }}>
         <Button
