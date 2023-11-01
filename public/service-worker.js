@@ -1,23 +1,37 @@
-// public/service-worker.js
+const installEvent = () => {
+  self.addEventListener("install", () => {
+    console.log("service worker installed");
+  });
+};
+installEvent();
 
-import { precacheAndRoute } from "workbox-precaching";
-import { registerRoute, NavigationRoute } from "workbox-routing";
-import { CacheFirst, StaleWhileRevalidate } from "workbox-strategies";
+const activateEvent = () => {
+  self.addEventListener("activate", () => {
+    console.log("service worker activated");
+  });
+};
 
-// Precache and route assets from the build output directory
-precacheAndRoute(self.__WB_MANIFEST);
+activateEvent();
 
-// Cache static assets from the public directory
-registerRoute(
-  ({ request }) => request.destination === "image",
-  new CacheFirst()
-);
+const cacheName = "v1";
 
-// Cache fonts using StaleWhileRevalidate strategy
-registerRoute(
-  ({ request }) => request.destination === "font",
-  new StaleWhileRevalidate()
-);
+const cacheClone = async e => {
+  const res = await fetch(e.request);
+  const resClone = res.clone();
 
-// Define a navigation route that serves an HTML file
-registerRoute(new NavigationRoute(new StaleWhileRevalidate()));
+  const cache = await caches.open(cacheName);
+  await cache.put(e.request, resClone);
+  return res;
+};
+
+const fetchEvent = () => {
+  self.addEventListener("fetch", e => {
+    e.respondWith(
+      cacheClone(e)
+        .catch(() => caches.match(e.request))
+        .then(res => res)
+    );
+  });
+};
+
+fetchEvent();
