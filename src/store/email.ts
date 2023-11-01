@@ -34,7 +34,7 @@ interface ActiveNode {
 interface StoreActions {
   setEmailData: (data: MJMLNode) => void;
   setActiveNode: (data: ActiveNode | null) => void;
-  addMainContainer: (tagType: string, keys: string) => void
+  pushTagElement: (tagType: string, keys: string) => void
   updateAttributes: (attributes: any, keys: string) => void
   updateContent: (content: string, keys: string) => void
 
@@ -66,7 +66,7 @@ const useEmailDataStore = create<StoreState & StoreActions>()(
         })
       ),
 
-    addMainContainer: (tagType: string, keys: string) => {
+    pushTagElement: (tagType: string, keys: string) => {
         set(produce((draft) => {
           let currentObj = draft.emailData;
           const keysArray = keys.split(".");
@@ -92,6 +92,14 @@ const useEmailDataStore = create<StoreState & StoreActions>()(
       }))
     },
 
+    resetEmailData: () =>
+    set(
+      produce((draft) => {
+        draft.emailData = initialState.emailData;
+        draft.activeNode = initialState.activeNode;
+      })
+    ),
+
     updateContent: (newContent: string, keys: string) => {
       set(produce((draft) => {
         let currentObj = draft.emailData;
@@ -105,17 +113,7 @@ const useEmailDataStore = create<StoreState & StoreActions>()(
       }))
     },
 
-    resetEmailData: () =>
-      set(
-        produce((draft) => {
-          draft.emailData = {
-            tagName: 'mj-body',
-            attributes: {},
-            children: [],
-          };
-          draft.activeNode = initialState.activeNode;
-        })
-      ),
+
     emailData: initialState.emailData,
     activeNode: initialState.activeNode,
   }), {

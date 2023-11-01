@@ -20,7 +20,7 @@ const style = {
 };
 
 const DropContainer = () => {
-  const { emailData, setEmailData, addMainContainer } = useEmailStore();
+  const { emailData, setEmailData, pushTagElement } = useEmailStore();
   const { pushToUndoStack } = useEmailHistoryStore();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [currentView, setCurrentView] = useState<
@@ -33,7 +33,7 @@ const DropContainer = () => {
     drop: (item: any, monitor) => {
       if (!monitor.didDrop()) {
         pushToUndoStack(emailData);
-        addMainContainer(item["type"], item["keys"]);
+        pushTagElement(item["type"], item["keys"]);
       }
     }
   }));
@@ -68,7 +68,7 @@ const DropContainer = () => {
                 {section.tagName === "mj-section" && (
                   <SectionPreview
                     section={section}
-                    path={`children.${index}`}
+                    path={`children.${index}.children`}
                     index={index}
                     key={index}
                   />
@@ -79,7 +79,7 @@ const DropContainer = () => {
                     section={section}
                     index={index}
                     key={index}
-                    path={`children.${index}`}
+                    path={`children.${index}.children`}
                   />
                 )}
               </Box>

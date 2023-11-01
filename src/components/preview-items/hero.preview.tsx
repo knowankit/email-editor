@@ -9,8 +9,6 @@ import TextPreview from "@/components/preview-items/text.preview";
 import HoverInfo from "@/lib/ui/hover-info";
 import useEmailDataStore from "@/store/email";
 import { useDrop } from "react-dnd";
-import modifyObjectData from "@/lib/util/modify-data-object";
-import { getDefaultTags } from "@/lib/util/get-default-tags";
 
 interface ITextPreview {
   section: any;
@@ -38,48 +36,16 @@ const activeStyle = {
 const HeroPreview = ({ section, index, path }: ITextPreview) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const { setActiveNode, emailData, setEmailData } = useEmailDataStore();
+  const { setActiveNode, pushTagElement } = useEmailDataStore();
 
   const [collectedProps, drop] = useDrop(() => ({
     accept: ["mj-text", "mj-spacer", "mj-button"],
     drop: (item: any, monitor) => {
       if (!monitor.didDrop()) {
-        modifyEmailData(item);
+        pushTagElement(item["type"], path);
       }
     }
   }));
-
-  const modifyEmailData = (item: any) => {
-    const key = item["type"];
-
-    switch (key) {
-      case "mj-text":
-        {
-          const newData = modifyObjectData(
-            emailData,
-            `${path}.children.push`,
-            getDefaultTags("mj-text"),
-            "add"
-          );
-
-          setEmailData(newData);
-        }
-        break;
-
-      case "mj-button":
-        {
-          const newData = modifyObjectData(
-            emailData,
-            `${path}.children.push`,
-            getDefaultTags("mj-button"),
-            "add"
-          );
-
-          setEmailData(newData);
-        }
-        break;
-    }
-  };
 
   const loadHtmlElements = (pSection: any, nIndex: number) => {
     switch (pSection.tagName) {
@@ -137,7 +103,7 @@ const HeroPreview = ({ section, index, path }: ITextPreview) => {
 
   const children = section.children;
   const objectCss = objectToCSS(getCamelCasedAttributes(section.attributes));
-  const height = objectCss["height"];
+  // const height = objectCss["height"];
   return (
     <Box
       id="hero-preview"
@@ -159,4 +125,5 @@ const HeroPreview = ({ section, index, path }: ITextPreview) => {
     </Box>
   );
 };
+
 export default HeroPreview;

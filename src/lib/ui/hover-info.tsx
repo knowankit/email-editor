@@ -1,7 +1,6 @@
 import { Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
-import modifyObjectData from "@/lib/util/modify-data-object";
 import useEmailDataStore from "@/store/email";
 
 interface IHoverInfo {

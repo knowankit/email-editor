@@ -22,6 +22,7 @@ const MjmlSource = ({ expanded, handleChange }: ILayout) => {
 
   useEffect(() => {
     const loadMjMl = async () => {
+      if (!emailData.children.length) return;
       const url = `${getBaseURL()}/api/email-editor/generate-mjml`;
 
       const withHtml = {
@@ -29,15 +30,20 @@ const MjmlSource = ({ expanded, handleChange }: ILayout) => {
         attributes: {},
         children: [emailData]
       };
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(withHtml) // Convert the data to JSON format
-      });
-      const data = await response.json();
-      setHtmlData(data.html);
+
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(withHtml) // Convert the data to JSON format
+        });
+        const data = await response.json();
+        setHtmlData(data.html);
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     loadMjMl();
