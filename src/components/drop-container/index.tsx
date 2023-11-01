@@ -79,7 +79,7 @@ const DropContainer = () => {
                     section={section}
                     index={index}
                     key={index}
-                    path={`children.${index}`}
+                    path={`children.${index}.children`}
                   />
                 )}
               </Box>
