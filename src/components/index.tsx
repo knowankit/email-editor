@@ -13,7 +13,7 @@ const EmailEditor = () => {
       <Box display="flex" justifyContent="space-between">
         <Box p="1rem">
           <Badge color="secondary" badgeContent="Beta">
-            <Typography variant="h6">Email Editor</Typography>
+            <Typography variant="h4">📧 Editor</Typography>
           </Badge>
         </Box>
         <Box>
