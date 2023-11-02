@@ -1,5 +1,5 @@
 import * as React from "react";
-import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
+import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import useSnackBarStore from "@/store/snackbar";
 
@@ -28,6 +28,7 @@ export default function PositionedSnackbar() {
       autoHideDuration={autoHideDuration}
       message={message}
       key={vertical + horizontal}
+      sx={{ color: "white" }}
       onClose={() => hideSnackbar()}
     >
       <Alert severity={severity} sx={{ width: "100%" }}>

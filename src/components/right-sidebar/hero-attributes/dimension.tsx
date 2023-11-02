@@ -10,15 +10,14 @@ import TextField from "@mui/material/TextField";
 import useEmailStore from "@/store/email";
 import { useState } from "react";
 import { Button } from "@mui/material";
-import { updateAttributes } from "@/lib/util/data-crud";
 interface ISetting {
   expanded: HeroAttributesAccordionType;
   changeTab: (value: HeroAttributesAccordionType) => void;
 }
 
 const Dimension = ({ expanded, changeTab }: ISetting) => {
-  const { activeNode, emailData, setEmailData } = useEmailStore();
-  const { sectionIndex, imageIndex, section, columnIndex } = activeNode;
+  const { activeNode, updateAttributes } = useEmailStore();
+  const { section } = activeNode;
   const attributes = section.attributes;
 
   const [formData, setFormData] = useState({
@@ -44,8 +43,7 @@ const Dimension = ({ expanded, changeTab }: ISetting) => {
       ...formData
     };
 
-    const data = updateAttributes(emailData, activeNode.path, newAttributes);
-    setEmailData(data);
+    updateAttributes(newAttributes, activeNode.path);
   };
 
   return (
