@@ -1,5 +1,5 @@
 import * as React from "react";
-import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
+import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import useSnackBarStore from "@/store/snackbar";
 
