@@ -11,18 +11,15 @@ interface SnackbarDetailState {
   autoHideDuration?: number
 }
 
-// Define the types for store state
 interface StoreState {
   snackbarDetail: SnackbarDetailState
 }
 
-// Define the types for store actions
 interface StoreActions {
   showSnackbar: (data: SnackbarDetailState) => void;
   hideSnackbar: () => void
 }
 
-// Create store
 const useSnackBarStore = create<StoreState & StoreActions>((set) => ({
   snackbarDetail: {
     severity: 'success',

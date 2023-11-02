@@ -28,6 +28,7 @@ export default function PositionedSnackbar() {
       autoHideDuration={autoHideDuration}
       message={message}
       key={vertical + horizontal}
+      sx={{ color: "white" }}
       onClose={() => hideSnackbar()}
     >
       <Alert severity={severity} sx={{ width: "100%" }}>
