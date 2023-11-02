@@ -75,7 +75,8 @@ export const getDefaultTags = (tagName: string) => {
         attributes: {
           "href":"https://mjml.io/",
           "align":"center",
-          "background-color": "#008000"
+          "background-color": "#008000",
+          "color": "#ffffff"
         },
         content: "Button text",
         id: uuidv4()
