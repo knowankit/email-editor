@@ -9,6 +9,8 @@ import { Box } from "@mui/material";
 import useEmailStore from "@/store/email";
 import CreateTemplateButton from "@/components/drop-container/create-template-button";
 import useEmailHistoryStore from "@/store/email-history";
+import Tooltip from '@mui/material/Tooltip';
+
 interface IResponsiveControl {
   setCurrentView: (view: currentView) => void;
   setIsMobile: (val: boolean) => void;
@@ -57,70 +59,95 @@ const ResponsiveControl = ({
           flex: 1
         }}
       >
-        <IconButton
-          aria-label="desktop"
-          color={currentView == "edit" ? "primary" : "default"}
-          onClick={() => {
-            setCurrentView("edit");
-            setIsMobile(false);
-          }}
-        >
-          <ComputerIcon />
-        </IconButton>
-        <IconButton
-          aria-label="mobile"
-          disabled={!emailData["children"].length}
-          color={currentView == "preview" ? "primary" : "default"}
-          onClick={() => {
-            setCurrentView("preview");
-            setIsMobile(true);
-          }}
-        >
-          <SmartphoneIcon />
-        </IconButton>
-        <IconButton
-          aria-label="preview"
-          disabled={!emailData["children"].length}
-          color={currentView == "desktop-preview" ? "primary" : "default"}
-          onClick={() => {
-            setCurrentView("desktop-preview");
-            setIsMobile(false);
-          }}
-        >
-          <PreviewIcon />
-        </IconButton>
+        <Tooltip title="Edit view" placement="top" arrow>
+          <IconButton
+            aria-label="edit view"
+            color={currentView == "edit" ? "primary" : "default"}
+            onClick={() => {
+              setCurrentView("edit");
+              setIsMobile(false);
+            }}
+          >
+            <ComputerIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Mobile view" placement="top" arrow>
+          <Box component='span'>
+            <IconButton
+              aria-label="mobile view"
+              disabled={!emailData["children"].length}
+              color={currentView == "preview" ? "primary" : "default"}
+              onClick={() => {
+                setCurrentView("preview");
+                setIsMobile(true);
+              }}
+            >
+              <SmartphoneIcon />
+            </IconButton>
+          </Box>
+
+        </Tooltip>
+        <Tooltip title="Desktop view" placement="top" arrow>
+          <Box component='span'>
+            <IconButton
+              aria-label="Desktop view"
+              disabled={!emailData["children"].length}
+              color={currentView == "desktop-preview" ? "primary" : "default"}
+              onClick={() => {
+                setCurrentView("desktop-preview");
+                setIsMobile(false);
+              }}
+            >
+              <PreviewIcon />
+            </IconButton>
+          </Box>
+
+        </Tooltip>
       </Box>
       <Box
         ml={4}
         sx={{ flex: 1, display: "flex", justifyContent: "space-between" }}
       >
         <Box>
-          <IconButton
-            aria-label="undo"
-            disabled={!undoStack.length}
-            onClick={undoEmail}
-          >
-            <UndoIcon />
-          </IconButton>
-          <IconButton
-            aria-label="redo"
-            disabled={!redoStack.length}
-            onClick={redoEmail}
-          >
-            <RedoIcon />
-          </IconButton>
+          <Tooltip title="Undo" placement="top" arrow>
+            <Box component='span'>
+              <IconButton
+                aria-label="Undo"
+                disabled={!undoStack.length}
+                onClick={undoEmail}
+              >
+                <UndoIcon />
+              </IconButton>
+              </Box>
+          </Tooltip>
+          <Tooltip title="Redo" placement="top" arrow>
+            <Box component='span'>
+
+              <IconButton
+                aria-label="Redo"
+                disabled={!redoStack.length}
+                Box={redoEmail}
+              >
+                <RedoIcon />
+              </IconButton>
+            </Box>
+          </Tooltip>
         </Box>
         <Box>
-          <IconButton
-            aria-label="reset"
-            disabled={!emailData["children"].length}
-            onClick={() => {
-              resetEmailData();
-              resetStack();
-            }}
-          >
-            <ResetTvIcon />
-          </IconButton>
+          <Tooltip title="Reset" placement="top" arrow>
+            <Box component='span'>
+              <IconButton
+                aria-label="reset"
+                disabled={!emailData["children"].length}
+                onClick={() => {
+                  resetEmailData();
+                  resetStack();
+                }}
+              >
+                <ResetTvIcon />
+              </IconButton>
+            </Box>
+          </Tooltip>
           <CreateTemplateButton />
         </Box>
       </Box>
