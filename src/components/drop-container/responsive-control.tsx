@@ -52,6 +52,38 @@ const ResponsiveControl = ({
             return "Mobile view";
           }
         }
+      case "desktop":
+        {
+          if (!emailData["children"].length) {
+            return "Please add any data";
+          } else {
+            return "Desktop view";
+          }
+        }
+      case "undo":
+        {
+          if (!undoStack.length) {
+            return "Please add any data";
+          } else {
+            return "Undo";
+          }
+        }
+      case "redo":
+        {
+          if (!redoStack.length) {
+            return "Please add any data";
+          } else {
+            return "Redo";
+          }
+        }
+      case "reset":
+        {
+          if (!emailData["children"].length) {
+            return "Please add any data";
+          } else {
+            return "Reset";
+          }
+        }
 
         break;
 
@@ -106,7 +138,7 @@ const ResponsiveControl = ({
             </IconButton>
           </Box>
         </Tooltip>
-        <Tooltip title="Desktop view" placement="top" arrow>
+        <Tooltip title={getTooltipTitle("desktop")} placement="top" arrow>
           <Box component="span">
             <IconButton
               aria-label="Desktop view"
@@ -127,7 +159,7 @@ const ResponsiveControl = ({
         sx={{ flex: 1, display: "flex", justifyContent: "space-between" }}
       >
         <Box>
-          <Tooltip title="Undo" placement="top" arrow>
+          <Tooltip title={getTooltipTitle("undo")} placement="top" arrow>
             <Box component="span">
               <IconButton
                 aria-label="Undo"
@@ -138,7 +170,7 @@ const ResponsiveControl = ({
               </IconButton>
             </Box>
           </Tooltip>
-          <Tooltip title="Redo" placement="top" arrow>
+          <Tooltip title={getTooltipTitle("redo")} placement="top" arrow>
             <Box component="span">
               <IconButton
                 aria-label="Redo"
@@ -151,7 +183,7 @@ const ResponsiveControl = ({
           </Tooltip>
         </Box>
         <Box>
-          <Tooltip title="Reset" placement="top" arrow>
+          <Tooltip title={getTooltipTitle("reset")} placement="top" arrow>
             <Box component="span">
               <IconButton
                 aria-label="reset"
