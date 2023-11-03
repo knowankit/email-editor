@@ -42,6 +42,24 @@ const ResponsiveControl = ({
     popFromRedoStack();
   };
 
+  const getTooltipTitle = (type: string) => {
+    switch (type) {
+      case "mobile":
+        {
+          if (!emailData["children"].length) {
+            return "Please add any data";
+          } else {
+            return "Mobile view";
+          }
+        }
+
+        break;
+
+      default:
+        break;
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -73,7 +91,7 @@ const ResponsiveControl = ({
             </IconButton>
           </Box>
         </Tooltip>
-        <Tooltip title="Mobile view" placement="top" arrow>
+        <Tooltip title={getTooltipTitle("mobile")} placement="top" arrow>
           <Box component="span">
             <IconButton
               aria-label="mobile view"
