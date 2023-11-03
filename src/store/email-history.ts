@@ -68,7 +68,6 @@ const useEmailHistoryStore = create<StoreState & StoreActions>()(
     popFromRedoStack: () =>
       set(produce((draft) => {
         if (draft.redoStack.length > 0) {
-          console.log(draft.redoStack)
           const poppedData = draft.redoStack.pop();
 
           if (poppedData) {
