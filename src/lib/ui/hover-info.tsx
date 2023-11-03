@@ -10,7 +10,7 @@ interface IHoverInfo {
 
 const defaultStyle = {
   position: "absolute",
-  top: "0px",
+  top: "-35px",
   left: "-5px",
   background: "white",
   color: "black",
@@ -19,7 +19,8 @@ const defaultStyle = {
   alignItems: "center",
   fontSize: "1rem",
   fontWeight: "400",
-  lineHeight: "20px"
+  lineHeight: "20px",
+  borderRadius: "10px"
 };
 
 const getTagName = (tagName: string) => {
@@ -44,7 +45,6 @@ const getTagName = (tagName: string) => {
 };
 
 const HoverInfo = ({ section, path }: IHoverInfo) => {
-  console.log("path hover", path);
   const { popTagElement } = useEmailDataStore();
 
   const handleDelete = () => {
