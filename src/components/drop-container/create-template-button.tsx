@@ -3,6 +3,8 @@ import { Box } from "@mui/material";
 import useEmailStore from "@/store/email";
 import TemplateModel from "@/lib/ui/model";
 import { useState } from "react";
+import Tooltip from "@mui/material/Tooltip";
+
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import useTemplatesStore from "@/store/templates";
@@ -14,7 +16,7 @@ const CreateTemplateButton = () => {
   const { emailData } = useEmailStore();
   const { createNewTemplate } = useTemplatesStore();
 
-  const handleClick = () => {
+  const handleClose = () => {
     setOpen(prev => !prev);
     setTemplateName("");
   };
@@ -24,23 +26,28 @@ const CreateTemplateButton = () => {
   };
 
   const handleCreateTemplate = () => {
-    createNewTemplate({ templateName, ...emailData });
-    handleClick();
+    createNewTemplate({ ...emailData, templateName });
+
+    handleClose();
   };
 
   return (
     <>
-      <IconButton
-        aria-label="save"
-        disabled={!emailData["children"].length}
-        onClick={handleClick}
-      >
-        <SaveIcon />
-      </IconButton>
+      <Tooltip title="Create template" placement="top" arrow>
+        <Box component="span">
+          <IconButton
+            aria-label="save"
+            disabled={!emailData["children"].length}
+            onClick={handleClose}
+          >
+            <SaveIcon />
+          </IconButton>
+        </Box>
+      </Tooltip>
       {isOpen && (
         <TemplateModel
           isOpen={isOpen}
-          handleClick={handleClick}
+          handleClick={handleClose}
           handlePrimary={handleCreateTemplate}
           title="Create a template"
         >
