@@ -19,13 +19,14 @@ interface ITextPreview {
 const defaultStyle = {
   position: "relative",
   "&:hover": {
-    outline: "2px dashed white"
+    outline: "2px dashed black"
   },
   backgroundRepeat: "no-repeat !important",
   backgroundPosition: "center !important",
   backgroundSize: "cover !important",
   verticalAlign: "top",
-  bgcolor: "yellow"
+  bgcolor: "yellow",
+  boxSizing: "border-box" // Magic word here
 };
 
 const activeStyle = {
@@ -38,14 +39,18 @@ const HeroPreview = ({ section, index, path }: ITextPreview) => {
   const [isActive, setIsActive] = useState(false);
   const { setActiveNode, pushTagElement } = useEmailDataStore();
 
-  const [collectedProps, drop] = useDrop(() => ({
+  const [{ isOver, canDrop }, drop] = useDrop(() => ({
     accept: ["mj-text", "mj-spacer", "mj-button"],
     drop: (item: any, monitor) => {
       if (!monitor.didDrop()) {
         const nestedPath = `${path}.children`;
         pushTagElement(item["type"], nestedPath);
       }
-    }
+    },
+    collect: monitor => ({
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop()
+    })
   }));
 
   const loadHtmlElements = (pSection: any, nIndex: number) => {
@@ -104,15 +109,27 @@ const HeroPreview = ({ section, index, path }: ITextPreview) => {
 
   const children = section.children;
   const objectCss = objectToCSS(getCamelCasedAttributes(section.attributes));
+
+  const getBoxStyle = () => {
+    const isActiveOver = isOver && canDrop;
+
+    if (isActiveOver) {
+      const hoverCss = {
+        outline: "4px dotted green !important"
+      };
+      return { ...defaultStyle, ...objectCss, ...hoverCss };
+    }
+    return { ...defaultStyle, ...objectCss };
+  };
   // const height = objectCss["height"];
+
   return (
     <Box
       id="hero-preview"
       ref={drop}
       sx={{
-        ...(isActive ? activeStyle : defaultStyle),
-        ...objectCss
         // height: `calc(${height} - 200px)`
+        ...getBoxStyle()
       }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}

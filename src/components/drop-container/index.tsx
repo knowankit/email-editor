@@ -60,7 +60,7 @@ const DropContainer = () => {
 
   const EditMode = () => {
     return (
-      <Box sx={{ width: "600px", bgcolor: "white" }}>
+      <Box sx={{ width: "600px", bgcolor: "white", mt: "2rem" }}>
         {emailData["children"].map((section: any, index: number) => {
           return (
             <Box key={index}>
