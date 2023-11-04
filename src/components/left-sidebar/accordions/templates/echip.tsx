@@ -6,8 +6,8 @@ interface IEChip {
   handleClick: () => void;
   handleDelete: () => void;
   template: {
-    templateName: string;
-    templateId: string;
+    templateName?: string;
+    templateId?: string;
   };
 }
 
