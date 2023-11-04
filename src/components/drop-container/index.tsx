@@ -70,20 +70,22 @@ const DropContainer = () => {
         {["preview", "desktop-preview"].includes(currentView) && (
           <PreviewMode isMobile={isMobile} />
         )}
-        <Box
-          sx={{
-            height: "200px",
-            width: "600px",
-            border: "2px dashed grey",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            boxSizing: "border-box",
-            mt: 1
-          }}
-        >
-          <InboxIcon /> Drop Hero or Section or Wrapper here
-        </Box>
+        {currentView == "edit" && (
+          <Box
+            sx={{
+              height: "200px",
+              width: "600px",
+              border: "2px dashed grey",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              boxSizing: "border-box",
+              mt: 1
+            }}
+          >
+            <InboxIcon /> Drop Hero or Section or Wrapper here
+          </Box>
+        )}
       </Box>
     </Box>
   );

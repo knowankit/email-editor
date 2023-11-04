@@ -22,8 +22,7 @@ const ImagePreview = ({
         width,
         marginRight: "1rem",
         backgroundImage: `url("${formData["background-url"]}")`,
-        backgroundSize: "cover",
-        opacity: "0.8"
+        backgroundSize: "cover"
       }}
     >
       <Box
@@ -39,7 +38,7 @@ const ImagePreview = ({
             alert("Show model with full image");
           }}
         >
-          <VisibilityIcon fontSize="small" color="info" />
+          <VisibilityIcon fontSize="small" sx={{ color: "white" }} />
         </IconButton>
       </Box>
     </Box>
