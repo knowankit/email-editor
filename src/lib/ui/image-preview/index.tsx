@@ -50,6 +50,8 @@ const ImagePreview = ({
           display="flex"
           justifyContent="center"
           alignItems="center"
+          bgcolor="rgba(0, 0, 0, 0.5)"
+          sx={{ cursor: "pointer" }}
         >
           <IconButton
             aria-label="view image"

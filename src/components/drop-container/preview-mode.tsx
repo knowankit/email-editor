@@ -52,7 +52,8 @@ const PreviewMode = ({ isMobile }: { isMobile: boolean }) => {
 
   const getStyle = () => {
     const defaultStyle = {
-      display: loadingPreview ? "none" : "block"
+      display: loadingPreview ? "none" : "block",
+      mt: "2rem"
     };
 
     const mobile = {
