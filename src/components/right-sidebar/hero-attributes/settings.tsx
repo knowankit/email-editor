@@ -14,7 +14,7 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import React from "react";
 import UnsplashModel from "@/lib/ui/unsplash/model";
-
+import ImagePreview from "@/lib/ui/image-preview";
 interface ISetting {
   expanded: HeroAttributesAccordionType;
   changeTab: (value: HeroAttributesAccordionType) => void;
@@ -67,15 +67,7 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
       <AccordionDetails>
         <Box>
           <Box display="flex">
-            <Box
-              sx={{
-                height: "100px",
-                width: "100px",
-                marginRight: "1rem",
-                backgroundImage: `url("${formData["background-url"]}")`,
-                backgroundSize: "cover"
-              }}
-            />
+            <ImagePreview formData={formData} />
             <UnsplashModel
               handleImageChange={data => handleImageChange(data)}
               field="background-url"
