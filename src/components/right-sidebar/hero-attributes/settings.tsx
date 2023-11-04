@@ -67,7 +67,10 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
       <AccordionDetails>
         <Box>
           <Box display="flex">
-            <ImagePreview formData={formData} />
+            <ImagePreview
+              formData={formData}
+              handleImageChange={data => handleImageChange(data)}
+            />
             <UnsplashModel
               handleImageChange={data => handleImageChange(data)}
               field="background-url"
