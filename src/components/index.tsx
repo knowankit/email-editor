@@ -7,23 +7,22 @@ import Controls from "@/components/header/controls";
 import RightSidebar from "@/components/right-sidebar";
 import Alert from "@mui/material/Alert";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import NotSupportedOnMobile from "@/components/not-supported-mobile";
 
 const EmailEditor = () => {
-  const [isMobile, setMobile] = useState(true);
+  const [isMobile, setMobile] = useState<"mobile" | "desktop" | "">("");
 
   useEffect(() => {
     const isMobile = window.innerWidth < 768;
 
     if (isMobile) {
-      setMobile(true);
+      setMobile("mobile");
     } else {
-      setMobile(false);
+      setMobile("desktop");
     }
   }, []);
 
-  if (isMobile) return <NotSupportedOnMobile />;
+  if (isMobile === "mobile") return <NotSupportedOnMobile />;
 
   return (
     <>
