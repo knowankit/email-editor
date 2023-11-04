@@ -31,6 +31,11 @@ const ImagePreview = ({
     });
   };
 
+  const handleClose = () => {
+    setOpen(false);
+    setMouseEnter(false);
+  };
+
   return (
     <Box
       onMouseEnter={() => setMouseEnter(true)}
@@ -72,7 +77,7 @@ const ImagePreview = ({
         </Box>
       )}
       {isOpen && (
-        <Dialog open={isOpen} onClose={() => setOpen(false)}>
+        <Dialog open={isOpen} onClose={handleClose}>
           <DialogContent
             sx={{
               backgroundImage: `url("${formData["background-url"]}")`,
