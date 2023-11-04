@@ -15,6 +15,10 @@ import { useState } from "react";
 import React from "react";
 import UnsplashModel from "@/lib/ui/unsplash/model";
 import ImagePreview from "@/lib/ui/image-preview";
+import ColorLensIcon from "@mui/icons-material/ColorLens";
+import IconButton from "@mui/material/IconButton";
+import ColorPicker from "@/lib/ui/color-picker";
+
 interface ISetting {
   expanded: HeroAttributesAccordionType;
   changeTab: (value: HeroAttributesAccordionType) => void;
@@ -22,12 +26,17 @@ interface ISetting {
 
 const Settings = ({ expanded, changeTab }: ISetting) => {
   const { activeNode, updateAttributes } = useEmailStore();
+  const [fieldName, setFieldName] = useState("");
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [isColorPickerOpen, setColorPickerStatus] = useState(false);
+
   const { section } = activeNode;
   const attributes = section.attributes;
 
   const [formData, setFormData] = useState({
     "background-url": attributes["background-url"],
-    "background-color": ""
+    "background-color": attributes["background-color"]
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,6 +62,29 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
       ...formData,
       [data.type]: data.value
     });
+  };
+
+  const handleColorPicker = (event: any, name: string) => {
+    setFieldName(name);
+
+    if (isColorPickerOpen) {
+      setColorPickerStatus(false);
+      setAnchorEl(null);
+      return;
+    }
+
+    setColorPickerStatus(true);
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleColorChange = (col: any) => {
+    setFormData({
+      ...formData,
+      [fieldName]: col.hex
+    });
+
+    setColorPickerStatus(false);
+    setAnchorEl(null);
   };
 
   return (
@@ -94,7 +126,7 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
               variant="outlined"
             />
           </Box>
-          {/* <Box mt={2}>
+          <Box mt={2}>
             <TextField
               label="Background color"
               fullWidth
@@ -105,7 +137,13 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <IconButton aria-label="delete" size="small">
+                    <IconButton
+                      aria-label="color"
+                      size="small"
+                      onClick={event =>
+                        handleColorPicker(event, "background-color")
+                      }
+                    >
                       <ColorLensIcon />
                     </IconButton>
                   </InputAdornment>
@@ -113,7 +151,13 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
               }}
               variant="outlined"
             />
-          </Box> */}
+          </Box>
+          <ColorPicker
+            open={isColorPickerOpen}
+            color=""
+            anchorEl={anchorEl}
+            onChange={col => handleColorChange(col)}
+          />
           <Box sx={{ mt: "1rem" }}>
             <Button size="small" variant="contained" onClick={applyChanges}>
               Apply

@@ -121,14 +121,12 @@ const HeroPreview = ({ section, index, path }: ITextPreview) => {
     }
     return { ...defaultStyle, ...objectCss };
   };
-  // const height = objectCss["height"];
 
   return (
     <Box
       id="hero-preview"
       ref={drop}
       sx={{
-        // height: `calc(${height} - 200px)`
         ...getBoxStyle()
       }}
       onMouseEnter={onMouseEnter}

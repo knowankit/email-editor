@@ -24,7 +24,8 @@ export const objectToCSS = (styles: Record<string, string>) => {
   const cssObject: Record<string, string> = Object.keys(styles).reduce((cssObj, property) => {
     const cssProperty = propertyMap[property] || property
 
-    if(cssProperty === 'background') {
+    // If background does not have url then don't add in the object
+    if (cssProperty === 'background' && styles[property]) {
       cssObj[cssProperty] = `url("${styles[property]}")`
     } else {
       cssObj[cssProperty] = styles[property];
