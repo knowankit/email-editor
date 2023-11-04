@@ -9,6 +9,7 @@ interface StoreState {
     tagName: string;
     attributes: any;
     children: any;
+    templateId?: string;
   };
   activeNode: any | null;
 }

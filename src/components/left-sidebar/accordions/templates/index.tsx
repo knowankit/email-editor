@@ -6,7 +6,6 @@ import {
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import Alert from "@mui/material/Alert";
 
 import useTemplatesStore from "@/store/templates";
