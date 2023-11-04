@@ -1,12 +1,12 @@
 import { Box } from "@mui/material";
 import { useDrop } from "react-dnd";
-import SectionPreview from "../preview-items/section.preview";
 import useEmailStore from "@/store/email";
 import { useState } from "react";
 import ResponsiveControl from "@/components/drop-container/responsive-control";
 import PreviewMode from "@/components/drop-container/preview-mode";
-import HeroPreview from "@/components/preview-items/hero.preview";
 import useEmailHistoryStore from "@/store/email-history";
+import EditMode from "@/components/drop-container/edit-mode";
+import InboxIcon from "@mui/icons-material/Inbox";
 
 const style = {
   width: "50vw",
@@ -58,38 +58,6 @@ const DropContainer = () => {
     setEmailData(emailDataClone);
   };
 
-  const EditMode = () => {
-    return (
-      <Box sx={{ width: "600px", bgcolor: "white", mt: "2rem" }}>
-        {emailData["children"].map((section: any, index: number) => {
-          return (
-            <Box key={index}>
-              <Box aria-haspopup="true" sx={{ cursor: "pointer" }}>
-                {section.tagName === "mj-section" && (
-                  <SectionPreview
-                    section={section}
-                    path={`children.${index}`}
-                    index={index}
-                    key={index}
-                  />
-                )}
-
-                {section.tagName === "mj-hero" && (
-                  <HeroPreview
-                    section={section}
-                    index={index}
-                    key={index}
-                    path={`children.${index}`}
-                  />
-                )}
-              </Box>
-            </Box>
-          );
-        })}
-      </Box>
-    );
-  };
-
   return (
     <Box display="flex" flexDirection="column">
       <ResponsiveControl
@@ -102,6 +70,20 @@ const DropContainer = () => {
         {["preview", "desktop-preview"].includes(currentView) && (
           <PreviewMode isMobile={isMobile} />
         )}
+        <Box
+          sx={{
+            height: "200px",
+            width: "600px",
+            border: "2px dashed grey",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            boxSizing: "border-box",
+            mt: 1
+          }}
+        >
+          <InboxIcon /> Drop Hero or Section or Wrapper here
+        </Box>
       </Box>
     </Box>
   );
