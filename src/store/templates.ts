@@ -9,7 +9,8 @@ interface MJMLNodeAttributes {
 }
 
 interface MJMLNode {
-  templateName: string
+  templateName?: string
+  templateId?: string;
   tagName: string;
   attributes: MJMLNodeAttributes;
   children: MJMLNode[];

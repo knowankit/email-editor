@@ -8,6 +8,7 @@ import Tooltip from "@mui/material/Tooltip";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import useTemplatesStore from "@/store/templates";
+import { v4 as uuidv4 } from "uuid";
 
 const CreateTemplateButton = () => {
   const [isOpen, setOpen] = useState(false);
@@ -26,7 +27,7 @@ const CreateTemplateButton = () => {
   };
 
   const handleCreateTemplate = () => {
-    createNewTemplate({ ...emailData, templateName });
+    createNewTemplate({ ...emailData, templateName, templateId: uuidv4() });
 
     handleClose();
   };
