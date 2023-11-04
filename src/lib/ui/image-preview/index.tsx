@@ -22,6 +22,7 @@ const ImagePreview = ({
   width = "100px"
 }: ImagePreview) => {
   const [isOpen, setOpen] = useState(false);
+  const [mouseEnter, setMouseEnter] = useState(false);
 
   const handleClearImage = () => {
     handleImageChange({
@@ -32,6 +33,8 @@ const ImagePreview = ({
 
   return (
     <Box
+      onMouseEnter={() => setMouseEnter(true)}
+      onMouseLeave={() => setMouseEnter(false)}
       sx={{
         height,
         width,
@@ -41,7 +44,7 @@ const ImagePreview = ({
         backgroundSize: "cover"
       }}
     >
-      {formData["background-url"] && (
+      {formData["background-url"] && mouseEnter && (
         <Box
           height="inherit"
           display="flex"
