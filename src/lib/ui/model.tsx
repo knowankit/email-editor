@@ -40,7 +40,7 @@ export default function CustomDialog({
       keepMounted
       onClose={handleClick}
     >
-      <DialogTitle>{title}</DialogTitle>
+      {title && <DialogTitle>{title}</DialogTitle>}
       <DialogContent>{children}</DialogContent>
 
       <DialogActions sx={{ padding: "1rem" }}>
