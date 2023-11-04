@@ -72,7 +72,7 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
                 height: "100px",
                 width: "100px",
                 marginRight: "1rem",
-                backgroundImage: `url("${activeNode?.section.attributes["background-url"]}")`,
+                backgroundImage: `url("${formData["background-url"]}")`,
                 backgroundSize: "cover"
               }}
             />
