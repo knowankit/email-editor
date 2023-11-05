@@ -51,16 +51,14 @@ export default function ElementsDrawer() {
   );
 
   return (
-    <Box>
-      <Box
-        sx={{
-          width: "25vw",
-          height: "100%",
-          border: "2px solid #e5e6ec"
-        }}
-      >
-        {htmltags()}
-      </Box>
+    <Box
+      sx={{
+        width: "25vw",
+        border: "2px solid #e5e6ec",
+        overflow: "scroll"
+      }}
+    >
+      {htmltags()}
     </Box>
   );
 }

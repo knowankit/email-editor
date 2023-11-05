@@ -25,8 +25,8 @@ const RightSidebar = () => {
     <Box
       sx={{
         width: "25vw",
-        height: "100%",
-        border: "2px solid #e5e6ec"
+        border: "2px solid #e5e6ec",
+        overflow: "scroll"
       }}
     >
       <TabContext value={value}>
