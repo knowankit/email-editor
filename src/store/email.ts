@@ -37,6 +37,7 @@ interface StoreActions {
   setActiveNode: (data: ActiveNode | null) => void;
   pushTagElement: (tagType: string, keys: string) => void
   updateAttributes: (attributes: any, keys: string) => void
+  updateActiveNodeAttributes: (key: string, attributes: any) => void
   updateContent: (content: string, keys: string) => void
   popTagElement: (path: string) => void
   resetEmailData: () => void;
@@ -109,6 +110,12 @@ const useEmailDataStore = create<StoreState & StoreActions>()(
         }
 
         currentObj.attributes = newAttributes
+      }))
+    },
+
+    updateActiveNodeAttributes: (key: string, newAttributes: any) => {
+      set(produce((draft) => {
+        draft.activeNode['section'][key] = newAttributes
       }))
     },
 

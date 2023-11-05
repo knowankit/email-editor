@@ -16,7 +16,11 @@ interface ISetting {
 }
 
 const Dimension = ({ expanded, changeTab }: ISetting) => {
-  const { activeNode, updateAttributes } = useEmailStore();
+  const {
+    activeNode,
+    updateAttributes,
+    updateActiveNodeAttributes
+  } = useEmailStore();
   const { section } = activeNode;
   const attributes = section.attributes;
 
@@ -44,6 +48,7 @@ const Dimension = ({ expanded, changeTab }: ISetting) => {
     };
 
     updateAttributes(newAttributes, activeNode.path);
+    updateActiveNodeAttributes("attributes", newAttributes);
   };
 
   return (
