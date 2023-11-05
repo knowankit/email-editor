@@ -24,7 +24,7 @@
     "immer": "^10.0.3",
     "mjml": "^4.14.1",
     "mjml-react": "^2.0.8",
-    "next": "13.4.6",
+    "next": "13.5.0",
     "nextjs-progressbar": "^0.0.16",
     "nookies": "^2.5.2",
     "react": "18.2.0",
