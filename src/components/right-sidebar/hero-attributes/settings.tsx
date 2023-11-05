@@ -25,7 +25,11 @@ interface ISetting {
 }
 
 const Settings = ({ expanded, changeTab }: ISetting) => {
-  const { activeNode, updateAttributes } = useEmailStore();
+  const {
+    activeNode,
+    updateAttributes,
+    updateActiveNodeAttributes
+  } = useEmailStore();
   const [fieldName, setFieldName] = useState("");
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -55,6 +59,7 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
     };
 
     updateAttributes(newAttributes, activeNode.path);
+    updateActiveNodeAttributes("attributes", newAttributes);
   };
 
   const handleImageChange = (data: any) => {

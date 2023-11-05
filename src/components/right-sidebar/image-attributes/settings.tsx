@@ -21,8 +21,12 @@ interface ISetting {
 }
 
 const Settings = ({ expanded, changeTab }: ISetting) => {
-  const { activeNode, emailData, setEmailData } = useEmailStore();
-  const { sectionIndex, imageIndex, section, columnIndex } = activeNode;
+  const {
+    activeNode,
+    updateAttributes,
+    updateActiveNodeAttributes
+  } = useEmailStore();
+  const { section } = activeNode;
   const attributes = section.attributes;
 
   const [formData, setFormData] = useState({
@@ -40,16 +44,13 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
   };
 
   const applyChanges = () => {
-    const emailDataClone = { ...emailData };
-
-    emailDataClone.children[sectionIndex].children[columnIndex].children[
-      imageIndex
-    ].attributes = {
+    const newAttributes = {
       ...attributes,
       ...formData
     };
 
-    setEmailData(emailDataClone);
+    updateAttributes(newAttributes, activeNode.path);
+    updateActiveNodeAttributes("attributes", newAttributes);
   };
 
   return (
