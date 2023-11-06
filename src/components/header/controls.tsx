@@ -5,6 +5,7 @@ import { useState } from "react";
 import { LiaStarSolid } from "react-icons/lia";
 import Link from "@mui/material/Link";
 import OnlineOfflineStatus from "@/components/header/online-offline-status";
+import IntroButton from "@/components/header/intro-button";
 
 const FullScreenPreview = dynamic(() => import("@/components/share-modal"), {
   ssr: false
@@ -16,6 +17,7 @@ const Controls = () => {
   return (
     <Box mb={"1rem"} display="flex" justifyContent="space-between">
       <Box display="flex">
+        <IntroButton />
         <OnlineOfflineStatus />
         <Button
           color="secondary"
