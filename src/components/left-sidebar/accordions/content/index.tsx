@@ -49,7 +49,7 @@ const Content = () => {
         <Typography fontSize="0.8rem">Content</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Box display="flex" flexWrap="wrap">
+        <Box display="flex" flexWrap="wrap" className="step-1">
           {elements.map((element, index) => (
             <Paper
               elevation={2}

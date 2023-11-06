@@ -43,7 +43,7 @@ const Layout = () => {
         <Typography fontSize="0.8rem">Layout</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Box display="flex" flexWrap="wrap">
+        <Box display="flex" flexWrap="wrap" className="step-2">
           {elements.map((element, index) => (
             <Paper
               elevation={2}

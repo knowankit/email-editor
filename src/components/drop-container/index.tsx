@@ -65,7 +65,7 @@ const DropContainer = () => {
         setIsMobile={setIsMobile}
         currentView={currentView}
       />
-      <Box sx={style} ref={drop}>
+      <Box sx={style} ref={drop} className="step-3">
         {currentView == "edit" && <EditMode />}
         {["preview", "desktop-preview"].includes(currentView) && (
           <PreviewMode isMobile={isMobile} />
