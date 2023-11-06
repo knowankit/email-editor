@@ -97,6 +97,7 @@ const ResponsiveControl = ({
         sx={{
           flex: 1
         }}
+        className="step-4"
       >
         <Tooltip title="Edit view" placement="top" arrow>
           <Box component="span">
