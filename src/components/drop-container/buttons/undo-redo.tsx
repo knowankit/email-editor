@@ -21,7 +21,6 @@ const UndoRedo = () => {
       if ((event.metaKey || event.ctrlKey) && event.key === "z") {
         // Prevent the default browser undo action
         event.preventDefault();
-        console.log("isUndoDisabled", !isUndoDisabled);
         if (!isUndoDisabled) undoEmail();
       }
 
