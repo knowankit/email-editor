@@ -12,20 +12,25 @@ const UndoRedo = () => {
     currentHistoryIndex
   } = useEmailStore();
 
+  const isUndoDisabled = !history.length || currentHistoryIndex === -1;
+  const isRedoDisabled =
+    !history.length || currentHistoryIndex === history.length - 1;
+
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key === "z") {
         // Prevent the default browser undo action
         event.preventDefault();
-
-        undoEmail();
+        console.log("isUndoDisabled", !isUndoDisabled);
+        if (!isUndoDisabled) undoEmail();
       }
 
       // Check if CMD/CTRL key is held down and 'Y' is pressed for redo
       if ((event.metaKey || event.ctrlKey) && event.key === "y") {
         // Prevent the default browser redo action
         event.preventDefault();
-        redoEmail();
+
+        if (!isRedoDisabled) redoEmail();
       }
     };
 
@@ -35,7 +40,7 @@ const UndoRedo = () => {
     return () => {
       document.removeEventListener("keydown", handleKeyPress);
     };
-  }, []);
+  }, [isUndoDisabled, isRedoDisabled]);
 
   return (
     <Box>
@@ -43,7 +48,7 @@ const UndoRedo = () => {
         <Box component="span">
           <IconButton
             aria-label="Undo"
-            disabled={!history.length || currentHistoryIndex === -1}
+            disabled={isUndoDisabled}
             onClick={undoEmail}
           >
             <UndoIcon />
@@ -54,9 +59,7 @@ const UndoRedo = () => {
         <Box component="span">
           <IconButton
             aria-label="Redo"
-            disabled={
-              !history.length || currentHistoryIndex === history.length - 1
-            }
+            disabled={isRedoDisabled}
             onClick={redoEmail}
           >
             <RedoIcon />
