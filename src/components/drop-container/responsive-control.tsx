@@ -24,58 +24,47 @@ const ResponsiveControl = ({
   setIsMobile,
   currentView
 }: IResponsiveControl) => {
-  const { emailData, resetEmailData } = useEmailStore();
-
   const {
-    redoStack,
-    undoStack,
-    popFromUndoStack,
-    popFromRedoStack,
-    resetStack
-  } = useEmailHistoryStore();
+    emailData,
+    resetEmailData,
+    history,
+    undoEmail,
+    redoEmail,
+    currentHistoryIndex
+  } = useEmailStore();
 
-  const undoEmail = () => {
-    popFromUndoStack();
-  };
-
-  const redoEmail = () => {
-    popFromRedoStack();
-  };
+  const { redoStack, undoStack, resetStack } = useEmailHistoryStore();
 
   const getTooltipTitle = (type: string) => {
     switch (type) {
-      case "mobile":
-        {
-          if (!emailData["children"].length) {
-            return "Please add any data";
-          } else {
-            return "Mobile view";
-          }
+      case "mobile": {
+        if (!emailData["children"].length) {
+          return "Please add any data";
+        } else {
+          return "Mobile view";
         }
-      case "desktop":
-        {
-          if (!emailData["children"].length) {
-            return "Please add any data";
-          } else {
-            return "Desktop view";
-          }
+      }
+      case "desktop": {
+        if (!emailData["children"].length) {
+          return "Please add any data";
+        } else {
+          return "Desktop view";
         }
-      case "undo":
-        {
-          if (!undoStack.length) {
-            return "Please add any data";
-          } else {
-            return "Undo";
-          }
+      }
+      case "undo": {
+        if (!undoStack.length) {
+          return "Please add any data";
+        } else {
+          return "Undo";
         }
-      case "redo":
-        {
-          if (!redoStack.length) {
-            return "Please add any data";
-          } else {
-            return "Redo";
-          }
+      }
+      case "redo": {
+        if (!redoStack.length) {
+          return "Please add any data";
+        } else {
+          return "Redo";
         }
+      }
       case "reset":
         {
           if (!emailData["children"].length) {
@@ -163,7 +152,7 @@ const ResponsiveControl = ({
             <Box component="span">
               <IconButton
                 aria-label="Undo"
-                disabled={!undoStack.length}
+                disabled={!history.length || currentHistoryIndex === -1}
                 onClick={undoEmail}
               >
                 <UndoIcon />
@@ -174,7 +163,9 @@ const ResponsiveControl = ({
             <Box component="span">
               <IconButton
                 aria-label="Redo"
-                disabled={!redoStack.length}
+                disabled={
+                  !history.length || currentHistoryIndex === history.length - 1
+                }
                 onClick={redoEmail}
               >
                 <RedoIcon />
