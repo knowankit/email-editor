@@ -115,9 +115,11 @@ const HeroPreview = ({ section, index, path }: ITextPreview) => {
 
     if (isActiveOver) {
       const hoverCss = {
-        outline: "4px dotted green !important"
+        outline: "4px solid #00AB55 !important"
       };
+
       return { ...defaultStyle, ...objectCss, ...hoverCss };
+    } else if (isOver) {
     }
     return { ...defaultStyle, ...objectCss };
   };
