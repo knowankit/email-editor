@@ -1,15 +1,13 @@
 import ComputerIcon from "@mui/icons-material/Computer";
 import SmartphoneIcon from "@mui/icons-material/Smartphone";
 import IconButton from "@mui/material/IconButton";
-import UndoIcon from "@mui/icons-material/Undo";
-import RedoIcon from "@mui/icons-material/Redo";
+
 import PreviewIcon from "@mui/icons-material/Preview";
 import ResetTvIcon from "@mui/icons-material/ResetTv";
-import { Box } from "@mui/material";
+import { Box, Tooltip } from "@mui/material";
 import useEmailStore from "@/store/email";
-import CreateTemplateButton from "@/components/drop-container/create-template-button";
-import useEmailHistoryStore from "@/store/email-history";
-import Tooltip from "@mui/material/Tooltip";
+import CreateTemplateButton from "@/components/drop-container/buttons/create-template-button";
+import UndoRedoButton from "@/components/drop-container/buttons/undo-redo";
 
 interface IResponsiveControl {
   setCurrentView: (view: currentView) => void;
@@ -24,16 +22,7 @@ const ResponsiveControl = ({
   setIsMobile,
   currentView
 }: IResponsiveControl) => {
-  const {
-    emailData,
-    resetEmailData,
-    history,
-    undoEmail,
-    redoEmail,
-    currentHistoryIndex
-  } = useEmailStore();
-
-  const { redoStack, undoStack, resetStack } = useEmailHistoryStore();
+  const { emailData, resetEmailData } = useEmailStore();
 
   const getTooltipTitle = (type: string) => {
     switch (type) {
@@ -51,20 +40,7 @@ const ResponsiveControl = ({
           return "Desktop view";
         }
       }
-      case "undo": {
-        if (!undoStack.length) {
-          return "Please add any data";
-        } else {
-          return "Undo";
-        }
-      }
-      case "redo": {
-        if (!redoStack.length) {
-          return "Please add any data";
-        } else {
-          return "Redo";
-        }
-      }
+
       case "reset":
         {
           if (!emailData["children"].length) {
@@ -148,32 +124,7 @@ const ResponsiveControl = ({
         ml={4}
         sx={{ flex: 1, display: "flex", justifyContent: "space-between" }}
       >
-        <Box>
-          <Tooltip title={getTooltipTitle("undo")} placement="top" arrow>
-            <Box component="span">
-              <IconButton
-                aria-label="Undo"
-                disabled={!history.length || currentHistoryIndex === -1}
-                onClick={undoEmail}
-              >
-                <UndoIcon />
-              </IconButton>
-            </Box>
-          </Tooltip>
-          <Tooltip title={getTooltipTitle("redo")} placement="top" arrow>
-            <Box component="span">
-              <IconButton
-                aria-label="Redo"
-                disabled={
-                  !history.length || currentHistoryIndex === history.length - 1
-                }
-                onClick={redoEmail}
-              >
-                <RedoIcon />
-              </IconButton>
-            </Box>
-          </Tooltip>
-        </Box>
+        <UndoRedoButton />
         <Box>
           <Tooltip title={getTooltipTitle("reset")} placement="top" arrow>
             <Box component="span">
@@ -182,7 +133,6 @@ const ResponsiveControl = ({
                 disabled={!emailData["children"].length}
                 onClick={() => {
                   resetEmailData();
-                  resetStack();
                 }}
               >
                 <ResetTvIcon />
