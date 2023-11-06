@@ -12,6 +12,8 @@ interface StoreState {
     templateId?: string;
   };
   activeNode: any | null;
+  history: MJMLNode[]
+  currentHistoryIndex: number
 }
 
 interface MJMLNodeAttributes {
@@ -41,6 +43,9 @@ interface StoreActions {
   updateContent: (content: string, keys: string) => void
   popTagElement: (path: string) => void
   resetEmailData: () => void;
+  undoEmail: () => void;
+  redoEmail: () => void;
+
 }
 
 export const initialState = {
@@ -80,6 +85,9 @@ const useEmailDataStore = create<StoreState & StoreActions>()(
         if (Array.isArray(currentArray)) {
           currentArray.push(getDefaultTags(tagType));
         }
+
+        draft.history.push(draft.emailData)
+        draft.currentHistoryIndex++
       }));
     },
 
@@ -97,6 +105,9 @@ const useEmailDataStore = create<StoreState & StoreActions>()(
         if (Array.isArray(currentArray)) {
           currentArray.splice(index, 1);
         }
+
+        draft.history.push(draft.emailData)
+        draft.currentHistoryIndex++
       }));
     },
 
@@ -110,6 +121,9 @@ const useEmailDataStore = create<StoreState & StoreActions>()(
         }
 
         currentObj.attributes = newAttributes
+
+        draft.history.push(draft.emailData)
+        draft.currentHistoryIndex++
       }))
     },
 
@@ -124,6 +138,7 @@ const useEmailDataStore = create<StoreState & StoreActions>()(
         produce((draft) => {
           draft.emailData = initialState.emailData;
           draft.activeNode = initialState.activeNode;
+          draft.history = []
         })
     ),
 
@@ -137,12 +152,38 @@ const useEmailDataStore = create<StoreState & StoreActions>()(
         }
 
         currentObj.content = newContent
+
+        draft.history.push(draft.emailData)
+        draft.currentHistoryIndex++
       }))
     },
 
+    undoEmail: () => {
+      set(produce((draft) => {
+        const index = draft.currentHistoryIndex - 1
+        const data = index >= 0 ? draft.history[index] : initialState.emailData
+        draft.emailData = data
+
+        draft.currentHistoryIndex--
+        draft.activeNode = null
+      }))
+    },
+
+    redoEmail: () => {
+      set(produce((draft) => {
+        const index = draft.currentHistoryIndex + 1
+        const data = index >= draft.history.length ?   draft.history[draft.history.length - 1] : draft.history[index]
+        draft.emailData = data
+
+        draft.currentHistoryIndex++
+        draft.activeNode = null
+      }))
+    },
 
     emailData: initialState.emailData,
     activeNode: initialState.activeNode,
+    history: [],
+    currentHistoryIndex: -1
   }), {
     name: 'email-store',
   })
