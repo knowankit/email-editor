@@ -2,6 +2,8 @@
 import NextAuth from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 export default NextAuth({
   providers: [
     GitHubProvider({
@@ -11,8 +13,8 @@ export default NextAuth({
   ],
   callbacks: {
     async signIn({ user, profile }) {
-
       return true
     }
   },
+  secret: isProduction ? process.env.NEXT_AUTH_SECRET_KEY : ''
 });
