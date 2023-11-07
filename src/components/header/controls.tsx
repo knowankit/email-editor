@@ -7,12 +7,15 @@ import Link from "@mui/material/Link";
 import OnlineOfflineStatus from "@/components/header/online-offline-status";
 import IntroButton from "@/components/header/intro-button";
 import GithubAuth from "@/components/header/github-auth";
+import { useSession } from "next-auth/react";
 
 const FullScreenPreview = dynamic(() => import("@/components/share-modal"), {
   ssr: false
 });
 
 const Controls = () => {
+  const { status } = useSession();
+
   const [isOpen, setModalVisibility] = useState(false);
 
   return (
@@ -23,6 +26,7 @@ const Controls = () => {
         <Button
           color="secondary"
           size="small"
+          disabled={!(status === "authenticated")}
           onClick={() => setModalVisibility(true)}
           startIcon={<SendIcon />}
           sx={{ textTransform: "none", mr: "1rem" }}
