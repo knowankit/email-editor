@@ -6,12 +6,16 @@ import { LiaStarSolid } from "react-icons/lia";
 import Link from "@mui/material/Link";
 import OnlineOfflineStatus from "@/components/header/online-offline-status";
 import IntroButton from "@/components/header/intro-button";
+import GithubAuth from "@/components/header/github-auth";
+import { useSession } from "next-auth/react";
 
 const FullScreenPreview = dynamic(() => import("@/components/share-modal"), {
   ssr: false
 });
 
 const Controls = () => {
+  const { status } = useSession();
+
   const [isOpen, setModalVisibility] = useState(false);
 
   return (
@@ -22,28 +26,31 @@ const Controls = () => {
         <Button
           color="secondary"
           size="small"
+          disabled={!(status === "authenticated")}
           onClick={() => setModalVisibility(true)}
           startIcon={<SendIcon />}
           sx={{ textTransform: "none", mr: "1rem" }}
         >
           Share
         </Button>
-        <Link
-          component="a"
-          fontSize="0.875rem"
-          href="https://github.com/knowankit/email-editor"
-          sx={{
-            textTransform: "none",
-            textDecoration: "none",
-            display: "flex",
-            alignItems: "center",
-            color: "black"
-          }}
-        >
-          <LiaStarSolid />
-          &nbsp; Github
-        </Link>
+        <GithubAuth />
       </Box>
+
+      <Link
+        component="a"
+        fontSize="0.875rem"
+        href="https://github.com/knowankit/email-editor"
+        sx={{
+          textTransform: "none",
+          textDecoration: "none",
+          display: "flex",
+          alignItems: "center",
+          color: "black"
+        }}
+      >
+        <LiaStarSolid />
+        &nbsp; Github
+      </Link>
       <FullScreenPreview
         open={isOpen}
         onClose={val => setModalVisibility(val)}
