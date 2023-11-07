@@ -16,19 +16,19 @@ const IntroButton = () => {
         },
         {
           element: document.querySelector(".step-1") as HTMLElement,
-          intro: "These are the elements that can be dragged"
+          intro: "These are the elements that can be dragged."
         },
         {
           element: document.querySelector(".step-2") as HTMLElement,
-          intro: "These are container"
+          intro: "These are containers."
         },
         {
           element: document.querySelector(".step-3") as HTMLElement,
-          intro: "You can drop your elements here"
+          intro: "You can drop your elements here."
         },
         {
           element: document.querySelector(".step-4") as HTMLElement,
-          intro: "You can use these to get mobie and desktop preview "
+          intro: "You can use these to get Mobile and Desktop preview."
         }
       ]
     });

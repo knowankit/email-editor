@@ -41,9 +41,31 @@ const UndoRedo = () => {
     };
   }, [isUndoDisabled, isRedoDisabled]);
 
+  const getTitle = (key: "undo" | "redo") => {
+    if (key == "undo") {
+      return (
+        <Box>
+          <Box component="span" mr="0.5rem">
+            Undo
+          </Box>
+          <Box component="kbd">ctrl/cmd + z</Box>
+        </Box>
+      );
+    }
+
+    return (
+      <Box>
+        <Box component="span" mr="0.5rem">
+          Redo
+        </Box>
+        <Box component="kbd">ctrl/cmd + y</Box>
+      </Box>
+    );
+  };
+
   return (
     <Box>
-      <Tooltip title="Undo" placement="top" arrow>
+      <Tooltip title={getTitle("undo")} placement="top" arrow>
         <Box component="span">
           <IconButton
             aria-label="Undo"
@@ -54,7 +76,7 @@ const UndoRedo = () => {
           </IconButton>
         </Box>
       </Tooltip>
-      <Tooltip title="Redo" placement="top" arrow>
+      <Tooltip title={getTitle("redo")} placement="top" arrow>
         <Box component="span">
           <IconButton
             aria-label="Redo"
