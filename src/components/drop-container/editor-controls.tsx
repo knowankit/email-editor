@@ -6,8 +6,9 @@ import PreviewIcon from "@mui/icons-material/Preview";
 import ResetTvIcon from "@mui/icons-material/ResetTv";
 import { Box, Tooltip } from "@mui/material";
 import useEmailStore from "@/store/email";
-import CreateTemplateButton from "@/components/drop-container/buttons/create-template-button";
-import UndoRedoButton from "@/components/drop-container/buttons/undo-redo";
+import CreateTemplateButton from "@/components/button-controls/create-template-button";
+import UndoRedoButton from "@/components/button-controls/undo-redo";
+import ShareEmailButton from "@/components/button-controls/share-email-button";
 
 interface IResponsiveControl {
   setCurrentView: (view: currentView) => void;
@@ -140,6 +141,7 @@ const ResponsiveControl = ({
             </Box>
           </Tooltip>
           <CreateTemplateButton />
+          <ShareEmailButton />
         </Box>
       </Box>
     </Box>

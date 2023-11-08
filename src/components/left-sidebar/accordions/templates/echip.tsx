@@ -23,7 +23,7 @@ const EChip = ({ handleClick, handleDelete, template }: IEChip) => {
       }
       sx={{ mr: 1 }}
       onDelete={handleDelete}
-      deleteIcon={<DeleteIcon />}
+      deleteIcon={<DeleteIcon fontSize="small" />}
     />
   );
 };
