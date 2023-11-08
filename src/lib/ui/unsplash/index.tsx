@@ -76,6 +76,7 @@ const Unsplash = ({ handleImageChange, field, setOpen }: IUnsplash) => {
           size="small"
           placeholder="Search Photos"
           value={value}
+          autoComplete="off"
           onChange={e => setValue(e.target.value)}
         />
         <Button
