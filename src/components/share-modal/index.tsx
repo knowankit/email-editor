@@ -88,11 +88,13 @@ const FullScreenPreview = (props: SimpleDialogProps) => {
       <Dialog onClose={handleClose} open={open}>
         <DialogTitle>Send email</DialogTitle>
         <DialogContent>
-          <Box display="flex" flexDirection="column" width="15rem">
+          <Box display="flex" flexDirection="column" width="15rem" mt="1rem">
             <TextField
               value={user.email}
               type="email"
-              disabled
+              variant="outlined"
+              label="From"
+              // disabled
               size="small"
               placeholder="Sender's email"
               // onChange={e => setFrom(e.target.value)}
@@ -100,12 +102,14 @@ const FullScreenPreview = (props: SimpleDialogProps) => {
             <TextField
               size="small"
               value={to}
+              variant="outlined"
+              label="To"
               type="email"
               sx={{ mt: "1rem" }}
               placeholder="Receiver's email"
               onChange={e => setTo(e.target.value)}
             ></TextField>
-            <Box mt={1}>
+            <Box mt={2}>
               <Button
                 variant="contained"
                 size="small"

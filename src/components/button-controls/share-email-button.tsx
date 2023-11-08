@@ -20,7 +20,9 @@ const ShareEmailButton = () => {
         color="secondary"
         className="step-7"
         size="small"
-        disabled={!(status === "authenticated") || emailData["children"].length}
+        disabled={
+          !(status === "authenticated") || !emailData["children"].length
+        }
         onClick={() => setModalVisibility(true)}
         sx={{ textTransform: "none", mr: "1rem" }}
       >
