@@ -12,6 +12,7 @@ import SendIcon from "@mui/icons-material/Send";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { getBaseURL } from "@/lib/util/get-email-url";
+import { useSession } from "next-auth/react";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -30,8 +31,12 @@ const FullScreenPreview = (props: SimpleDialogProps) => {
   const { emailData } = useEmailStore();
   const [from, setFrom] = useState("");
   const [isAlertOn, setAlertStatus] = useState(false);
+  const { data: session } = useSession();
+
+  if (!session) return <></>;
 
   const [to, setTo] = useState("");
+  const { user } = session as any;
 
   const loadMjMl = async () => {
     const url = `${getBaseURL()}/api/email-editor/generate-mjml`;
@@ -63,7 +68,7 @@ const FullScreenPreview = (props: SimpleDialogProps) => {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ htmlString: data.html, to, from })
+      body: JSON.stringify({ htmlString: data.html, to, from: user.email })
     });
 
     const json = await response.json();
@@ -83,23 +88,28 @@ const FullScreenPreview = (props: SimpleDialogProps) => {
       <Dialog onClose={handleClose} open={open}>
         <DialogTitle>Send email</DialogTitle>
         <DialogContent>
-          <Box display="flex" flexDirection="column" width="15rem">
+          <Box display="flex" flexDirection="column" width="15rem" mt="1rem">
             <TextField
-              value={from}
+              value={user.email}
               type="email"
+              variant="outlined"
+              label="From"
+              // disabled
               size="small"
               placeholder="Sender's email"
-              onChange={e => setFrom(e.target.value)}
+              // onChange={e => setFrom(e.target.value)}
             ></TextField>
             <TextField
               size="small"
               value={to}
+              variant="outlined"
+              label="To"
               type="email"
               sx={{ mt: "1rem" }}
               placeholder="Receiver's email"
               onChange={e => setTo(e.target.value)}
             ></TextField>
-            <Box mt={1}>
+            <Box mt={2}>
               <Button
                 variant="contained"
                 size="small"
