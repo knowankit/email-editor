@@ -33,6 +33,8 @@ const FullScreenPreview = (props: SimpleDialogProps) => {
   const [isAlertOn, setAlertStatus] = useState(false);
   const { data: session } = useSession();
 
+  if (!session) return <></>;
+
   const [to, setTo] = useState("");
   const { user } = session as any;
 
