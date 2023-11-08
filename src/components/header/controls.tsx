@@ -2,8 +2,8 @@ import { Box, Button } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import dynamic from "next/dynamic";
 import { useState } from "react";
-import { LiaStarSolid } from "react-icons/lia";
 import Link from "@mui/material/Link";
+import GitHubIcon from "@mui/icons-material/GitHub";
 import OnlineOfflineStatus from "@/components/header/online-offline-status";
 import IntroButton from "@/components/header/intro-button";
 import GithubAuth from "@/components/header/github-auth";
@@ -48,8 +48,7 @@ const Controls = () => {
           color: "black"
         }}
       >
-        <LiaStarSolid />
-        &nbsp; Github
+        <GitHubIcon />
       </Link>
       <FullScreenPreview
         open={isOpen}

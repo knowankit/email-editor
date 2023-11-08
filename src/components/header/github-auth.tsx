@@ -1,5 +1,4 @@
 import { Button } from "@mui/material";
-import PlayCircleFilledWhiteIcon from "@mui/icons-material/PlayCircleFilledWhite";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import handleGitHubSignIn from "@/lib/auth/github";
 import { useSession, signOut } from "next-auth/react";
@@ -12,12 +11,11 @@ const GithubAuth = () => {
       <Button
         color="secondary"
         size="small"
-        variant="contained"
         onClick={() => handleGitHubSignIn()}
-        startIcon={<PlayCircleFilledWhiteIcon />}
-        sx={{ textTransform: "none", mr: "1rem" }}
+        startIcon={<GitHubIcon />}
+        sx={{ textTransform: "none", mr: "1rem", color: "black" }}
       >
-        Git login test
+        Login
       </Button>
     );
   }
@@ -32,9 +30,9 @@ const GithubAuth = () => {
   return (
     <Button
       size="small"
-      onClick={logout}
       startIcon={<GitHubIcon />}
-      sx={{ textTransform: "none", mr: "1rem" }}
+      onClick={logout}
+      sx={{ textTransform: "none", mr: "1rem", color: "black" }}
     >
       {name} - Logout
     </Button>
