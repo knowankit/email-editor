@@ -29,6 +29,18 @@ const IntroButton = () => {
         {
           element: document.querySelector(".step-4") as HTMLElement,
           intro: "You can use these to get Mobile and Desktop preview."
+        },
+        {
+          element: document.querySelector(".step-5") as HTMLElement,
+          intro: "Save the template on local machine."
+        },
+        {
+          element: document.querySelector(".step-6") as HTMLElement,
+          intro: "Saved templates will be shown here"
+        },
+        {
+          element: document.querySelector(".step-7") as HTMLElement,
+          intro: "Login to share the email with others"
         }
       ]
     });

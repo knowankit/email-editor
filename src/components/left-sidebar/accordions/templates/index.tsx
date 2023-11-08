@@ -31,6 +31,7 @@ const Templates = () => {
       expanded={expanded === "templates"}
       onChange={() => setExpanded(expanded === "templates" ? "" : "templates")}
       sx={{ width: "100%" }}
+      className="step-6"
     >
       <AccordionSummary aria-controls="templates">
         <Typography fontSize="0.8rem">Templates</Typography>

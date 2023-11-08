@@ -16,6 +16,7 @@ const ShareEmailButton = () => {
     <>
       <IconButton
         color="secondary"
+        className="step-7"
         size="small"
         disabled={!(status === "authenticated")}
         onClick={() => setModalVisibility(true)}

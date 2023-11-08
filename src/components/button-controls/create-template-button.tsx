@@ -35,7 +35,7 @@ const CreateTemplateButton = () => {
   return (
     <>
       <Tooltip title="Create template" placement="top" arrow>
-        <Box component="span">
+        <Box component="span" className="step-5">
           <IconButton
             aria-label="save"
             disabled={!emailData["children"].length}
