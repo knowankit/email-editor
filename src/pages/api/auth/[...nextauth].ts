@@ -16,11 +16,8 @@ const nextAuthConfig = NextAuth({
       return true
     },
   },
+  secret: process.env.NEXT_AUTH_SECRET_KEY
 });
-
-if (isProduction) {
-  nextAuthConfig['secret'] = process.env.NEXT_AUTH_SECRET_KEY
-}
 
 export default nextAuthConfig
 
