@@ -19,6 +19,8 @@ Email Editor is a web-based email template editor that allows you to create and 
 
 ## Upcoming features
 
+- **More UI controls** ⏳
+- **New Layout and sections** ⏳
 - **Save templates online**
 - **Schedule email send**
 - **Open AI integration**
