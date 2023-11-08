@@ -17,9 +17,9 @@ const nextAuthConfig = NextAuth({
     },
 
     async redirect({url, baseUrl}) {
-      return url.startsWith('http')
-        ? 'http://localhost:3000'
-        : 'https://emaileditor.knowankit.com'
+      return url.startsWith(baseUrl)
+      ? url
+      : baseUrl
     }
   },
 });
