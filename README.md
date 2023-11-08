@@ -8,7 +8,7 @@
   </a>
 </p>
 
-Email Editor is a web-based email template editor that allows you to create and customize responsive email templates using the MJML package. With drag-and-drop functionality, undo and redo history, template saving, image selection from Unsplash, and a preview feature, it provides a user-friendly interface for designing email templates.
+Email Editor ([Demo](https://trello-clone-one.vercel.app/)) is a web-based email template editor that allows you to create and customize responsive email templates with drag-and-drop functionality, undo and redo history, template saving, image selection from Unsplash, and a preview feature, it provides a user-friendly interface for designing email templates.
 
 ## Features
 
