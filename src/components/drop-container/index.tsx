@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { useDrop } from "react-dnd";
 import useEmailStore from "@/store/email";
 import { useState } from "react";
-import ResponsiveControl from "@/components/drop-container/responsive-control";
+import ResponsiveControl from "@/components/drop-container/editor-controls";
 import PreviewMode from "@/components/drop-container/preview-mode";
 import useEmailHistoryStore from "@/store/email-history";
 import EditMode from "@/components/drop-container/edit-mode";

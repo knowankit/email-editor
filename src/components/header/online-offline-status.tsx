@@ -1,6 +1,6 @@
 import WifiIcon from "@mui/icons-material/Wifi";
 import WifiOffIcon from "@mui/icons-material/WifiOff";
-import { Button } from "@mui/material";
+import { IconButton } from "@mui/material";
 import { useEffect, useState } from "react";
 import useSnackBarStore from "@/store/snackbar";
 
@@ -43,14 +43,13 @@ const OnlineOfflineStatus = () => {
   }, []);
 
   return (
-    <Button
+    <IconButton
       size="small"
       color={isConnected ? "primary" : "error"}
-      startIcon={isConnected ? <WifiIcon /> : <WifiOffIcon />}
       sx={{ textTransform: "none", mr: "1rem" }}
     >
-      {isConnected ? "Online" : "offline"}
-    </Button>
+      {isConnected ? <WifiIcon /> : <WifiOffIcon />}
+    </IconButton>
   );
 };
 
