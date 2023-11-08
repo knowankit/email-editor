@@ -2,12 +2,12 @@ import ElementsDrawer from "@/components/left-sidebar";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
 import DropContainer from "@/components/drop-container";
-import { Typography, Badge, Box } from "@mui/material";
+import { Box } from "@mui/material";
 import Controls from "@/components/header/controls";
 import RightSidebar from "@/components/right-sidebar";
-import Alert from "@mui/material/Alert";
 import { useEffect, useState } from "react";
 import NotSupportedOnMobile from "@/components/not-supported-mobile";
+import HomePageHeader from "@/components/home-page-header";
 
 const EmailEditor = () => {
   const [isMobile, setMobile] = useState<"mobile" | "desktop" | "">("");
@@ -26,20 +26,8 @@ const EmailEditor = () => {
 
   return (
     <>
-      <Box display="flex" justifyContent="space-between">
-        <Box p="1rem">
-          <Badge color="secondary" badgeContent="Beta">
-            <Typography variant="h4">📧 Editor</Typography>
-          </Badge>
-        </Box>
-        <Box>
-          <Alert severity="info">
-            This project is currently under development, and there is a high
-            likelihood of issues that I am actively addressing
-          </Alert>
-        </Box>
-      </Box>
       <Box px="1rem">
+        <HomePageHeader />
         <Controls />
       </Box>
       <Box
