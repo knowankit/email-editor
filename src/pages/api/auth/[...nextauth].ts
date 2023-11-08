@@ -2,7 +2,7 @@
 import NextAuth from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 
-const isProduction = process.env.NODE_ENV === 'production';
+const isProduction = process.env.NODE_ENV !== 'development'
 
 const nextAuthConfig = NextAuth({
   providers: [
