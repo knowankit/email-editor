@@ -4,7 +4,7 @@ import GitHubProvider from "next-auth/providers/github";
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-export default NextAuth({
+const nextAuthConfig = NextAuth({
   providers: [
     GitHubProvider({
       clientId: process.env.GITHUB_CLIENT_ID || '',
@@ -14,7 +14,19 @@ export default NextAuth({
   callbacks: {
     async signIn({ user, profile }) {
       return true
+    },
+
+    async redirect({url, baseUrl}) {
+      return url.startsWith('http')
+        ? 'http://localhost:3000'
+        : 'https://emaileditor.knowankit.com'
     }
   },
-  secret: isProduction ? process.env.NEXT_AUTH_SECRET_KEY : ''
 });
+
+if (isProduction) {
+  nextAuthConfig['secret'] = process.env.NEXT_AUTH_SECRET_KEY
+}
+
+export default nextAuthConfig
+
