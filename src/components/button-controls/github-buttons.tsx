@@ -1,6 +1,6 @@
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import Link from "@mui/material/Link";
-import StarIcon from "@mui/icons-material/Star";
+import GitHubIcon from "@mui/icons-material/GitHub";
 
 export const GithubFollowButton = () => {
   return (
@@ -41,7 +41,7 @@ export const GitHubRepoStarButton = () => {
         color: "black"
       }}
     >
-      <StarIcon sx={{ mr: "0.5rem" }} /> Star
+      <GitHubIcon sx={{ mr: "0.5rem" }} /> Star
     </Link>
   );
 };

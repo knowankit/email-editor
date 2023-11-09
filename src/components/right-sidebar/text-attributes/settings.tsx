@@ -109,6 +109,10 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
                 <InputAdornment position="start">
                   <IconButton
                     aria-label="color"
+                    sx={{
+                      color: formData["container-background-color"],
+                      backgroundColor: "#f1f1f1"
+                    }}
                     size="small"
                     onClick={event =>
                       handleColorPicker(event, "container-background-color")
@@ -135,6 +139,10 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
                 <InputAdornment position="start">
                   <IconButton
                     aria-label="color"
+                    sx={{
+                      color: formData["color"],
+                      backgroundColor: "#f1f1f1"
+                    }}
                     size="small"
                     onClick={event => handleColorPicker(event, "color")}
                   >

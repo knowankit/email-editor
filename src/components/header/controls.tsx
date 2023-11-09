@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import Link from "@mui/material/Link";
-import GitHubIcon from "@mui/icons-material/GitHub";
 import OnlineOfflineStatus from "@/components/header/online-offline-status";
 import IntroButton from "@/components/button-controls/intro-button";
 import GithubAuth from "@/components/button-controls/github-auth";
@@ -31,7 +30,6 @@ const Controls = () => {
       >
         <GithubFollowButton />
         <GitHubRepoStarButton />
-        <GitHubIcon />
         <OnlineOfflineStatus />
       </Link>
     </Box>
