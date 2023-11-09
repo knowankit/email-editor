@@ -145,6 +145,10 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
                     <IconButton
                       aria-label="color"
                       size="small"
+                      sx={{
+                        color: formData["background-color"],
+                        backgroundColor: "#f1f1f1"
+                      }}
                       onClick={event =>
                         handleColorPicker(event, "background-color")
                       }
