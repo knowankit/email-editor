@@ -10,7 +10,7 @@ interface IHoverInfo {
 
 const defaultStyle = {
   position: "absolute",
-  top: "-35px",
+  top: "-30px",
   left: "-5px",
   background: "white",
   color: "black",
@@ -45,18 +45,31 @@ const getTagName = (tagName: string) => {
 };
 
 const HoverInfo = ({ section, path }: IHoverInfo) => {
-  const { popTagElement } = useEmailDataStore();
+  const { popTagElement, activeNode } = useEmailDataStore();
 
   const handleDelete = () => {
     popTagElement(path);
   };
 
+  const activeSectionId = activeNode && activeNode["section"]?.id;
+  const currentSectionId = section.id;
+
+  const showControls = activeSectionId === currentSectionId;
+
   return (
     <Box sx={defaultStyle}>
-      {getTagName(section.tagName)}
-      <IconButton aria-label="delete" size="small" onClick={handleDelete}>
-        <DeleteIcon fontSize="small" color="error" />
-      </IconButton>
+      <Box component="span" fontSize="0.8rem">
+        {getTagName(section.tagName)}
+      </Box>
+      {showControls && (
+        <IconButton aria-label="delete" size="small" onClick={handleDelete}>
+          <DeleteIcon
+            fontSize="small"
+            sx={{ fontSize: "1rem" }}
+            color="error"
+          />
+        </IconButton>
+      )}
     </Box>
   );
 };

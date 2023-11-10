@@ -52,11 +52,12 @@ const ButtonPreview = ({ section, index, textIndex, path }: IButtonPreview) => {
     });
   };
 
-  const getStyle = () => {
-    const activeSectionId = activeNode && activeNode["section"]?.id;
-    const currentSectionId = section.id;
+  const activeSectionId = activeNode && activeNode["section"]?.id;
+  const currentSectionId = section.id;
+  const showControls = activeSectionId === currentSectionId;
 
-    if (activeSectionId === currentSectionId) {
+  const getStyle = () => {
+    if (showControls) {
       const activeCss = {
         outline: "4px solid #1939B7"
       };

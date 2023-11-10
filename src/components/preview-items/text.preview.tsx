@@ -41,11 +41,12 @@ const TextPreview = ({ section, index, textIndex, path }: ITextPreview) => {
     setActiveNode(activeNode);
   };
 
-  const getStyle = () => {
-    const activeSectionId = activeNode && activeNode["section"]?.id;
-    const currentSectionId = section.id;
+  const activeSectionId = activeNode && activeNode["section"]?.id;
+  const currentSectionId = section.id;
+  const showControls = activeSectionId === currentSectionId;
 
-    if (activeSectionId === currentSectionId) {
+  const getStyle = () => {
+    if (showControls) {
       const activeCss = {
         outline: "4px solid #1939B7"
       };
@@ -64,7 +65,9 @@ const TextPreview = ({ section, index, textIndex, path }: ITextPreview) => {
       onClick={handleClick}
     >
       {section.content}
-      {isHovered && <HoverInfo section={section} path={path} />}
+      {(isHovered || showControls) && (
+        <HoverInfo section={section} path={path} />
+      )}
     </Box>
   );
 };

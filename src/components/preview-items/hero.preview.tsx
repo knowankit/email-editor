@@ -104,11 +104,13 @@ const HeroPreview = ({ section, index, path }: ITextPreview) => {
 
   const children = section.children;
   const objectCss = objectToCSS(getCamelCasedAttributes(section.attributes));
+  const activeSectionId = activeNode && activeNode["section"]?.id;
+  const currentSectionId = section.id;
+
+  const showControls = activeSectionId === currentSectionId;
 
   const getBoxStyle = () => {
     const isActiveOver = isOver && canDrop;
-    const activeSectionId = activeNode && activeNode["section"]?.id;
-    const currentSectionId = section.id;
 
     // For showing green border on success element hover
     if (isActiveOver) {
@@ -120,7 +122,7 @@ const HeroPreview = ({ section, index, path }: ITextPreview) => {
     }
 
     // For currently active node border color
-    if (activeSectionId === currentSectionId) {
+    if (showControls) {
       const activeCss = {
         outline: "4px solid #1939B7"
       };
@@ -146,7 +148,9 @@ const HeroPreview = ({ section, index, path }: ITextPreview) => {
         children.map((element: any, nIndex: number) => {
           return loadHtmlElements(element, nIndex);
         })}
-      {isHovered && <HoverInfo section={section} path={path} />}
+      {(isHovered || showControls) && (
+        <HoverInfo section={section} path={path} />
+      )}
     </Box>
   );
 };
