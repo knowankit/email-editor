@@ -16,11 +16,14 @@ interface ITextPreview {
   path: string;
 }
 
-const defaultStyle = {
-  position: "relative",
+const hoverStyle = {
   "&:hover": {
     outline: "2px dashed black"
-  },
+  }
+};
+
+const defaultStyle = {
+  position: "relative",
   backgroundRepeat: "no-repeat !important",
   backgroundPosition: "center !important",
   backgroundSize: "cover !important",
@@ -29,15 +32,9 @@ const defaultStyle = {
   boxSizing: "border-box" // Magic word here
 };
 
-const activeStyle = {
-  ...defaultStyle,
-  outline: "2px dashed white"
-};
-
 const HeroPreview = ({ section, index, path }: ITextPreview) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [isActive, setIsActive] = useState(false);
-  const { setActiveNode, pushTagElement } = useEmailDataStore();
+  const { activeNode, setActiveNode, pushTagElement } = useEmailDataStore();
 
   const [{ isOver, canDrop }, drop] = useDrop(() => ({
     accept: ["mj-text", "mj-spacer", "mj-button"],
@@ -93,18 +90,16 @@ const HeroPreview = ({ section, index, path }: ITextPreview) => {
       path,
       sectionIndex: index
     });
-
-    setIsActive(true);
   };
 
   const onMouseEnter = (event: React.MouseEvent<HTMLElement>) => {
-    setIsHovered(true);
     event.stopPropagation();
+    setIsHovered(true);
   };
 
   const onMouseLeave = (event: React.MouseEvent<HTMLElement>) => {
-    setIsHovered(false);
     event.stopPropagation();
+    setIsHovered(false);
   };
 
   const children = section.children;
@@ -112,21 +107,33 @@ const HeroPreview = ({ section, index, path }: ITextPreview) => {
 
   const getBoxStyle = () => {
     const isActiveOver = isOver && canDrop;
+    const activeSectionId = activeNode && activeNode["section"]?.id;
+    const currentSectionId = section.id;
 
+    // For showing green border on success element hover
     if (isActiveOver) {
       const hoverCss = {
         outline: "4px solid #00AB55 !important"
       };
 
       return { ...defaultStyle, ...objectCss, ...hoverCss };
-    } else if (isOver) {
     }
-    return { ...defaultStyle, ...objectCss };
+
+    // For currently active node border color
+    if (activeSectionId === currentSectionId) {
+      const activeCss = {
+        outline: "4px solid #1939B7"
+      };
+
+      return { ...defaultStyle, ...objectCss, ...activeCss };
+    }
+
+    // Default behaviour
+    return { ...defaultStyle, ...objectCss, ...hoverStyle };
   };
 
   return (
     <Box
-      id="hero-preview"
       ref={drop}
       sx={{
         ...getBoxStyle()
@@ -139,7 +146,7 @@ const HeroPreview = ({ section, index, path }: ITextPreview) => {
         children.map((element: any, nIndex: number) => {
           return loadHtmlElements(element, nIndex);
         })}
-      {(isHovered || isActive) && <HoverInfo section={section} path={path} />}
+      {isHovered && <HoverInfo section={section} path={path} />}
     </Box>
   );
 };

@@ -110,7 +110,8 @@ export const getDefaultTags = (tagName: string) => {
             'container-background-color': 'black'
           },
           content: "GO TO SPACE",
-          children: []
+          children: [],
+          id: uuidv4()
         }, {
           tagName: 'mj-button',
           attributes: {
@@ -119,7 +120,8 @@ export const getDefaultTags = (tagName: string) => {
             "background-color": "#008000",
             "color": "#ffffff"
           },
-          content: "ORDER YOUR TICKET NOW"
+          content: "ORDER YOUR TICKET NOW",
+          id: uuidv4()
         }],
         id: uuidv4()
       }

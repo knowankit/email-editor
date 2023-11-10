@@ -14,25 +14,20 @@ interface ITextPreview {
   path: string;
 }
 
-const defaultStyle = {
-  position: "relative",
-  // border: "1px dashed white",
+const hoverStyle = {
   "&:hover": {
-    outline: "2px dashed white",
-    outlineOffset: "2px"
+    outline: "2px dashed white"
   }
 };
 
-const activeStyle = {
-  ...defaultStyle,
-  outline: "2px dashed white",
-  outlineOffset: "2px"
+const defaultStyle = {
+  position: "relative"
 };
 
 const TextPreview = ({ section, index, textIndex, path }: ITextPreview) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [isActive, setIsActive] = useState(false);
-  const { setActiveNode } = useEmailStore();
+  const { setActiveNode, activeNode } = useEmailStore();
+  const objectCss = objectToCSS(getCamelCasedAttributes(section.attributes));
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
@@ -44,21 +39,32 @@ const TextPreview = ({ section, index, textIndex, path }: ITextPreview) => {
     };
 
     setActiveNode(activeNode);
-    setIsActive(true);
+  };
+
+  const getStyle = () => {
+    const activeSectionId = activeNode && activeNode["section"]?.id;
+    const currentSectionId = section.id;
+
+    if (activeSectionId === currentSectionId) {
+      const activeCss = {
+        outline: "4px solid #1939B7"
+      };
+
+      return { ...defaultStyle, ...objectCss, ...activeCss };
+    }
+
+    return { ...defaultStyle, ...objectCss, ...hoverStyle };
   };
 
   return (
     <Box
-      sx={{
-        ...(isActive ? activeStyle : defaultStyle),
-        ...objectToCSS(getCamelCasedAttributes(section.attributes))
-      }}
+      sx={getStyle()}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={handleClick}
     >
       {section.content}
-      {(isHovered || isActive) && <HoverInfo section={section} path={path} />}
+      {isHovered && <HoverInfo section={section} path={path} />}
     </Box>
   );
 };
