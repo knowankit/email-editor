@@ -38,7 +38,9 @@ const TextTypography = ({ expanded, changeTab }: ITextTypography) => {
     "text-decoration": attributes["text-decoration"],
     "font-family": attributes["font-family"],
     "font-size": attributes["font-size"],
-    "font-weight": attributes["font-weight"]
+    "font-style": attributes["font-style"],
+    "font-weight": attributes["font-weight"],
+    align: attributes["align"]
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,9 +91,9 @@ const TextTypography = ({ expanded, changeTab }: ITextTypography) => {
               onChange={handleSelectChange}
             >
               <MenuItem value="Arial">Arial</MenuItem>
-              <MenuItem value="sans-serif">sans-serif</MenuItem>
               <MenuItem value="Courier New">Courier New</MenuItem>
               <MenuItem value="Verdana">Verdana</MenuItem>
+              <MenuItem value="Helvetica">Helvetica</MenuItem>
             </Select>
           </FormControl>
           <TextField
@@ -159,7 +161,12 @@ const TextTypography = ({ expanded, changeTab }: ITextTypography) => {
         <Box>
           <FormControl>
             <Box component="p">Align</Box>
-            <RadioGroup row name="align" onChange={handleChange}>
+            <RadioGroup
+              value={formData["align"]}
+              row
+              name="align"
+              onChange={handleChange}
+            >
               <FormControlLabel
                 value="left"
                 control={<Radio size="small" />}
@@ -179,6 +186,28 @@ const TextTypography = ({ expanded, changeTab }: ITextTypography) => {
                 value="justify"
                 control={<Radio size="small" />}
                 label="Justify"
+              />
+            </RadioGroup>
+          </FormControl>
+        </Box>
+        <Box>
+          <FormControl>
+            <Box component="p">Font style</Box>
+            <RadioGroup
+              value={formData["font-style"]}
+              row
+              name="font-style"
+              onChange={handleChange}
+            >
+              <FormControlLabel
+                value="normal"
+                control={<Radio size="small" />}
+                label="Normal"
+              />
+              <FormControlLabel
+                value="italic"
+                control={<Radio size="small" />}
+                label="Italic"
               />
             </RadioGroup>
           </FormControl>

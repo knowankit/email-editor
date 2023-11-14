@@ -55,8 +55,10 @@ export const getDefaultTags = (tagName: string) => {
             'font-size':"45px",
             'line-height':"45px",
             'font-weight':"900",
+            'font-style':"normal",
+            'text-decoration': 'none',
             'letter-spacing':"none",
-            'container-background-color': 'black'
+            'container-background-color': 'black',
         },
         content: 'Dummy text',
         id: uuidv4()
@@ -114,9 +116,11 @@ export const getDefaultTags = (tagName: string) => {
             'font-family':"Helvetica",
             'align':"center",
             'font-size':"45px",
+            'font-style':"normal",
             'line-height':"45px",
             'font-weight':"900",
             'letter-spacing':"none",
+            'text-decoration': 'none',
             'container-background-color': 'black'
           },
           content: "GO TO SPACE",
