@@ -5,20 +5,20 @@ import {
 } from "@/lib/ui/accordion";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { HeroAttributesAccordionType } from "@/types/email-editor.types";
+import { TextAttributesAccordionType } from "@/types/email-editor.types";
 import TextField from "@mui/material/TextField";
 import useEmailStore from "@/store/email";
 import { useState } from "react";
 import { Button } from "@mui/material";
 
 interface ISetting {
-  expanded: HeroAttributesAccordionType;
-  changeTab: (value: HeroAttributesAccordionType) => void;
+  expanded: TextAttributesAccordionType;
+  changeTab: (value: TextAttributesAccordionType) => void;
 }
 
 const Dimension = ({ expanded, changeTab }: ISetting) => {
-  const { activeNode, emailData, setEmailData } = useEmailStore();
-  const { sectionIndex, imageIndex, section, columnIndex } = activeNode;
+  const { activeNode, updateAttributes } = useEmailStore();
+  const { section } = activeNode;
   const attributes = section.attributes;
 
   const [formData, setFormData] = useState({
@@ -40,16 +40,12 @@ const Dimension = ({ expanded, changeTab }: ISetting) => {
   };
 
   const applyChanges = () => {
-    const emailDataClone = { ...emailData };
-
-    emailDataClone.children[sectionIndex].children[columnIndex].children[
-      imageIndex
-    ].attributes = {
+    const newAttributes = {
       ...attributes,
       ...formData
     };
 
-    setEmailData(emailDataClone);
+    updateAttributes(newAttributes, activeNode.path);
   };
 
   return (
@@ -62,28 +58,14 @@ const Dimension = ({ expanded, changeTab }: ISetting) => {
         <Typography fontSize="0.8rem">Dimension</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Box display="flex" justifyContent="space-between">
-          <TextField
-            label="Width"
-            size="small"
-            name="width"
-            value={formData.width}
-            multiline
-            onChange={handleChange}
-            maxRows={4}
-            sx={{ width: "45%" }}
-          />
-          <TextField
-            label="Height"
-            name="height"
-            value={formData.height}
-            onChange={handleChange}
-            size="small"
-            multiline
-            maxRows={4}
-            sx={{ width: "45%" }}
-          />
-        </Box>
+        <TextField
+          label="Height"
+          name="height"
+          value={formData.height}
+          onChange={handleChange}
+          size="small"
+          sx={{ width: "100%" }}
+        />
         <Box component="p">Padding</Box>
         <Box display="flex" justifyContent="space-between">
           <TextField
@@ -93,7 +75,6 @@ const Dimension = ({ expanded, changeTab }: ISetting) => {
             onChange={handleChange}
             value={formData["padding-top"]}
             type="number"
-            disabled
             multiline
             maxRows={4}
             sx={{ width: "45%" }}
@@ -106,12 +87,11 @@ const Dimension = ({ expanded, changeTab }: ISetting) => {
             onChange={handleChange}
             value={formData["padding-right"]}
             type="number"
-            disabled
             maxRows={4}
             sx={{ width: "45%" }}
           />
         </Box>
-        <Box display="flex" justifyContent="space-between" mt={1}>
+        <Box display="flex" justifyContent="space-between" mt={2}>
           <TextField
             label="Bottom"
             size="small"
@@ -121,7 +101,6 @@ const Dimension = ({ expanded, changeTab }: ISetting) => {
             type="number"
             multiline
             maxRows={4}
-            disabled
             sx={{ width: "45%" }}
           />
           <TextField
@@ -130,7 +109,6 @@ const Dimension = ({ expanded, changeTab }: ISetting) => {
             name="padding-left"
             label="Left"
             value={formData["padding-left"]}
-            disabled
             size="small"
             multiline
             maxRows={4}

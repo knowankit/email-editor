@@ -1,13 +1,15 @@
 import Border from "@/components/right-sidebar/text-attributes/border";
 import Dimension from "@/components/right-sidebar/text-attributes/dimension";
-import Setting from "@/components/right-sidebar/text-attributes/settings";
+import Settings from "@/components/right-sidebar/text-attributes/settings";
+import Typography from "@/components/right-sidebar/text-attributes/typography";
+
 import { useState } from "react";
-import { HeroAttributesAccordionType } from "@/types/email-editor.types";
+import { TextAttributesAccordionType } from "@/types/email-editor.types";
 import useEmailStore from "@/store/email";
 
 const TextAttributes = () => {
-  const [expanded, setExpanded] = useState<HeroAttributesAccordionType>(
-    "setting"
+  const [expanded, setExpanded] = useState<TextAttributesAccordionType>(
+    "dimension"
   );
 
   const { activeNode } = useEmailStore();
@@ -17,17 +19,24 @@ const TextAttributes = () => {
 
   return (
     <>
-      <Setting
-        expanded={expanded}
-        changeTab={(value: HeroAttributesAccordionType) => setExpanded(value)}
-      />
       <Dimension
         expanded={expanded}
-        changeTab={(value: HeroAttributesAccordionType) => setExpanded(value)}
+        changeTab={(value: TextAttributesAccordionType) => setExpanded(value)}
       />
+
+      <Settings
+        expanded={expanded}
+        changeTab={(value: TextAttributesAccordionType) => setExpanded(value)}
+      />
+
+      <Typography
+        expanded={expanded}
+        changeTab={(value: TextAttributesAccordionType) => setExpanded(value)}
+      />
+
       <Border
         expanded={expanded}
-        changeTab={(value: HeroAttributesAccordionType) => setExpanded(value)}
+        changeTab={(value: TextAttributesAccordionType) => setExpanded(value)}
       />
     </>
   );

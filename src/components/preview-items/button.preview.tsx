@@ -86,7 +86,9 @@ const ButtonPreview = ({ section, index, textIndex, path }: IButtonPreview) => {
         }}
       >
         {section.content}
-        {isHovered && <HoverInfo section={section} path={path} />}
+        {(isHovered || showControls) && (
+          <HoverInfo section={section} path={path} />
+        )}
       </Box>
     </Box>
   );

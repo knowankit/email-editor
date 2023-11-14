@@ -5,12 +5,11 @@ import {
 } from "@/lib/ui/accordion";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { HeroAttributesAccordionType } from "@/types/email-editor.types";
-import useEmailStore from "@/store/email";
+import { TextAttributesAccordionType } from "@/types/email-editor.types";
 
 interface IBorder {
-  expanded: HeroAttributesAccordionType;
-  changeTab: (value: HeroAttributesAccordionType) => void;
+  expanded: TextAttributesAccordionType;
+  changeTab: (value: TextAttributesAccordionType) => void;
 }
 
 const Border = ({ expanded, changeTab }: IBorder) => {
