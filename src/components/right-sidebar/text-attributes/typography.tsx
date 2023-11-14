@@ -9,7 +9,14 @@ import { TextAttributesAccordionType } from "@/types/email-editor.types";
 import TextField from "@mui/material/TextField";
 import useEmailStore from "@/store/email";
 import { useState } from "react";
-import { Button } from "@mui/material";
+import {
+  Button,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  SelectChangeEvent
+} from "@mui/material";
 
 interface ITextTypography {
   expanded: TextAttributesAccordionType;
@@ -31,6 +38,15 @@ const TextTypography = ({ expanded, changeTab }: ITextTypography) => {
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  const handleSelectChange = (event: SelectChangeEvent) => {
     const { name, value } = event.target;
 
     setFormData({
@@ -102,17 +118,21 @@ const TextTypography = ({ expanded, changeTab }: ITextTypography) => {
           />
         </Box>
         <Box display="flex" justifyContent="space-between" mt={2}>
-          <TextField
-            label="Text decoration"
-            size="small"
-            name="text-decoration"
-            onChange={handleChange}
-            value={formData["text-decoration"]}
-            type="number"
-            multiline
-            maxRows={4}
-            sx={{ width: "45%" }}
-          />
+          <FormControl sx={{ width: "45%" }}>
+            <InputLabel>Text decoration</InputLabel>
+            <Select
+              size="small"
+              value={formData["text-decoration"]}
+              label="Text Decoration"
+              name="text-decoration"
+              onChange={handleSelectChange}
+            >
+              <MenuItem value="underline">Underline</MenuItem>
+              <MenuItem value="overline">Overline</MenuItem>
+              <MenuItem value="line-through">Line through</MenuItem>
+              <MenuItem value="none">None</MenuItem>
+            </Select>
+          </FormControl>
           <TextField
             type="number"
             onChange={handleChange}
