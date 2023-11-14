@@ -7,7 +7,7 @@ import useEmailStore from "@/store/email";
 
 const TextAttributes = () => {
   const [expanded, setExpanded] = useState<HeroAttributesAccordionType>(
-    "setting"
+    "dimension"
   );
 
   const { activeNode } = useEmailStore();
@@ -17,14 +17,16 @@ const TextAttributes = () => {
 
   return (
     <>
-      <Setting
-        expanded={expanded}
-        changeTab={(value: HeroAttributesAccordionType) => setExpanded(value)}
-      />
       <Dimension
         expanded={expanded}
         changeTab={(value: HeroAttributesAccordionType) => setExpanded(value)}
       />
+
+      <Setting
+        expanded={expanded}
+        changeTab={(value: HeroAttributesAccordionType) => setExpanded(value)}
+      />
+
       <Border
         expanded={expanded}
         changeTab={(value: HeroAttributesAccordionType) => setExpanded(value)}

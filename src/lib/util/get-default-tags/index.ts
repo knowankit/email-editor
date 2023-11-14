@@ -100,7 +100,11 @@ export const getDefaultTags = (tagName: string) => {
         "children": [{
           tagName: 'mj-text',
           attributes: {
-            'padding':"20px",
+            'padding-top':"20px",
+            'padding-right':"20px",
+            'padding-bottom':"20px",
+            'padding-left':"20px",
+            'height': '50px',
             'color':"#ffffff",
             'font-family':"Helvetica",
             'align':"center",
