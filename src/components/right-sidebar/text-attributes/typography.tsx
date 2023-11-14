@@ -11,23 +11,23 @@ import useEmailStore from "@/store/email";
 import { useState } from "react";
 import { Button } from "@mui/material";
 
-interface ISetting {
+interface ITextTypography {
   expanded: TextAttributesAccordionType;
   changeTab: (value: TextAttributesAccordionType) => void;
 }
 
-const Dimension = ({ expanded, changeTab }: ISetting) => {
+const TextTypography = ({ expanded, changeTab }: ITextTypography) => {
   const { activeNode, updateAttributes } = useEmailStore();
   const { section } = activeNode;
   const attributes = section.attributes;
 
   const [formData, setFormData] = useState({
-    width: attributes["width"],
-    height: attributes["height"],
-    "padding-top": attributes["padding-top"],
-    "padding-bottom": attributes["padding-bottom"],
-    "padding-left": attributes["padding-left"],
-    "padding-right": attributes["padding-right"]
+    "letter-spacing": attributes["letter-spacing"],
+    "line-height": attributes["line-height"],
+    "text-decoration": attributes["text-decoration"],
+    "font-family": attributes["font-family"],
+    "font-size": attributes["font-size"],
+    "font-weight": attributes["font-weight"]
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,42 +50,52 @@ const Dimension = ({ expanded, changeTab }: ISetting) => {
 
   return (
     <Accordion
-      expanded={expanded === "dimension"}
-      onChange={() => changeTab(expanded === "dimension" ? "" : "dimension")}
+      expanded={expanded === "typography"}
+      onChange={() => changeTab(expanded === "typography" ? "" : "typography")}
       sx={{ width: "100%" }}
     >
-      <AccordionSummary aria-controls="dimension">
-        <Typography fontSize="0.8rem">Dimension</Typography>
+      <AccordionSummary aria-controls="typography">
+        <Typography fontSize="0.8rem">Typography</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <TextField
-          label="Height"
-          name="height"
-          value={formData.height}
-          onChange={handleChange}
-          size="small"
-          sx={{ width: "100%" }}
-        />
+        <Box display="flex" justifyContent="space-between">
+          <TextField
+            label="Font family"
+            name="font-family"
+            value={formData["font-family"]}
+            onChange={handleChange}
+            size="small"
+            sx={{ width: "45%" }}
+          />
+          <TextField
+            label="Font size"
+            name="font-size"
+            value={formData["font-size"]}
+            onChange={handleChange}
+            size="small"
+            sx={{ width: "45%" }}
+          />
+        </Box>
         <Box component="p">Padding</Box>
         <Box display="flex" justifyContent="space-between">
           <TextField
-            label="Top"
+            label="Line height"
             size="small"
-            name="padding-top"
+            name="line-height"
             onChange={handleChange}
-            value={formData["padding-top"]}
+            value={formData["line-height"]}
             type="number"
             multiline
             maxRows={4}
             sx={{ width: "45%" }}
           />
           <TextField
-            label="Right"
+            label="Letter spacing"
             size="small"
-            name="padding-right"
+            name="letter-spacing"
             multiline
             onChange={handleChange}
-            value={formData["padding-right"]}
+            value={formData["letter-spacing"]}
             type="number"
             maxRows={4}
             sx={{ width: "45%" }}
@@ -93,11 +103,11 @@ const Dimension = ({ expanded, changeTab }: ISetting) => {
         </Box>
         <Box display="flex" justifyContent="space-between" mt={2}>
           <TextField
-            label="Bottom"
+            label="Text decoration"
             size="small"
-            name="padding-bottom"
+            name="text-decoration"
             onChange={handleChange}
-            value={formData["padding-bottom"]}
+            value={formData["text-decoration"]}
             type="number"
             multiline
             maxRows={4}
@@ -106,9 +116,9 @@ const Dimension = ({ expanded, changeTab }: ISetting) => {
           <TextField
             type="number"
             onChange={handleChange}
-            name="padding-left"
-            label="Left"
-            value={formData["padding-left"]}
+            name="font-weight"
+            label="Font weight"
+            value={formData["font-weight"]}
             size="small"
             multiline
             maxRows={4}
@@ -125,4 +135,4 @@ const Dimension = ({ expanded, changeTab }: ISetting) => {
   );
 };
 
-export default Dimension;
+export default TextTypography;
