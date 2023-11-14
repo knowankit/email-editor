@@ -75,14 +75,21 @@ const TextTypography = ({ expanded, changeTab }: ITextTypography) => {
       </AccordionSummary>
       <AccordionDetails>
         <Box display="flex" justifyContent="space-between">
-          <TextField
-            label="Font family"
-            name="font-family"
-            value={formData["font-family"]}
-            onChange={handleChange}
-            size="small"
-            sx={{ width: "45%" }}
-          />
+          <FormControl sx={{ width: "45%" }}>
+            <InputLabel>Font family</InputLabel>
+            <Select
+              size="small"
+              value={formData["font-family"]}
+              label="Font family"
+              name="font-family"
+              onChange={handleSelectChange}
+            >
+              <MenuItem value="Arial">Arial</MenuItem>
+              <MenuItem value="sans-serif">sans-serif</MenuItem>
+              <MenuItem value="Courier New">Courier New</MenuItem>
+              <MenuItem value="Verdana">Verdana</MenuItem>
+            </Select>
+          </FormControl>
           <TextField
             label="Font size"
             name="font-size"
