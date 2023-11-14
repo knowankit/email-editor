@@ -43,6 +43,17 @@ const TextTypography = ({ expanded, changeTab }: ITextTypography) => {
     align: attributes["align"]
   });
 
+  const fontWeights = [
+    "Normal",
+    "Bold",
+    "100",
+    "200",
+    "300",
+    "400",
+    "500",
+    "600"
+  ];
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
@@ -146,7 +157,7 @@ const TextTypography = ({ expanded, changeTab }: ITextTypography) => {
               <MenuItem value="none">None</MenuItem>
             </Select>
           </FormControl>
-          <TextField
+          {/* <TextField
             type="number"
             onChange={handleChange}
             name="font-weight"
@@ -156,7 +167,23 @@ const TextTypography = ({ expanded, changeTab }: ITextTypography) => {
             multiline
             maxRows={4}
             sx={{ width: "45%" }}
-          />
+          /> */}
+          <FormControl sx={{ width: "45%" }}>
+            <InputLabel>Font weight</InputLabel>
+            <Select
+              size="small"
+              value={formData["font-weight"]}
+              label="Font weight"
+              name="font-weight"
+              onChange={handleSelectChange}
+            >
+              {fontWeights.map((f, index) => (
+                <MenuItem value={f.toLowerCase()} key={index}>
+                  {f}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Box>
         <Box>
           <FormControl>
