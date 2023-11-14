@@ -15,7 +15,11 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
-  SelectChangeEvent
+  SelectChangeEvent,
+  FormLabel,
+  FormControlLabel,
+  Radio,
+  RadioGroup
 } from "@mui/material";
 
 interface ITextTypography {
@@ -151,6 +155,33 @@ const TextTypography = ({ expanded, changeTab }: ITextTypography) => {
             maxRows={4}
             sx={{ width: "45%" }}
           />
+        </Box>
+        <Box>
+          <FormControl>
+            <Box component="p">Align</Box>
+            <RadioGroup row name="align" onChange={handleChange}>
+              <FormControlLabel
+                value="left"
+                control={<Radio size="small" />}
+                label="Left"
+              />
+              <FormControlLabel
+                value="right"
+                control={<Radio size="small" />}
+                label="Right"
+              />
+              <FormControlLabel
+                value="center"
+                control={<Radio size="small" />}
+                label="Center"
+              />
+              <FormControlLabel
+                value="justify"
+                control={<Radio size="small" />}
+                label="Justify"
+              />
+            </RadioGroup>
+          </FormControl>
         </Box>
         <Box sx={{ mt: "1rem" }}>
           <Button size="small" variant="contained" onClick={applyChanges}>
