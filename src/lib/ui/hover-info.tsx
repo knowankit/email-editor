@@ -20,7 +20,8 @@ const defaultStyle = {
   fontSize: "1rem",
   fontWeight: "400",
   lineHeight: "20px",
-  borderRadius: "10px"
+  borderRadius: "10px",
+  fontFamily: "Open Sans, sans-serif"
 };
 
 const getTagName = (tagName: string) => {
