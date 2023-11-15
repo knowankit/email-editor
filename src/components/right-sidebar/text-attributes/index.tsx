@@ -1,4 +1,4 @@
-import Border from "@/components/right-sidebar/text-attributes/border";
+import Extra from "@/components/right-sidebar/text-attributes/extra";
 import Dimension from "@/components/right-sidebar/text-attributes/dimension";
 import Settings from "@/components/right-sidebar/text-attributes/settings";
 import Typography from "@/components/right-sidebar/text-attributes/typography";
@@ -34,7 +34,7 @@ const TextAttributes = () => {
         changeTab={(value: TextAttributesAccordionType) => setExpanded(value)}
       />
 
-      <Border
+      <Extra
         expanded={expanded}
         changeTab={(value: TextAttributesAccordionType) => setExpanded(value)}
       />

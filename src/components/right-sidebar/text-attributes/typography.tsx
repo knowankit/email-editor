@@ -16,7 +16,6 @@ import {
   FormControl,
   InputLabel,
   SelectChangeEvent,
-  FormLabel,
   FormControlLabel,
   Radio,
   RadioGroup
