@@ -5,7 +5,7 @@ import {
 } from "@/lib/ui/accordion";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { HeroAttributesAccordionType } from "@/types/email-editor.types";
+import { ButtonAttributesAccordionType } from "@/types/email-editor.types";
 import useEmailStore from "@/store/email";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -17,8 +17,8 @@ import IconButton from "@mui/material/IconButton";
 import ColorPicker from "@/lib/ui/color-picker";
 
 interface ISetting {
-  expanded: HeroAttributesAccordionType;
-  changeTab: (value: HeroAttributesAccordionType) => void;
+  expanded: ButtonAttributesAccordionType;
+  changeTab: (value: ButtonAttributesAccordionType) => void;
 }
 
 const Settings = ({ expanded, changeTab }: ISetting) => {

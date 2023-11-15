@@ -5,15 +5,15 @@ import {
 } from "@/lib/ui/accordion";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { HeroAttributesAccordionType } from "@/types/email-editor.types";
+import { ButtonAttributesAccordionType } from "@/types/email-editor.types";
 import TextField from "@mui/material/TextField";
 import useEmailStore from "@/store/email";
 import { useState } from "react";
 import { Button } from "@mui/material";
 
 interface ISetting {
-  expanded: HeroAttributesAccordionType;
-  changeTab: (value: HeroAttributesAccordionType) => void;
+  expanded: ButtonAttributesAccordionType;
+  changeTab: (value: ButtonAttributesAccordionType) => void;
 }
 
 const Dimension = ({ expanded, changeTab }: ISetting) => {
