@@ -41,7 +41,7 @@ const ButtonPreview = ({ section, index, textIndex, path }: IButtonPreview) => {
   const [isHovered, setIsHovered] = useState(false);
   const { setActiveNode, activeNode } = useEmailDataStore();
   const objectCss = objectToCSS(getCamelCasedAttributes(section.attributes));
-  console.log("objectccss", objectCss);
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
 

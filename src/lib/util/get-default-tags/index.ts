@@ -83,7 +83,8 @@ export const getDefaultTags = (tagName: string) => {
           "href":"https://mjml.io/",
           "align":"center",
           "background-color": "#008000",
-          "color": "#ffffff"
+          "color": "#ffffff",
+          "border-radius": "20%"
         },
         content: "Button text",
         id: uuidv4()
@@ -102,7 +103,6 @@ export const getDefaultTags = (tagName: string) => {
         'background-url': "https://cloud.githubusercontent.com/assets/1830348/15354890/1442159a-1cf0-11e6-92b1-b861dadf1750.jpg",
         'background-color':"#2a3448",
         'padding': "100px 0px 100px 0px",
-
       },
         "children": [{
           tagName: 'mj-text',
@@ -132,7 +132,8 @@ export const getDefaultTags = (tagName: string) => {
             "href":"https://mjml.io/",
             "align":"center",
             "background-color": "#008000",
-            "color": "#ffffff"
+            "color": "#ffffff",
+            "border-radius": "20%"
           },
           content: "ORDER YOUR TICKET NOW",
           id: uuidv4()
