@@ -69,7 +69,7 @@ const ButtonPreview = ({ section, index, textIndex, path }: IButtonPreview) => {
   };
 
   return (
-    <Box textAlign="center">
+    <Box textAlign={objectCss["textAlign"] as any}>
       <Box
         id="button"
         component="a"

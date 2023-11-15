@@ -5,7 +5,7 @@ import {
 } from "@/lib/ui/accordion";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { TextAttributesAccordionType } from "@/types/email-editor.types";
+import { ButtonAttributesAccordionType } from "@/types/email-editor.types";
 import TextField from "@mui/material/TextField";
 import useEmailStore from "@/store/email";
 import { useState } from "react";
@@ -22,8 +22,8 @@ import {
 import { debounce } from "lodash";
 
 interface ITextTypography {
-  expanded: TextAttributesAccordionType;
-  changeTab: (value: TextAttributesAccordionType) => void;
+  expanded: ButtonAttributesAccordionType;
+  changeTab: (value: ButtonAttributesAccordionType) => void;
 }
 
 const TextTypography = ({ expanded, changeTab }: ITextTypography) => {

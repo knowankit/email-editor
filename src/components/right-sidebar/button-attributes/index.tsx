@@ -1,12 +1,14 @@
 import Border from "@/components/right-sidebar/button-attributes/border";
 import Dimension from "@/components/right-sidebar/button-attributes/dimension";
 import Setting from "@/components/right-sidebar/button-attributes/settings";
+import Typography from "@/components/right-sidebar/button-attributes/typography";
+
 import { useState } from "react";
-import { HeroAttributesAccordionType } from "@/types/email-editor.types";
+import { ButtonAttributesAccordionType } from "@/types/email-editor.types";
 import useEmailStore from "@/store/email";
 
 const ButtonAttributes = () => {
-  const [expanded, setExpanded] = useState<HeroAttributesAccordionType>(
+  const [expanded, setExpanded] = useState<ButtonAttributesAccordionType>(
     "setting"
   );
 
@@ -19,15 +21,21 @@ const ButtonAttributes = () => {
     <>
       <Setting
         expanded={expanded}
-        changeTab={(value: HeroAttributesAccordionType) => setExpanded(value)}
+        changeTab={(value: ButtonAttributesAccordionType) => setExpanded(value)}
       />
+
+      <Typography
+        expanded={expanded}
+        changeTab={(value: ButtonAttributesAccordionType) => setExpanded(value)}
+      />
+
       <Dimension
         expanded={expanded}
-        changeTab={(value: HeroAttributesAccordionType) => setExpanded(value)}
+        changeTab={(value: ButtonAttributesAccordionType) => setExpanded(value)}
       />
       <Border
         expanded={expanded}
-        changeTab={(value: HeroAttributesAccordionType) => setExpanded(value)}
+        changeTab={(value: ButtonAttributesAccordionType) => setExpanded(value)}
       />
     </>
   );
