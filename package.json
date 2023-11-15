@@ -19,6 +19,7 @@
     "@mui/x-tree-view": "^6.0.0-beta.0",
     "@sendgrid/mail": "^7.7.0",
     "axios": "^1.6.0",
+    "debounce": "^1.2.1",
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.6",
     "immer": "^10.0.3",
@@ -47,6 +48,7 @@
     "@types/react-color": "^3.0.9",
     "@types/react-dom": "18.2.5",
     "@types/uuid": "^9.0.5",
+    "@types/lodash": "^4.14.201",
     "simple-zustand-devtools": "^1.1.0"
   },
   "engines": {

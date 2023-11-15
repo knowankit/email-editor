@@ -10,7 +10,6 @@ import TextField from "@mui/material/TextField";
 import useEmailStore from "@/store/email";
 import { useState } from "react";
 import {
-  Button,
   Select,
   MenuItem,
   FormControl,
@@ -20,6 +19,7 @@ import {
   Radio,
   RadioGroup
 } from "@mui/material";
+import { debounce } from "lodash";
 
 interface ITextTypography {
   expanded: TextAttributesAccordionType;
@@ -29,17 +29,17 @@ interface ITextTypography {
 const TextTypography = ({ expanded, changeTab }: ITextTypography) => {
   const { activeNode, updateAttributes } = useEmailStore();
   const { section } = activeNode;
-  const attributes = section.attributes;
+  const defaultAttributes = section.attributes;
 
   const [formData, setFormData] = useState({
-    "letter-spacing": attributes["letter-spacing"],
-    "line-height": attributes["line-height"],
-    "text-decoration": attributes["text-decoration"],
-    "font-family": attributes["font-family"],
-    "font-size": attributes["font-size"],
-    "font-style": attributes["font-style"],
-    "font-weight": attributes["font-weight"],
-    align: attributes["align"]
+    "letter-spacing": defaultAttributes["letter-spacing"],
+    "line-height": defaultAttributes["line-height"],
+    "text-decoration": defaultAttributes["text-decoration"],
+    "font-family": defaultAttributes["font-family"],
+    "font-size": defaultAttributes["font-size"],
+    "font-style": defaultAttributes["font-style"],
+    "font-weight": defaultAttributes["font-weight"],
+    align: defaultAttributes["align"]
   });
 
   const fontWeights = [
@@ -56,27 +56,32 @@ const TextTypography = ({ expanded, changeTab }: ITextTypography) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
-    setFormData({
+    const newAttributes = {
+      ...defaultAttributes,
       ...formData,
       [name]: value
-    });
+    };
+    setFormData(newAttributes);
+    debouncedApplyChanges(newAttributes);
   };
+
+  const debouncedApplyChanges = debounce(newAttributes => {
+    applyChanges(newAttributes);
+  }, 400);
 
   const handleSelectChange = (event: SelectChangeEvent) => {
     const { name, value } = event.target;
 
-    setFormData({
+    const newAttributes = {
+      ...defaultAttributes,
       ...formData,
       [name]: value
-    });
+    };
+    setFormData(newAttributes);
+    debouncedApplyChanges(newAttributes);
   };
 
-  const applyChanges = () => {
-    const newAttributes = {
-      ...attributes,
-      ...formData
-    };
-
+  const applyChanges = (newAttributes: any) => {
     updateAttributes(newAttributes, activeNode.path);
   };
 
@@ -156,17 +161,6 @@ const TextTypography = ({ expanded, changeTab }: ITextTypography) => {
               <MenuItem value="none">None</MenuItem>
             </Select>
           </FormControl>
-          {/* <TextField
-            type="number"
-            onChange={handleChange}
-            name="font-weight"
-            label="Font weight"
-            value={formData["font-weight"]}
-            size="small"
-            multiline
-            maxRows={4}
-            sx={{ width: "45%" }}
-          /> */}
           <FormControl sx={{ width: "45%" }}>
             <InputLabel>Font weight</InputLabel>
             <Select
@@ -237,11 +231,6 @@ const TextTypography = ({ expanded, changeTab }: ITextTypography) => {
               />
             </RadioGroup>
           </FormControl>
-        </Box>
-        <Box sx={{ mt: "1rem" }}>
-          <Button size="small" variant="contained" onClick={applyChanges}>
-            Apply
-          </Button>
         </Box>
       </AccordionDetails>
     </Accordion>

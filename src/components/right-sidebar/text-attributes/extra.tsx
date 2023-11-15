@@ -3,7 +3,7 @@ import {
   AccordionDetails,
   AccordionSummary
 } from "@/lib/ui/accordion";
-import { Typography, Box, TextField } from "@mui/material";
+import { Typography, Box, TextField, Button } from "@mui/material";
 import { TextAttributesAccordionType } from "@/types/email-editor.types";
 import { useState } from "react";
 import useEmailStore from "@/store/email";
@@ -31,6 +31,15 @@ const Extra = ({ expanded, changeTab }: IBorder) => {
     });
   };
 
+  const applyChanges = () => {
+    const newAttributes = {
+      ...attributes,
+      ...formData
+    };
+
+    updateAttributes(newAttributes, activeNode.path);
+  };
+
   return (
     <Accordion
       expanded={expanded === "extra"}
@@ -50,6 +59,11 @@ const Extra = ({ expanded, changeTab }: IBorder) => {
             size="small"
             sx={{ width: "100%" }}
           />
+        </Box>
+        <Box sx={{ mt: "1rem" }}>
+          <Button size="small" variant="contained" onClick={applyChanges}>
+            Apply
+          </Button>
         </Box>
       </AccordionDetails>
     </Accordion>
