@@ -11,12 +11,9 @@ import useEmailStore from "@/store/email";
 import { useState } from "react";
 import { Button } from "@mui/material";
 
-interface ISetting {
-  expanded: TextAttributesAccordionType;
-  changeTab: (value: TextAttributesAccordionType) => void;
-}
+const Dimension = () => {
+  const [expanded, setExpanded] = useState("dimension");
 
-const Dimension = ({ expanded, changeTab }: ISetting) => {
   const { activeNode, updateAttributes } = useEmailStore();
   const { section } = activeNode;
   const attributes = section.attributes;
@@ -51,7 +48,7 @@ const Dimension = ({ expanded, changeTab }: ISetting) => {
   return (
     <Accordion
       expanded={expanded === "dimension"}
-      onChange={() => changeTab(expanded === "dimension" ? "" : "dimension")}
+      onChange={() => setExpanded(expanded === "dimension" ? "" : "dimension")}
       sx={{ width: "100%" }}
     >
       <AccordionSummary aria-controls="dimension">
