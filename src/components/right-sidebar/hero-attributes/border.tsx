@@ -7,7 +7,6 @@ import Box from "@mui/material/Box";
 import { HeroAttributesAccordionType } from "@/types/email-editor.types";
 import useEmailStore from "@/store/email";
 import { Typography, TextField } from "@mui/material";
-import { ButtonAttributesAccordionType } from "@/types/email-editor.types";
 import { useState, useCallback } from "react";
 import { debounce } from "lodash";
 
