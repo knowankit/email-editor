@@ -26,6 +26,8 @@ const FullScreenPreview = (props: SimpleDialogProps) => {
   const { data: session } = useSession();
 
   const [to, setTo] = useState("");
+  const [subject, setSubject] = useState("");
+
   const { user } = session as any;
 
   const loadMjMl = async () => {
@@ -58,7 +60,12 @@ const FullScreenPreview = (props: SimpleDialogProps) => {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ htmlString: data.html, to, from: user.email })
+      body: JSON.stringify({
+        htmlString: data.html,
+        to,
+        from: user.email,
+        subject
+      })
     });
 
     const json = await response.json();
@@ -105,6 +112,17 @@ const FullScreenPreview = (props: SimpleDialogProps) => {
               placeholder="Receiver's email"
               onChange={e => setTo(e.target.value)}
             ></TextField>
+            <TextField
+              size="small"
+              value={subject}
+              variant="outlined"
+              label="Subject"
+              type="text"
+              sx={{ mt: "1rem" }}
+              placeholder="Subject"
+              onChange={e => setSubject(e.target.value)}
+            ></TextField>
+
             <Box mt={2}>
               <Button
                 variant="contained"
