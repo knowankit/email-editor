@@ -133,7 +133,7 @@ export const getDefaultTags = (tagName: string) => {
             "align":"center",
             "background-color": "#008000",
             "color": "#ffffff",
-            "border-radius": "20%"
+            "border-radius": "20px"
           },
           content: "ORDER YOUR TICKET NOW",
           id: uuidv4()

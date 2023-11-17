@@ -56,7 +56,6 @@ const HeroPreview = ({ section, index, path }: ITextPreview) => {
         return (
           <ButtonPreview
             section={pSection}
-            textIndex={nIndex}
             index={index}
             key={nIndex}
             path={`${path}.children.${nIndex}`}
