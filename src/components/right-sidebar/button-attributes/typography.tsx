@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import { ButtonAttributesAccordionType } from "@/types/email-editor.types";
 import TextField from "@mui/material/TextField";
 import useEmailStore from "@/store/email";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import {
   Select,
   MenuItem,
@@ -65,9 +65,12 @@ const TextTypography = ({ expanded, changeTab }: ITextTypography) => {
     debouncedApplyChanges(newAttributes);
   };
 
-  const debouncedApplyChanges = debounce(newAttributes => {
-    applyChanges(newAttributes);
-  }, 400);
+  const debouncedApplyChanges = useCallback(
+    debounce(newAttributes => {
+      applyChanges(newAttributes);
+    }, 400),
+    []
+  );
 
   const handleSelectChange = (event: SelectChangeEvent) => {
     const { name, value } = event.target;

@@ -11,7 +11,6 @@ import {
 interface IButtonPreview {
   section: any;
   index: number;
-  textIndex: number;
   path: string;
 }
 
@@ -37,7 +36,7 @@ const defaultStyle = {
   backgroundPosition: "center center"
 };
 
-const ButtonPreview = ({ section, index, textIndex, path }: IButtonPreview) => {
+const ButtonPreview = ({ section, index, path }: IButtonPreview) => {
   const [isHovered, setIsHovered] = useState(false);
   const { setActiveNode, activeNode } = useEmailDataStore();
   const objectCss = objectToCSS(getCamelCasedAttributes(section.attributes));
@@ -68,21 +67,25 @@ const ButtonPreview = ({ section, index, textIndex, path }: IButtonPreview) => {
     return { ...hoverStyle };
   };
 
+  const allStyle = {
+    ...getStyle(),
+    ...defaultStyle,
+    ...objectCss
+  };
+
   return (
     <Box textAlign={objectCss["textAlign"] as any}>
       <Box
-        id="button"
         component="a"
         position="relative"
-        className="testbutton"
         href={section.href}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={handleClick}
         sx={{
-          ...getStyle(),
-          ...defaultStyle,
-          ...objectCss
+          borderRadius: objectCss["borderRadius"],
+          border: objectCss["border"],
+          ...allStyle
         }}
       >
         {section.content}

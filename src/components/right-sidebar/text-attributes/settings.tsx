@@ -5,7 +5,6 @@ import {
 } from "@/lib/ui/accordion";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { TextAttributesAccordionType } from "@/types/email-editor.types";
 import useEmailStore from "@/store/email";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -15,12 +14,9 @@ import React, { useState, useEffect } from "react";
 import IconButton from "@mui/material/IconButton";
 import ColorPicker from "@/lib/ui/color-picker";
 
-interface ISetting {
-  expanded: TextAttributesAccordionType;
-  changeTab: (value: TextAttributesAccordionType) => void;
-}
+const Settings = () => {
+  const [expanded, setExpanded] = useState("setting");
 
-const Settings = ({ expanded, changeTab }: ISetting) => {
   const [isColorPickerOpen, setColorPickerStatus] = useState(false);
   const [fieldName, setFieldName] = useState("");
   const { activeNode, updateAttributes, updateContent } = useEmailStore();
@@ -89,7 +85,7 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
   return (
     <Accordion
       expanded={expanded === "setting"}
-      onChange={() => changeTab(expanded === "setting" ? "" : "setting")}
+      onChange={() => setExpanded(expanded === "setting" ? "" : "setting")}
       sx={{ width: "100%" }}
     >
       <AccordionSummary aria-controls="setting">

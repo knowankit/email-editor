@@ -5,10 +5,9 @@ import {
 } from "@/lib/ui/accordion";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { TextAttributesAccordionType } from "@/types/email-editor.types";
 import TextField from "@mui/material/TextField";
 import useEmailStore from "@/store/email";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import {
   Select,
   MenuItem,
@@ -21,12 +20,9 @@ import {
 } from "@mui/material";
 import { debounce } from "lodash";
 
-interface ITextTypography {
-  expanded: TextAttributesAccordionType;
-  changeTab: (value: TextAttributesAccordionType) => void;
-}
+const TextTypography = () => {
+  const [expanded, setExpanded] = useState("typography");
 
-const TextTypography = ({ expanded, changeTab }: ITextTypography) => {
   const { activeNode, updateAttributes } = useEmailStore();
   const { section } = activeNode;
   const defaultAttributes = section.attributes;
@@ -65,9 +61,12 @@ const TextTypography = ({ expanded, changeTab }: ITextTypography) => {
     debouncedApplyChanges(newAttributes);
   };
 
-  const debouncedApplyChanges = debounce(newAttributes => {
-    applyChanges(newAttributes);
-  }, 400);
+  const debouncedApplyChanges = useCallback(
+    debounce(newAttributes => {
+      applyChanges(newAttributes);
+    }, 400),
+    []
+  );
 
   const handleSelectChange = (event: SelectChangeEvent) => {
     const { name, value } = event.target;
@@ -88,7 +87,9 @@ const TextTypography = ({ expanded, changeTab }: ITextTypography) => {
   return (
     <Accordion
       expanded={expanded === "typography"}
-      onChange={() => changeTab(expanded === "typography" ? "" : "typography")}
+      onChange={() =>
+        setExpanded(expanded === "typography" ? "" : "typography")
+      }
       sx={{ width: "100%" }}
     >
       <AccordionSummary aria-controls="typography">

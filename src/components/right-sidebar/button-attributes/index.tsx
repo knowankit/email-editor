@@ -6,6 +6,7 @@ import Typography from "@/components/right-sidebar/button-attributes/typography"
 import { useState } from "react";
 import { ButtonAttributesAccordionType } from "@/types/email-editor.types";
 import useEmailStore from "@/store/email";
+import { Box } from "@mui/material";
 
 const ButtonAttributes = () => {
   const [expanded, setExpanded] = useState<ButtonAttributesAccordionType>(
@@ -19,6 +20,7 @@ const ButtonAttributes = () => {
 
   return (
     <>
+      <Box p="1rem">Button Element</Box>
       <Setting
         expanded={expanded}
         changeTab={(value: ButtonAttributesAccordionType) => setExpanded(value)}

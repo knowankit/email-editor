@@ -31,7 +31,7 @@ export default function PositionedSnackbar() {
       sx={{ color: "white" }}
       onClose={() => hideSnackbar()}
     >
-      <Alert severity={severity} sx={{ width: "100%" }}>
+      <Alert severity={severity} sx={{ width: "100%", color: "white" }}>
         {message}
       </Alert>
     </Snackbar>

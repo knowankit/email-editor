@@ -13,7 +13,9 @@ interface IBorder {
   changeTab: (value: TextAttributesAccordionType) => void;
 }
 
-const Extra = ({ expanded, changeTab }: IBorder) => {
+const Extra = () => {
+  const [expanded, setExpanded] = useState("extra");
+
   const { activeNode, updateAttributes } = useEmailStore();
   const { section } = activeNode;
   const attributes = section.attributes;
@@ -43,7 +45,7 @@ const Extra = ({ expanded, changeTab }: IBorder) => {
   return (
     <Accordion
       expanded={expanded === "extra"}
-      onChange={() => changeTab(expanded === "extra" ? "" : "extra")}
+      onChange={() => setExpanded(expanded === "extra" ? "" : "extra")}
       sx={{ width: "100%" }}
     >
       <AccordionSummary aria-controls="extra">

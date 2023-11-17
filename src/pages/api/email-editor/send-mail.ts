@@ -2,12 +2,12 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import sgMail from '@sendgrid/mail';
 
 const sendMail = (res: NextApiResponse, req: NextApiRequest) => {
-  const  { to, from, htmlString } = req.body
+  const  { to, from, subject, htmlString } = req.body
 
   const msg = {
     to,
     from,
-    subject: 'You are invited',
+    subject,
     html: htmlString
   };
   sgMail
