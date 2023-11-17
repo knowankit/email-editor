@@ -8,18 +8,10 @@ import {
   TextField
 } from "@mui/material";
 import useEmailStore from "@/store/email";
+import useSnackBarStore from "@/store/snackbar";
 import SendIcon from "@mui/icons-material/Send";
-import Snackbar from "@mui/material/Snackbar";
-import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { getBaseURL } from "@/lib/util/get-email-url";
 import { useSession } from "next-auth/react";
-
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
-  props,
-  ref
-) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
 
 export interface SimpleDialogProps {
   open: boolean;
@@ -29,8 +21,8 @@ export interface SimpleDialogProps {
 const FullScreenPreview = (props: SimpleDialogProps) => {
   const { onClose, open } = props;
   const { emailData } = useEmailStore();
-  const [from, setFrom] = useState("");
-  const [isAlertOn, setAlertStatus] = useState(false);
+  const { showSnackbar } = useSnackBarStore();
+  // const [from, setFrom] = useState("");
   const { data: session } = useSession();
 
   const [to, setTo] = useState("");
@@ -56,7 +48,7 @@ const FullScreenPreview = (props: SimpleDialogProps) => {
   };
 
   const handleSendMail = async () => {
-    if (!to || !from) return;
+    if (!user || !to) return;
 
     const data = await loadMjMl();
     const URL = `${getBaseURL()}/api/email-editor/send-mail`;
@@ -72,7 +64,13 @@ const FullScreenPreview = (props: SimpleDialogProps) => {
     const json = await response.json();
 
     if (json.status == 200) {
-      setAlertStatus(true);
+      showSnackbar({
+        autoHideDuration: 3000,
+        isOpen: true,
+        message: "Email has been sent",
+        vertical: "top",
+        horizontal: "center"
+      });
       handleClose();
     }
   };
@@ -122,15 +120,6 @@ const FullScreenPreview = (props: SimpleDialogProps) => {
           </Box>
         </DialogContent>
       </Dialog>
-      <Snackbar
-        open={isAlertOn}
-        autoHideDuration={3000}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      >
-        <Alert severity="success" sx={{ width: "100%", color: "white" }}>
-          Email has been sent
-        </Alert>
-      </Snackbar>
     </>
   );
 };

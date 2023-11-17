@@ -27,7 +27,7 @@ const useSnackBarStore = create<StoreState & StoreActions>((set) => ({
     vertical: 'top',
     horizontal: 'center',
     isOpen: false,
-    autoHideDuration: 3000
+    autoHideDuration: 300
   },
   hideSnackbar: () => set((state) => ({ snackbarDetail: { ...state.snackbarDetail, isOpen: false }  })),
   showSnackbar: (snackbarDetailData) => set((state) => ({ snackbarDetail: {...state.snackbarDetail, ...snackbarDetailData } })),
