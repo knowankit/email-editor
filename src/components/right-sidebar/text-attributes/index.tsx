@@ -6,6 +6,7 @@ import Typography from "@/components/right-sidebar/text-attributes/typography";
 import { useState } from "react";
 import { TextAttributesAccordionType } from "@/types/email-editor.types";
 import useEmailStore from "@/store/email";
+import { Box } from "@mui/material";
 
 const TextAttributes = () => {
   const [expanded, setExpanded] = useState<TextAttributesAccordionType>(
@@ -19,6 +20,8 @@ const TextAttributes = () => {
 
   return (
     <>
+      <Box p="1rem">Text Element</Box>
+
       <Dimension
         expanded={expanded}
         changeTab={(value: TextAttributesAccordionType) => setExpanded(value)}

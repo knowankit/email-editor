@@ -4,6 +4,7 @@ import Setting from "@/components/right-sidebar/hero-attributes/settings";
 import { useState } from "react";
 import { HeroAttributesAccordionType } from "@/types/email-editor.types";
 import useEmailStore from "@/store/email";
+import { Box } from "@mui/material";
 
 const HeroAttributes = () => {
   const [expanded, setExpanded] = useState<HeroAttributesAccordionType>(
@@ -17,6 +18,8 @@ const HeroAttributes = () => {
 
   return (
     <>
+      <Box p="1rem">Hero Element</Box>
+
       <Setting
         expanded={expanded}
         changeTab={(value: HeroAttributesAccordionType) => setExpanded(value)}

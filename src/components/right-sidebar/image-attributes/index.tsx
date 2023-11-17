@@ -4,6 +4,7 @@ import Setting from "@/components/right-sidebar/image-attributes/settings";
 import { useState } from "react";
 import { ImageAttributesAccordionType } from "@/types/email-editor.types";
 import useEmailStore from "@/store/email";
+import { Box } from "@mui/material";
 
 const ImageAttributes = () => {
   const [expanded, setExpanded] = useState<ImageAttributesAccordionType>(
@@ -17,6 +18,8 @@ const ImageAttributes = () => {
 
   return (
     <>
+      <Box p="1rem">Image Element</Box>
+
       <Setting
         expanded={expanded}
         changeTab={(value: ImageAttributesAccordionType) => setExpanded(value)}
