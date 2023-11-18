@@ -23,7 +23,11 @@ import { debounce } from "lodash";
 const TextTypography = () => {
   const [expanded, setExpanded] = useState("typography");
 
-  const { activeNode, updateAttributes } = useEmailStore();
+  const {
+    activeNode,
+    updateAttributes,
+    updateActiveNodeAttributes
+  } = useEmailStore();
   const { section } = activeNode;
   const defaultAttributes = section.attributes;
 
@@ -76,12 +80,14 @@ const TextTypography = () => {
       ...formData,
       [name]: value
     };
+
     setFormData(newAttributes);
     debouncedApplyChanges(newAttributes);
   };
 
   const applyChanges = (newAttributes: any) => {
     updateAttributes(newAttributes, activeNode.path);
+    updateActiveNodeAttributes("attributes", newAttributes);
   };
 
   return (

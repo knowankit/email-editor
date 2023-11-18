@@ -16,7 +16,11 @@ interface IBorder {
 const Extra = () => {
   const [expanded, setExpanded] = useState("extra");
 
-  const { activeNode, updateAttributes } = useEmailStore();
+  const {
+    activeNode,
+    updateAttributes,
+    updateActiveNodeAttributes
+  } = useEmailStore();
   const { section } = activeNode;
   const attributes = section.attributes;
 
@@ -40,6 +44,7 @@ const Extra = () => {
     };
 
     updateAttributes(newAttributes, activeNode.path);
+    updateActiveNodeAttributes("attributes", newAttributes);
   };
 
   return (
