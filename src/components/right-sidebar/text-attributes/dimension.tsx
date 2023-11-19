@@ -5,44 +5,53 @@ import {
 } from "@/lib/ui/accordion";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { TextAttributesAccordionType } from "@/types/email-editor.types";
 import TextField from "@mui/material/TextField";
 import useEmailStore from "@/store/email";
-import { useState } from "react";
-import { Button } from "@mui/material";
+import { useState, useCallback } from "react";
+import { debounce } from "lodash";
 
 const Dimension = () => {
   const [expanded, setExpanded] = useState("dimension");
 
-  const { activeNode, updateAttributes } = useEmailStore();
+  const {
+    activeNode,
+    updateAttributes,
+    updateActiveNodeAttributes
+  } = useEmailStore();
   const { section } = activeNode;
-  const attributes = section.attributes;
+  const defaultAttributes = section.attributes;
 
   const [formData, setFormData] = useState({
-    width: attributes["width"],
-    height: attributes["height"],
-    "padding-top": attributes["padding-top"],
-    "padding-bottom": attributes["padding-bottom"],
-    "padding-left": attributes["padding-left"],
-    "padding-right": attributes["padding-right"]
+    width: defaultAttributes["width"],
+    height: defaultAttributes["height"],
+    "padding-top": defaultAttributes["padding-top"],
+    "padding-bottom": defaultAttributes["padding-bottom"],
+    "padding-left": defaultAttributes["padding-left"],
+    "padding-right": defaultAttributes["padding-right"]
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
-    setFormData({
+    const newAttributes = {
+      ...defaultAttributes,
       ...formData,
       [name]: value
-    });
+    };
+    setFormData(newAttributes);
+    debouncedApplyChanges(newAttributes);
   };
 
-  const applyChanges = () => {
-    const newAttributes = {
-      ...attributes,
-      ...formData
-    };
+  const debouncedApplyChanges = useCallback(
+    debounce(newAttributes => {
+      applyChanges(newAttributes);
+    }, 400),
+    []
+  );
 
+  const applyChanges = (newAttributes: any) => {
     updateAttributes(newAttributes, activeNode.path);
+    updateActiveNodeAttributes("attributes", newAttributes);
   };
 
   return (
@@ -111,11 +120,6 @@ const Dimension = () => {
             maxRows={4}
             sx={{ width: "45%" }}
           />
-        </Box>
-        <Box sx={{ mt: "1rem" }}>
-          <Button size="small" variant="contained" onClick={applyChanges}>
-            Apply
-          </Button>
         </Box>
       </AccordionDetails>
     </Accordion>

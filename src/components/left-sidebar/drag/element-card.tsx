@@ -7,6 +7,7 @@ interface IElementCard {
     icon: JSX.Element;
     text: string;
     tagName: string;
+    isDisabled?: boolean;
   };
   index: number;
 }
@@ -21,7 +22,14 @@ const ElementCard = ({ element, index }: IElementCard) => {
   }));
 
   return (
-    <Box ref={drag} sx={collected.isDragging ? boxElementOnDrag : boxElement}>
+    <Box
+      ref={drag}
+      sx={{
+        ...(collected.isDragging ? boxElementOnDrag : boxElement),
+        pointerEvents: element.isDisabled ? "none" : "auto",
+        opacity: element.isDisabled ? 0.5 : 1
+      }}
+    >
       <Box key={index} textAlign="center" mt={1}>
         {element.icon}
       </Box>

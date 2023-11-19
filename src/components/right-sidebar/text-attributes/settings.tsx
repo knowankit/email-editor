@@ -9,53 +9,69 @@ import useEmailStore from "@/store/email";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import ColorLensIcon from "@mui/icons-material/ColorLens";
-import { Button } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import IconButton from "@mui/material/IconButton";
 import ColorPicker from "@/lib/ui/color-picker";
+import { debounce } from "lodash";
+import { Button } from "@mui/material";
 
 const Settings = () => {
   const [expanded, setExpanded] = useState("setting");
 
   const [isColorPickerOpen, setColorPickerStatus] = useState(false);
   const [fieldName, setFieldName] = useState("");
-  const { activeNode, updateAttributes, updateContent } = useEmailStore();
+  const {
+    activeNode,
+    updateAttributes,
+    updateContent,
+    updateActiveNodeAttributes
+  } = useEmailStore();
 
   const { section } = activeNode;
   const [content, setContent] = useState(section.content);
   const [anchorEl, setAnchorEl] = useState(null);
-  const attributes = section.attributes;
+  const defaultAttributes = section.attributes;
 
   useEffect(() => {
     setContent(section.content);
 
     setFormData({
-      "container-background-color": attributes["container-background-color"],
-      color: attributes["color"]
+      "container-background-color":
+        defaultAttributes["container-background-color"],
+      color: defaultAttributes["color"]
     });
   }, [section]);
 
   const [formData, setFormData] = useState({
-    "container-background-color": attributes["container-background-color"],
-    color: attributes["color"]
+    "container-background-color":
+      defaultAttributes["container-background-color"],
+    color: defaultAttributes["color"]
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+    console.log("hellooo deb");
 
-    setFormData({
+    const newAttributes = {
+      ...defaultAttributes,
       ...formData,
       [name]: value
-    });
-  };
-
-  const applyChanges = () => {
-    const newAttributes = {
-      ...attributes,
-      ...formData
     };
 
+    setFormData(newAttributes);
+    debouncedApplyChanges(newAttributes);
+  };
+
+  const debouncedApplyChanges = useCallback(
+    debounce(newAttributes => {
+      applyChanges(newAttributes);
+    }, 400),
+    []
+  );
+
+  const applyChanges = (newAttributes: any) => {
     updateAttributes(newAttributes, activeNode.path);
+    updateActiveNodeAttributes("attributes", newAttributes);
     updateContent(content, activeNode.path);
   };
 
@@ -73,10 +89,14 @@ const Settings = () => {
   };
 
   const handleColorChange = (col: any) => {
-    setFormData({
+    const newAttributes = {
+      ...defaultAttributes,
       ...formData,
       [fieldName]: col.hex
-    });
+    };
+
+    setFormData(newAttributes);
+    debouncedApplyChanges(newAttributes);
 
     setColorPickerStatus(false);
     setAnchorEl(null);
@@ -168,7 +188,17 @@ const Settings = () => {
           onChange={col => handleColorChange(col)}
         />
         <Box sx={{ mt: "1rem" }}>
-          <Button size="small" variant="contained" onClick={applyChanges}>
+          <Button
+            size="small"
+            variant="contained"
+            onClick={() => {
+              const newAttributes = {
+                ...defaultAttributes,
+                ...formData
+              };
+              applyChanges(newAttributes);
+            }}
+          >
             Apply
           </Button>
         </Box>
