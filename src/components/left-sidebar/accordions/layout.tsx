@@ -26,7 +26,8 @@ const elements = [
   {
     tagName: "mj-spacer",
     icon: <SpaceBarIcon />,
-    text: "Spacer"
+    text: "Spacer",
+    isDisabled: true
   }
 ];
 
