@@ -29,15 +29,8 @@ const hoverStyle = {
   }
 };
 
-const activeStyle = {
-  ...defaultStyle,
-  outline: "2px dashed orange",
-  outlineOffset: "2px"
-};
-
 const ColumnPreview = ({ section, index, columnIndex, path }: ITextPreview) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [isActive, setIsActive] = useState(false);
 
   const [{ isOver, canDrop }, drop] = useDrop(() => ({
     accept: ["mj-image", "mj-text"],
