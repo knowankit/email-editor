@@ -40,7 +40,8 @@ const SectionPreview = ({ section, index, path }: ISectionPreview) => {
     accept: ["mj-column", "mj-spacer"],
     drop: (item: any, monitor) => {
       if (!monitor.didDrop()) {
-        pushTagElement(item["type"], path);
+        const nestedPath = `${path}.children`;
+        pushTagElement(item["type"], nestedPath);
       }
     },
     collect: monitor => ({
@@ -117,6 +118,7 @@ const SectionPreview = ({ section, index, path }: ISectionPreview) => {
   };
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
     event.stopPropagation();
 
     setActiveNode(null);
@@ -142,6 +144,16 @@ const SectionPreview = ({ section, index, path }: ISectionPreview) => {
           hasChildren.map((tsection: any, tindex: number) => {
             return loadHtmlElements(tsection, tindex);
           })}
+        {hasChildren.length === 0 && (
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            width="100%"
+          >
+            <p>Drop Column here</p>
+          </Box>
+        )}
         {(isHovered || showControls) && (
           <HoverInfo section={section} path={path} />
         )}
