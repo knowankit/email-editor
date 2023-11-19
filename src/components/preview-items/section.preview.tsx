@@ -1,9 +1,12 @@
 import { Box } from "@mui/material";
 import { useDrop } from "react-dnd";
-import useEmailStore from "@/store/email";
 import ColumnPreview from "@/components/preview-items/column.preview";
 import SpacerPreview from "@/components/preview-items/spacer.preview";
-
+import useEmailDataStore from "@/store/email";
+import {
+  getCamelCasedAttributes,
+  objectToCSS
+} from "@/lib/util/get-camel-cased-attr";
 import HoverInfo from "@/lib/ui/hover-info";
 import { useState } from "react";
 
@@ -12,31 +15,65 @@ const defaultStyle = {
   position: "relative"
 };
 
-const activeStyle = {
-  ...defaultStyle,
-  outline: "2px dashed orange",
-  outlineOffset: "2px"
-};
-
 interface ISectionPreview {
   section: any;
   index: number;
   path: string;
 }
 
+const hoverStyle = {
+  "&:hover": {
+    outline: "2px dashed black"
+  }
+};
+
 const SectionPreview = ({ section, index, path }: ISectionPreview) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [isActive, setIsActive] = useState(false);
+  const { activeNode, setActiveNode, pushTagElement } = useEmailDataStore();
 
-  const { pushTagElement } = useEmailStore();
-  const [collectedProps, drop] = useDrop(() => ({
+  const activeSectionId = activeNode && activeNode["section"]?.id;
+  const currentSectionId = section.id;
+  const showControls = activeSectionId === currentSectionId;
+  const objectCss = objectToCSS(getCamelCasedAttributes(section.attributes));
+
+  const [{ isOver, canDrop }, drop] = useDrop(() => ({
     accept: ["mj-column", "mj-spacer"],
     drop: (item: any, monitor) => {
       if (!monitor.didDrop()) {
-        pushTagElement(item["type"], path);
+        const nestedPath = `${path}.children`;
+        pushTagElement(item["type"], nestedPath);
       }
-    }
+    },
+    collect: monitor => ({
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop()
+    })
   }));
+
+  const getBoxStyle = () => {
+    const isActiveOver = isOver && canDrop;
+
+    // For showing green border on success element hover
+    if (isActiveOver) {
+      const hoverCss = {
+        outline: "4px solid #00AB55 !important"
+      };
+
+      return { ...defaultStyle, ...objectCss, ...hoverCss };
+    }
+
+    // For currently active node border color
+    if (showControls) {
+      const activeCss = {
+        outline: "4px solid #1939B7"
+      };
+
+      return { ...defaultStyle, ...objectCss, ...activeCss };
+    }
+
+    // Default behaviour
+    return { ...defaultStyle, ...objectCss, ...hoverStyle };
+  };
 
   const hasChildren = section["children"];
 
@@ -81,16 +118,22 @@ const SectionPreview = ({ section, index, path }: ISectionPreview) => {
   };
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setIsActive(true);
+    event.preventDefault();
     event.stopPropagation();
-  };
 
+    setActiveNode(null);
+    setActiveNode({
+      section,
+      path,
+      sectionIndex: index
+    });
+  };
   return (
     <Box ref={drop}>
       <Box
         display="flex"
         sx={{
-          ...(isActive ? activeStyle : defaultStyle)
+          ...getBoxStyle()
         }}
         minHeight="200px"
         onMouseEnter={onMouseEnter}
@@ -101,7 +144,19 @@ const SectionPreview = ({ section, index, path }: ISectionPreview) => {
           hasChildren.map((tsection: any, tindex: number) => {
             return loadHtmlElements(tsection, tindex);
           })}
-        {(isHovered || isActive) && <HoverInfo section={section} path={path} />}
+        {hasChildren.length === 0 && (
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            width="100%"
+          >
+            <p>Drop Column here</p>
+          </Box>
+        )}
+        {(isHovered || showControls) && (
+          <HoverInfo section={section} path={path} />
+        )}
       </Box>
     </Box>
   );
