@@ -13,6 +13,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import IconButton from "@mui/material/IconButton";
 import ColorPicker from "@/lib/ui/color-picker";
 import { debounce } from "lodash";
+import { Button } from "@mui/material";
 
 const Settings = () => {
   const [expanded, setExpanded] = useState("setting");
@@ -186,6 +187,21 @@ const Settings = () => {
           anchorEl={anchorEl}
           onChange={col => handleColorChange(col)}
         />
+        <Box sx={{ mt: "1rem" }}>
+          <Button
+            size="small"
+            variant="contained"
+            onClick={() => {
+              const newAttributes = {
+                ...defaultAttributes,
+                ...formData
+              };
+              applyChanges(newAttributes);
+            }}
+          >
+            Apply
+          </Button>
+        </Box>
       </AccordionDetails>
     </Accordion>
   );
