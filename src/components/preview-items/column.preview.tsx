@@ -1,11 +1,14 @@
 import { Box } from "@mui/material";
 import { useDrop } from "react-dnd";
 import React, { useState } from "react";
-import useEmailStore from "@/store/email";
 import ImagePreview from "@/components/preview-items/image.preview";
 import TextPreview from "@/components/preview-items/text.preview";
-
+import {
+  getCamelCasedAttributes,
+  objectToCSS
+} from "@/lib/util/get-camel-cased-attr";
 import HoverInfo from "@/lib/ui/hover-info";
+import useEmailDataStore from "@/store/email";
 
 interface ITextPreview {
   section: any;
@@ -17,10 +20,12 @@ interface ITextPreview {
 const defaultStyle = {
   minHeight: "200px",
   outline: "2px dashed black",
-  position: "relative",
+  position: "relative"
+};
+
+const hoverStyle = {
   "&:hover": {
-    outline: "2px dashed orange",
-    outlineOffset: "2px"
+    outline: "2px dashed black"
   }
 };
 
@@ -31,20 +36,29 @@ const activeStyle = {
 };
 
 const ColumnPreview = ({ section, index, columnIndex, path }: ITextPreview) => {
-  const { pushTagElement } = useEmailStore();
   const [isHovered, setIsHovered] = useState(false);
   const [isActive, setIsActive] = useState(false);
 
-  const [collectedProps, drop] = useDrop(() => ({
+  const [{ isOver, canDrop }, drop] = useDrop(() => ({
     accept: ["mj-image", "mj-text"],
     drop: (item: any, monitor) => {
       if (!monitor.didDrop()) {
         pushTagElement(item["type"], path);
       }
-    }
+    },
+    collect: monitor => ({
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop()
+    })
   }));
 
   const hasChildren = section["children"];
+  const objectCss = objectToCSS(getCamelCasedAttributes(section.attributes));
+  const { activeNode, setActiveNode, pushTagElement } = useEmailDataStore();
+
+  const activeSectionId = activeNode && activeNode["section"]?.id;
+  const currentSectionId = section.id;
+  const showControls = activeSectionId === currentSectionId;
 
   const loadHtmlElements = (pSection: any, tindex: number) => {
     switch (pSection.tagName) {
@@ -80,7 +94,38 @@ const ColumnPreview = ({ section, index, columnIndex, path }: ITextPreview) => {
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
-    setIsActive(true);
+
+    setActiveNode(null);
+    setActiveNode({
+      section,
+      path,
+      sectionIndex: index
+    });
+  };
+
+  const getBoxStyle = () => {
+    const isActiveOver = isOver && canDrop;
+
+    // For showing green border on success element hover
+    if (isActiveOver) {
+      const hoverCss = {
+        outline: "4px solid #00AB55 !important"
+      };
+
+      return { ...defaultStyle, ...objectCss, ...hoverCss };
+    }
+
+    // For currently active node border color
+    if (showControls) {
+      const activeCss = {
+        outline: "4px solid #1939B7"
+      };
+
+      return { ...defaultStyle, ...objectCss, ...activeCss };
+    }
+
+    // Default behaviour
+    return { ...defaultStyle, ...objectCss, ...hoverStyle };
   };
 
   const onMouseEnter = (event: React.MouseEvent<HTMLElement>) => {
@@ -97,7 +142,7 @@ const ColumnPreview = ({ section, index, columnIndex, path }: ITextPreview) => {
     <Box sx={{ flex: "1", margin: "1rem" }} ref={drop}>
       <Box
         sx={{
-          ...(isActive ? activeStyle : defaultStyle)
+          ...getBoxStyle()
         }}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
@@ -107,7 +152,9 @@ const ColumnPreview = ({ section, index, columnIndex, path }: ITextPreview) => {
           hasChildren.map((tsection: any, tindex: any) => {
             return loadHtmlElements(tsection, tindex);
           })}
-        {(isHovered || isActive) && <HoverInfo section={section} path={path} />}
+        {(isHovered || showControls) && (
+          <HoverInfo section={section} path={path} />
+        )}
       </Box>
     </Box>
   );
