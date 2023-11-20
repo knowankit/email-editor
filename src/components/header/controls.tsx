@@ -1,5 +1,4 @@
 import { Box } from "@mui/material";
-import Link from "@mui/material/Link";
 import OnlineOfflineStatus from "@/components/header/online-offline-status";
 import IntroButton from "@/components/button-controls/intro-button";
 import GithubAuth from "@/components/button-controls/github-auth";
@@ -15,23 +14,11 @@ const Controls = () => {
         <IntroButton />
         <GithubAuth />
       </Box>
-
-      <Link
-        component="a"
-        fontSize="0.875rem"
-        href="https://github.com/knowankit/email-editor"
-        sx={{
-          textTransform: "none",
-          textDecoration: "none",
-          display: "flex",
-          alignItems: "center",
-          color: "black"
-        }}
-      >
+      <Box display="flex">
         <GithubFollowButton />
         <GitHubRepoStarButton />
         <OnlineOfflineStatus />
-      </Link>
+      </Box>
     </Box>
   );
 };
