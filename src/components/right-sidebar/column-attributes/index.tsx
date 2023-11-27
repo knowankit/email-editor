@@ -1,7 +1,5 @@
-import Border from "@/components/right-sidebar/section-attributes/border";
-import Dimension from "@/components/right-sidebar/section-attributes/dimension";
-import Setting from "@/components/right-sidebar/section-attributes/settings";
-import Typography from "@/components/right-sidebar/section-attributes/typography";
+import Border from "@/components/right-sidebar/column-attributes/border";
+import Setting from "@/components/right-sidebar/column-attributes/settings";
 
 import { useState } from "react";
 import { HeroAttributesAccordionType } from "@/types/email-editor.types";
@@ -15,10 +13,7 @@ const HeroAttributes = () => {
 
   const { activeNode } = useEmailStore();
 
-  if (
-    !activeNode ||
-    (activeNode && activeNode.section.tagName !== "mj-section")
-  )
+  if (!activeNode || (activeNode && activeNode.section.tagName !== "mj-column"))
     return <></>;
 
   return (
@@ -29,15 +24,11 @@ const HeroAttributes = () => {
         expanded={expanded}
         changeTab={(value: HeroAttributesAccordionType) => setExpanded(value)}
       />
-      <Dimension
-        expanded={expanded}
-        changeTab={(value: HeroAttributesAccordionType) => setExpanded(value)}
-      />
+
       <Border
         expanded={expanded}
         changeTab={(value: HeroAttributesAccordionType) => setExpanded(value)}
       />
-      <Typography />
     </>
   );
 };

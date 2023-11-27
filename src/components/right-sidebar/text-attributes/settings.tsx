@@ -14,8 +14,9 @@ import IconButton from "@mui/material/IconButton";
 import ColorPicker from "@/lib/ui/color-picker";
 import { debounce } from "lodash";
 import { Button } from "@mui/material";
-
+import useEmailDataStore from "@/store/email";
 const Settings = () => {
+  const data = useEmailDataStore();
   const [expanded, setExpanded] = useState("setting");
 
   const [isColorPickerOpen, setColorPickerStatus] = useState(false);
@@ -50,7 +51,6 @@ const Settings = () => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    console.log("hellooo deb");
 
     const newAttributes = {
       ...defaultAttributes,
