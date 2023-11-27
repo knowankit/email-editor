@@ -12,6 +12,7 @@ import ImageAttributes from "@/components/right-sidebar/image-attributes";
 import HeroAttributes from "@/components/right-sidebar/hero-attributes";
 import ButtonAttributes from "@/components/right-sidebar/button-attributes";
 import TextAttributes from "@/components/right-sidebar/text-attributes";
+import SectionAttributes from "@/components/right-sidebar/section-attributes";
 
 const RightSidebar = () => {
   const [expanded, setExpanded] = useState<SourceAccordionType>("json");
@@ -49,6 +50,7 @@ const RightSidebar = () => {
           <HeroAttributes />
           <ButtonAttributes />
           <TextAttributes />
+          <SectionAttributes />
         </TabPanel>
         <TabPanel value="2" sx={{ padding: 0 }}>
           <JsonSource
