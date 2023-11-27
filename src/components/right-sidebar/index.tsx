@@ -12,6 +12,8 @@ import ImageAttributes from "@/components/right-sidebar/image-attributes";
 import HeroAttributes from "@/components/right-sidebar/hero-attributes";
 import ButtonAttributes from "@/components/right-sidebar/button-attributes";
 import TextAttributes from "@/components/right-sidebar/text-attributes";
+import SectionAttributes from "@/components/right-sidebar/section-attributes";
+import ColumnAttributes from "@/components/right-sidebar/column-attributes";
 
 const RightSidebar = () => {
   const [expanded, setExpanded] = useState<SourceAccordionType>("json");
@@ -31,11 +33,7 @@ const RightSidebar = () => {
     >
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <TabList
-            onChange={handleChange}
-            aria-label="lab API tabs example"
-            variant="fullWidth"
-          >
+          <TabList onChange={handleChange} variant="fullWidth">
             <Tab
               label="Configuration"
               value="1"
@@ -49,6 +47,8 @@ const RightSidebar = () => {
           <HeroAttributes />
           <ButtonAttributes />
           <TextAttributes />
+          <SectionAttributes />
+          <ColumnAttributes />
         </TabPanel>
         <TabPanel value="2" sx={{ padding: 0 }}>
           <JsonSource

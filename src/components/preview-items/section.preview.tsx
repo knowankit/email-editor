@@ -77,16 +77,16 @@ const SectionPreview = ({ section, index, path }: ISectionPreview) => {
 
   const hasChildren = section["children"];
 
-  const loadHtmlElements = (pSection: any, tindex: number) => {
+  const loadHtmlElements = (pSection: any, nIndex: number) => {
     switch (pSection.tagName) {
       case "mj-column": {
         return (
           <ColumnPreview
             section={pSection}
             index={index}
-            columnIndex={tindex}
-            key={tindex}
-            path={`children.${index}.children.${tindex}.children`}
+            columnIndex={nIndex}
+            key={nIndex}
+            path={`${path}.children.${nIndex}`}
           />
         );
       }
@@ -96,8 +96,8 @@ const SectionPreview = ({ section, index, path }: ISectionPreview) => {
           <SpacerPreview
             section={pSection}
             index={index}
-            key={tindex}
-            path={`children.${index}.children.${tindex}.children`}
+            key={nIndex}
+            path={`${path}.children.${nIndex}`}
           />
         );
       }

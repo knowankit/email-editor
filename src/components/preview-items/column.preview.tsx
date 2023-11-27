@@ -18,7 +18,7 @@ interface ITextPreview {
 }
 
 const defaultStyle = {
-  minHeight: "200px",
+  minHeight: "150px",
   outline: "2px dashed black",
   position: "relative"
 };
@@ -63,7 +63,7 @@ const ColumnPreview = ({ section, index, columnIndex, path }: ITextPreview) => {
             columnIndex={columnIndex}
             index={index}
             key={index}
-            path={`${path}.children.${tindex}.children`}
+            path={`${path}.children.${tindex}`}
           />
         );
       }
@@ -75,7 +75,7 @@ const ColumnPreview = ({ section, index, columnIndex, path }: ITextPreview) => {
             index={index}
             textIndex={tindex}
             key={index}
-            path={`${path}.children.${tindex}.children`}
+            path={`${path}.children.${tindex}`}
           />
         );
       }
