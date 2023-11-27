@@ -36,7 +36,9 @@ const ColumnPreview = ({ section, index, columnIndex, path }: ITextPreview) => {
     accept: ["mj-image", "mj-text"],
     drop: (item: any, monitor) => {
       if (!monitor.didDrop()) {
-        pushTagElement(item["type"], path);
+        const nestedPath = `${path}.children`;
+
+        pushTagElement(item["type"], nestedPath);
       }
     },
     collect: monitor => ({
