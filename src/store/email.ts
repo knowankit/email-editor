@@ -29,7 +29,7 @@ interface MJMLNode {
 }
 
 interface ActiveNode {
-  sectionIndex: number;
+  sectionIndex?: number;
   path?: string;
   section: MJMLNode;
 }

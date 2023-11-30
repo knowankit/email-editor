@@ -3,10 +3,9 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { TreeView } from "@mui/x-tree-view/TreeView";
 import { TreeItem } from "@mui/x-tree-view/TreeItem";
-import useEmailStore from "@/store/email";
+import useEmailDataStore from "@/store/email";
 import DescriptionIcon from "@mui/icons-material/Description";
 import ImageIcon from "@mui/icons-material/Image";
-import DashboardIcon from "@mui/icons-material/Dashboard";
 import Crop54Icon from "@mui/icons-material/Crop54";
 import Box from "@mui/material/Box";
 import { FcAddColumn } from "react-icons/fc";
@@ -42,7 +41,7 @@ const getTagIcons = (tagName: string) => {
 };
 
 const Layer = () => {
-  const { emailData } = useEmailStore();
+  const { emailData, setActiveNode } = useEmailDataStore();
 
   const withHtml = {
     tagName: "mjml",
@@ -67,6 +66,7 @@ const Layer = () => {
       <TreeItem
         key={data.tagName}
         nodeId={data.id}
+        onClick={() => handleClick(data)}
         label={getLabel(data.tagName)}
         sx={{ mt: 1 }}
       >
@@ -79,9 +79,12 @@ const Layer = () => {
     );
   };
 
+  const handleClick = (data: any) => {
+    setActiveNode({ section: data });
+  };
+
   return (
     <TreeView
-      aria-label="file system navigator"
       expanded={nodeIds}
       defaultCollapseIcon={<ExpandMoreIcon />}
       defaultExpandIcon={<ChevronRightIcon />}
