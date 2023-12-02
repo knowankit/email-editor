@@ -42,7 +42,6 @@ const getTagIcons = (tagName: string) => {
 
 const Layer = () => {
   const { emailData, setActiveNode } = useEmailDataStore();
-
   const withHtml = {
     tagName: "mjml",
     attributes: {},
@@ -60,27 +59,38 @@ const Layer = () => {
     );
   };
 
-  const renderTree = (data: any) => {
+  const renderTree = (data: any, path = "children", index = 0) => {
     nodeIds.push(data.id);
+
+    const customPath = `${path}.${index}`;
+
     return (
       <TreeItem
-        key={data.tagName}
+        key={data.id}
         nodeId={data.id}
-        onClick={() => handleClick(data)}
+        onClick={() => handleClick(data, customPath)}
         label={getLabel(data.tagName)}
         sx={{ mt: 1 }}
       >
         {data.children &&
         Array.isArray(data.children) &&
         data.children.length > 0
-          ? data.children.map((child: any) => renderTree(child))
+          ? data.children.map((child: any, i: number) =>
+              renderTree(child, `${customPath}.children`, i)
+            )
           : null}
       </TreeItem>
     );
   };
 
-  const handleClick = (data: any) => {
-    setActiveNode({ section: data });
+  const handleClick = (data: any, path: string) => {
+    const modifyPath = path
+      .split("0")
+      .slice(2)
+      .join("0")
+      .slice(1);
+
+    setActiveNode({ section: data, path: modifyPath });
   };
 
   return (
