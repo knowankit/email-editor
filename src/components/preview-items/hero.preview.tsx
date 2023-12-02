@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   getCamelCasedAttributes,
   objectToCSS
@@ -108,7 +108,7 @@ const HeroPreview = ({ section, index, path }: ITextPreview) => {
 
   const showControls = activeSectionId === currentSectionId;
 
-  const getBoxStyle = () => {
+  const getBoxStyle = useCallback(() => {
     const isActiveOver = isOver && canDrop;
 
     // For showing green border on success element hover
@@ -131,7 +131,7 @@ const HeroPreview = ({ section, index, path }: ITextPreview) => {
 
     // Default behaviour
     return { ...defaultStyle, ...objectCss, ...hoverStyle };
-  };
+  }, [activeNode]);
 
   return (
     <Box
