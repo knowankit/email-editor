@@ -3,6 +3,8 @@ import { useDrop } from "react-dnd";
 import React, { useState } from "react";
 import ImagePreview from "@/components/preview-items/image.preview";
 import TextPreview from "@/components/preview-items/text.preview";
+import CarouselPreview from "@/components/preview-items/carousel.preview";
+
 import {
   getCamelCasedAttributes,
   objectToCSS
@@ -76,6 +78,17 @@ const ColumnPreview = ({ section, index, columnIndex, path }: ITextPreview) => {
             section={pSection}
             index={index}
             textIndex={tindex}
+            key={index}
+            path={`${path}.children.${tindex}`}
+          />
+        );
+      }
+
+      case "mj-carousel": {
+        return (
+          <CarouselPreview
+            section={pSection}
+            index={index}
             key={index}
             path={`${path}.children.${tindex}`}
           />
