@@ -11,7 +11,8 @@ import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import React from "react";
 import { produce } from "immer";
-
+import DeleteIcon from "@mui/icons-material/Delete";
+import IconButton from "@mui/material/IconButton";
 interface ISetting {
   expanded: ImageAttributesAccordionType;
   changeTab: (value: ImageAttributesAccordionType) => void;
@@ -20,11 +21,10 @@ interface ISetting {
 const Settings = ({ expanded, changeTab }: ISetting) => {
   const {
     activeNode,
-    updateAttributes,
+    updateChildren,
     updateActiveNodeAttributes
   } = useEmailStore();
   const { section } = activeNode;
-  const attributes = section.attributes;
 
   const [formData, setFormData] = useState({
     children: section.children
@@ -44,16 +44,31 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
   };
 
   const applyChanges = () => {
-    const newAttributes = {
-      ...attributes,
-      ...formData
-    };
-
-    updateAttributes(newAttributes, activeNode.path);
-    updateActiveNodeAttributes("attributes", newAttributes);
+    updateChildren(formData.children, activeNode.path);
+    updateActiveNodeAttributes("children", formData.children);
   };
 
-  const slides = section.children;
+  const addSlide = () => {
+    setFormData(children => {
+      return produce(children, (draftState: any) => {
+        draftState.children.push(draftState.children[0]);
+      });
+    });
+
+    // applyChanges();
+  };
+
+  const deleteSlide = (index: number) => {
+    setFormData(draft => {
+      return produce(draft, (draftState: any) => {
+        draftState.children.splice(index, 1);
+      });
+    });
+
+    // applyChanges();
+  };
+
+  const slides = formData.children;
 
   return (
     <Accordion
@@ -74,12 +89,12 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
                 sx={{
                   height: "200px",
                   width: "100%",
-                  backgroundImage: `url("${formData.children[index].attributes.src}")`,
+                  backgroundImage: `url("${formData.children[index]?.attributes.src}")`,
                   backgroundSize: "cover"
                 }}
               />
               <TextField
-                value={formData.children[index].attributes.src}
+                value={formData.children[index]?.attributes.src}
                 name="src"
                 fullWidth
                 sx={{ mt: 2 }}
@@ -89,11 +104,37 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
                 }
                 variant="outlined"
               />
+              <IconButton
+                disabled={slides.length === 1}
+                aria-label="delete"
+                size="small"
+                onClick={() => deleteSlide(index)}
+              >
+                <DeleteIcon
+                  fontSize="small"
+                  sx={{ fontSize: "1rem" }}
+                  color="error"
+                />
+              </IconButton>
             </Box>
           ))}
           <Box sx={{ mt: "1rem" }}>
-            <Button size="small" variant="contained" onClick={applyChanges}>
+            <Button
+              size="small"
+              variant="contained"
+              onClick={applyChanges}
+              sx={{ textTransform: "capitalize" }}
+            >
               Apply
+            </Button>
+            <Button
+              size="small"
+              variant="contained"
+              color="secondary"
+              onClick={addSlide}
+              sx={{ textTransform: "capitalize", ml: 2 }}
+            >
+              Add slide
             </Button>
           </Box>
         </Box>
