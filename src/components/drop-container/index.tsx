@@ -29,7 +29,7 @@ const DropContainer = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   const [collectedProps, drop] = useDrop(() => ({
-    accept: ["mj-section", "mj-hero"],
+    accept: ["mj-section", "mj-hero", "mj-carousel"],
     drop: (item: any, monitor) => {
       if (!monitor.didDrop()) {
         pushToUndoStack(emailData);

@@ -35,7 +35,7 @@ const ColumnPreview = ({ section, index, columnIndex, path }: ITextPreview) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const [{ isOver, canDrop }, drop] = useDrop(() => ({
-    accept: ["mj-image", "mj-text", "mj-carousel"],
+    accept: ["mj-image", "mj-text"],
     drop: (item: any, monitor) => {
       if (!monitor.didDrop()) {
         const nestedPath = `${path}.children`;

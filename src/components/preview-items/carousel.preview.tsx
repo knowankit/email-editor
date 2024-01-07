@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import HoverInfo from "@/lib/ui/hover-info";
 import useEmailDataStore from "@/store/email";
 
@@ -22,8 +22,6 @@ const hoverStyle = {
 };
 
 const defaultStyle = {
-  display: "inline-block",
-  backgroundColor: "#414141",
   color: "#ffffff",
   fontFamily: "Ubuntu, Helvetica, Arial, sans-serif",
   fontSize: "13px",
@@ -32,12 +30,11 @@ const defaultStyle = {
   textDecoration: "none",
   textTransform: "none",
   margin: "10px 25px",
-  padding: "10px 25px",
-  backgroundPosition: "center center"
+  padding: "10px 25px"
 };
 
 const CarouselPreview = ({ section, index, path }: IButtonPreview) => {
-  const [isHovered, setIsHovered] = useState(false);
+  // const [isHovered, setIsHovered] = useState(false);
   const { setActiveNode, activeNode } = useEmailDataStore();
   const objectCss = objectToCSS(getCamelCasedAttributes(section.attributes));
 
@@ -67,26 +64,36 @@ const CarouselPreview = ({ section, index, path }: IButtonPreview) => {
     return { ...hoverStyle };
   };
 
-  const allStyle = {
-    ...getStyle(),
-    ...defaultStyle,
-    ...objectCss
+  const getBoxStyle = () => {
+    // For currently active node border color
+    if (showControls) {
+      const activeCss = {
+        outline: "4px solid #1939B7"
+      };
+
+      return { ...defaultStyle, ...objectCss, ...activeCss };
+    }
+
+    // Default behaviour
+    return { ...defaultStyle, ...objectCss, ...hoverStyle };
   };
 
   return (
-    <Box textAlign={objectCss["textAlign"] as any}>
-      <Box
-        component="a"
-        position="relative"
-        href={section.href}
-        sx={{
-          borderRadius: objectCss["borderRadius"],
-          border: objectCss["border"],
-          ...allStyle
-        }}
-      >
-        The carousel preview is not real-time
-      </Box>
+    <Box
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      bgcolor="tomato"
+      height="120px"
+      width="inherit"
+      position="relative"
+      sx={{
+        ...getBoxStyle()
+      }}
+      onClick={handleClick}
+    >
+      The carousel preview is not real-time
+      {showControls && <HoverInfo section={section} path={path} />}
     </Box>
   );
 };
