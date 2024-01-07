@@ -8,10 +8,9 @@ import Typography from "@mui/material/Typography";
 import { ImageAttributesAccordionType } from "@/types/email-editor.types";
 import useEmailStore from "@/store/email";
 import TextField from "@mui/material/TextField";
-import InputAdornment from "@mui/material/InputAdornment";
-import ImageIcon from "@mui/icons-material/Image";
 import { useState } from "react";
 import React from "react";
+import { produce } from "immer";
 
 interface ISetting {
   expanded: ImageAttributesAccordionType;
@@ -28,16 +27,19 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
   const attributes = section.attributes;
 
   const [formData, setFormData] = useState({
-    src: attributes.src,
-    "background-color": ""
+    children: section.children
   });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const { value } = event.target;
 
-    setFormData({
-      ...formData,
-      [name]: value
+    setFormData(children => {
+      return produce(children, (draftState: any) => {
+        draftState.children[index].attributes.src = value;
+      });
     });
   };
 
@@ -64,25 +66,27 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
       </AccordionSummary>
       <AccordionDetails>
         <Box>
-          {slides.map((slide: any, index: number) => (
+          {slides.map((_slide: any, index: number) => (
             <Box sx={{ mt: 2 }}>
+              <Typography fontSize="1rem"> Slide {index + 1}</Typography>
+
               <Box
                 sx={{
-                  height: "100px",
-                  width: "100px",
-                  backgroundImage: `url("${slide?.attributes.src}")`,
+                  height: "200px",
+                  width: "100%",
+                  backgroundImage: `url("${formData.children[index].attributes.src}")`,
                   backgroundSize: "cover"
                 }}
               />
-
               <TextField
-                label={`Image source ${index + 1}`}
-                value={slide.attributes.src}
+                value={formData.children[index].attributes.src}
                 name="src"
                 fullWidth
                 sx={{ mt: 2 }}
                 size="small"
-                onChange={handleChange}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  handleChange(e, index)
+                }
                 variant="outlined"
               />
             </Box>
