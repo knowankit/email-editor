@@ -5,6 +5,7 @@ import {
 } from "@/lib/ui/accordion";
 import ImageIcon from "@mui/icons-material/Image";
 import SmartButtonIcon from "@mui/icons-material/SmartButton";
+import ViewCarouselIcon from "@mui/icons-material/ViewCarousel";
 import TitleIcon from "@mui/icons-material/Title";
 import Box from "@mui/material/Box";
 import ElementCard from "@/components/left-sidebar/drag/element-card";
@@ -28,6 +29,11 @@ const elements = [
     tagName: "mj-hero",
     icon: <PiCodeBlockFill fontSize="1.5rem" />,
     text: "Hero"
+  },
+  {
+    tagName: "mj-carousel",
+    icon: <ViewCarouselIcon />,
+    text: "Carousel"
   },
   {
     tagName: "mj-button",

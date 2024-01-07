@@ -1,6 +1,6 @@
-import { create } from 'zustand';
-import { devtools } from 'zustand/middleware';
-import { produce } from 'immer';
+import { create } from "zustand";
+import { devtools } from "zustand/middleware";
+import { produce } from "immer";
 
 import { getDefaultTags } from "@/lib/util/get-default-tags";
 
@@ -12,8 +12,8 @@ interface StoreState {
     templateId?: string;
   };
   activeNode: any | null;
-  history: MJMLNode[]
-  currentHistoryIndex: number
+  history: MJMLNode[];
+  currentHistoryIndex: number;
 }
 
 interface MJMLNodeAttributes {
@@ -37,156 +37,195 @@ interface ActiveNode {
 interface StoreActions {
   setEmailData: (data: MJMLNode) => void;
   setActiveNode: (data: ActiveNode | null) => void;
-  pushTagElement: (tagType: string, keys: string) => void
-  updateAttributes: (attributes: any, keys: string) => void
-  updateActiveNodeAttributes: (key: string, attributes: any) => void
-  updateContent: (content: string, keys: string) => void
-  popTagElement: (path: string) => void
+  pushTagElement: (tagType: string, keys: string) => void;
+  updateAttributes: (attributes: any, keys: string) => void;
+  updateChildren: (children: any, keys: string) => void;
+  updateActiveNodeAttributes: (key: string, attributes: any) => void;
+  updateContent: (content: string, keys: string) => void;
+  popTagElement: (path: string) => void;
   resetEmailData: () => void;
   undoEmail: () => void;
   redoEmail: () => void;
-
 }
 
 export const initialState = {
   emailData: {
-    tagName: 'mj-body',
+    tagName: "mj-body",
     attributes: {},
-    children: [],
+    children: []
   },
-  activeNode: null,
+  activeNode: null
 };
 
 const useEmailDataStore = create<StoreState & StoreActions>()(
-  devtools((set) => ({
-    setEmailData: (html) =>
-      set(
-        produce((draft) => {
-          draft.emailData = html;
-        })
-      ),
+  devtools(
+    set => ({
+      setEmailData: html =>
+        set(
+          produce(draft => {
+            draft.emailData = html;
+          })
+        ),
 
-    setActiveNode: (node) =>
-      set(
-        produce((draft) => {
-          draft.activeNode = node;
-        })
-      ),
+      setActiveNode: node =>
+        set(
+          produce(draft => {
+            draft.activeNode = node;
+          })
+        ),
 
-    pushTagElement: (tagType: string, keys: string) => {
-        set(produce((draft) => {
-          let currentArray = draft.emailData;
-          const keysArray = keys.split(".");
+      pushTagElement: (tagType: string, keys: string) => {
+        set(
+          produce(draft => {
+            let currentArray = draft.emailData;
+            const keysArray = keys.split(".");
 
-          for (let i = 0; i < keysArray.length; i++) {
-            currentArray = currentArray[keysArray[i]];
-          }
+            for (let i = 0; i < keysArray.length; i++) {
+              currentArray = currentArray[keysArray[i]];
+            }
 
-        if (Array.isArray(currentArray)) {
-          currentArray.push(getDefaultTags(tagType));
-        }
+            if (Array.isArray(currentArray)) {
+              currentArray.push(getDefaultTags(tagType));
+            }
 
-        draft.history.push(draft.emailData)
-        draft.currentHistoryIndex++
-      }));
-    },
+            draft.history.push(draft.emailData);
+            draft.currentHistoryIndex++;
+          })
+        );
+      },
 
-    popTagElement: (path: string) => {
-      set(produce((draft) => {
-        let currentArray = draft.emailData;
+      popTagElement: (path: string) => {
+        set(
+          produce(draft => {
+            let currentArray = draft.emailData;
 
-        const index = parseInt(path.slice(-1));
-        const keysArray = path.split(".");
+            const index = parseInt(path.slice(-1));
+            const keysArray = path.split(".");
 
-        for (let i = 0; i < keysArray.length - 1; i++) {
-          currentArray = currentArray[keysArray[i]];
-        }
+            for (let i = 0; i < keysArray.length - 1; i++) {
+              currentArray = currentArray[keysArray[i]];
+            }
 
-        if (Array.isArray(currentArray)) {
-          currentArray.splice(index, 1);
-        }
+            if (Array.isArray(currentArray)) {
+              currentArray.splice(index, 1);
+            }
 
-        draft.history.push(draft.emailData)
-        draft.currentHistoryIndex++
-      }));
-    },
+            draft.history.push(draft.emailData);
+            draft.currentHistoryIndex++;
+          })
+        );
+      },
 
-    updateAttributes: (newAttributes: any, keys: string) => {
-      set(produce((draft) => {
-        let currentObj = draft.emailData;
-        const keysArray = keys.split(".");
+      updateAttributes: (newAttributes: any, keys: string) => {
+        set(
+          produce(draft => {
+            let currentObj = draft.emailData;
+            const keysArray = keys.split(".");
 
-        for (let i = 0; i < keysArray.length; i++) {
-          currentObj = currentObj[keysArray[i]];
-        }
+            for (let i = 0; i < keysArray.length; i++) {
+              currentObj = currentObj[keysArray[i]];
+            }
 
-        currentObj.attributes = newAttributes
+            currentObj.attributes = newAttributes;
 
-        draft.history.push(draft.emailData)
-        draft.currentHistoryIndex++
-      }))
-    },
+            draft.history.push(draft.emailData);
+            draft.currentHistoryIndex++;
+          })
+        );
+      },
 
-    updateActiveNodeAttributes: (key: string, newAttributes: any) => {
-      set(produce((draft) => {
-        draft.activeNode['section'][key] = newAttributes
-      }))
-    },
+      updateChildren: (children: any, keys: string) => {
+        set(
+          produce(draft => {
+            let currentObj = draft.emailData;
+            const keysArray = keys.split(".");
 
-    resetEmailData: () =>
-      set(
-        produce((draft) => {
-          draft.emailData = initialState.emailData;
-          draft.activeNode = initialState.activeNode;
-          draft.history = []
-        })
-    ),
+            for (let i = 0; i < keysArray.length; i++) {
+              currentObj = currentObj[keysArray[i]];
+            }
 
-    updateContent: (newContent: string, keys: string) => {
-      set(produce((draft) => {
-        let currentObj = draft.emailData;
-        const keysArray = keys.split(".");
+            currentObj.children = children;
 
-        for (let i = 0; i < keysArray.length; i++) {
-          currentObj = currentObj[keysArray[i]];
-        }
+            draft.history.push(draft.emailData);
+            draft.currentHistoryIndex++;
+          })
+        );
+      },
 
-        currentObj.content = newContent
+      updateActiveNodeAttributes: (key: string, newAttributes: any) => {
+        set(
+          produce(draft => {
+            draft.activeNode["section"][key] = newAttributes;
+          })
+        );
+      },
 
-        draft.history.push(draft.emailData)
-        draft.currentHistoryIndex++
-      }))
-    },
+      resetEmailData: () =>
+        set(
+          produce(draft => {
+            draft.emailData = initialState.emailData;
+            draft.activeNode = initialState.activeNode;
+            draft.history = [];
+          })
+        ),
 
-    undoEmail: () => {
-      set(produce((draft) => {
-        const index = draft.currentHistoryIndex - 1
-        const data = index >= 0 ? draft.history[index] : initialState.emailData
-        draft.emailData = data
+      updateContent: (newContent: string, keys: string) => {
+        set(
+          produce(draft => {
+            let currentObj = draft.emailData;
+            const keysArray = keys.split(".");
 
-        draft.currentHistoryIndex--
-        draft.activeNode = null
-      }))
-    },
+            for (let i = 0; i < keysArray.length; i++) {
+              currentObj = currentObj[keysArray[i]];
+            }
 
-    redoEmail: () => {
-      set(produce((draft) => {
-        const index = draft.currentHistoryIndex + 1
-        const data = index >= draft.history.length ?   draft.history[draft.history.length - 1] : draft.history[index]
-        draft.emailData = data
+            currentObj.content = newContent;
 
-        draft.currentHistoryIndex++
-        draft.activeNode = null
-      }))
-    },
+            draft.history.push(draft.emailData);
+            draft.currentHistoryIndex++;
+          })
+        );
+      },
 
-    emailData: initialState.emailData,
-    activeNode: initialState.activeNode,
-    history: [],
-    currentHistoryIndex: -1
-  }), {
-    name: 'email-store',
-  })
+      undoEmail: () => {
+        set(
+          produce(draft => {
+            const index = draft.currentHistoryIndex - 1;
+            const data =
+              index >= 0 ? draft.history[index] : initialState.emailData;
+            draft.emailData = data;
+
+            draft.currentHistoryIndex--;
+            draft.activeNode = null;
+          })
+        );
+      },
+
+      redoEmail: () => {
+        set(
+          produce(draft => {
+            const index = draft.currentHistoryIndex + 1;
+            const data =
+              index >= draft.history.length
+                ? draft.history[draft.history.length - 1]
+                : draft.history[index];
+            draft.emailData = data;
+
+            draft.currentHistoryIndex++;
+            draft.activeNode = null;
+          })
+        );
+      },
+
+      emailData: initialState.emailData,
+      activeNode: initialState.activeNode,
+      history: [],
+      currentHistoryIndex: -1
+    }),
+    {
+      name: "email-store"
+    }
+  )
 );
 
 export default useEmailDataStore;

@@ -128,6 +128,7 @@ const SectionPreview = ({ section, index, path }: ISectionPreview) => {
       sectionIndex: index
     });
   };
+
   return (
     <Box ref={drop}>
       <Box

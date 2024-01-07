@@ -13,6 +13,7 @@ import { PiCodeBlockFill } from "react-icons/pi";
 import SmartButtonIcon from "@mui/icons-material/SmartButton";
 import { TbSection } from "react-icons/tb";
 import TitleIcon from "@mui/icons-material/Title";
+import ViewCarouselIcon from "@mui/icons-material/ViewCarousel";
 
 let nodeIds: string[] = [];
 
@@ -34,6 +35,10 @@ const getTagIcons = (tagName: string) => {
       return <SmartButtonIcon fontSize="small" />;
     case "mj-text":
       return <TitleIcon />;
+    case "mj-carousel":
+      return <ViewCarouselIcon />;
+    case "mj-carousel-image":
+      return <ImageIcon fontSize="small" />;
 
     default:
       break;

@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import SectionPreview from "../preview-items/section.preview";
 import useEmailStore from "@/store/email";
 import HeroPreview from "@/components/preview-items/hero.preview";
+import CarouselPreview from "@/components/preview-items/carousel.preview";
 
 const EditMode = () => {
   const { emailData } = useEmailStore();
@@ -23,6 +24,15 @@ const EditMode = () => {
 
               {section.tagName === "mj-hero" && (
                 <HeroPreview
+                  section={section}
+                  index={index}
+                  key={index}
+                  path={`children.${index}`}
+                />
+              )}
+
+              {section.tagName === "mj-carousel" && (
+                <CarouselPreview
                   section={section}
                   index={index}
                   key={index}

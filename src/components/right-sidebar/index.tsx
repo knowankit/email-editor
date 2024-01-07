@@ -14,6 +14,7 @@ import ButtonAttributes from "@/components/right-sidebar/button-attributes";
 import TextAttributes from "@/components/right-sidebar/text-attributes";
 import SectionAttributes from "@/components/right-sidebar/section-attributes";
 import ColumnAttributes from "@/components/right-sidebar/column-attributes";
+import CarouselAttributes from "@/components/right-sidebar/carousel-attributes";
 
 const RightSidebar = () => {
   const [expanded, setExpanded] = useState<SourceAccordionType>("json");
@@ -49,7 +50,9 @@ const RightSidebar = () => {
           <TextAttributes />
           <SectionAttributes />
           <ColumnAttributes />
+          <CarouselAttributes />
         </TabPanel>
+
         <TabPanel value="2" sx={{ padding: 0 }}>
           <JsonSource
             expanded={expanded}
