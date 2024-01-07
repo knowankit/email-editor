@@ -54,8 +54,6 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
         draftState.children.push(draftState.children[0]);
       });
     });
-
-    // applyChanges();
   };
 
   const deleteSlide = (index: number) => {
@@ -64,8 +62,6 @@ const Settings = ({ expanded, changeTab }: ISetting) => {
         draftState.children.splice(index, 1);
       });
     });
-
-    // applyChanges();
   };
 
   const slides = formData.children;
