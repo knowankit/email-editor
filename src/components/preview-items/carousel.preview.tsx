@@ -22,9 +22,8 @@ const hoverStyle = {
 };
 
 const defaultStyle = {
-  color: "#ffffff",
   fontFamily: "Ubuntu, Helvetica, Arial, sans-serif",
-  fontSize: "13px",
+  fontSize: "18px",
   fontWeight: "normal",
   lineHeight: "120%",
   textDecoration: "none",
@@ -83,7 +82,6 @@ const CarouselPreview = ({ section, index, path }: IButtonPreview) => {
       display="flex"
       alignItems="center"
       justifyContent="center"
-      bgcolor="tomato"
       height="120px"
       width="inherit"
       position="relative"
