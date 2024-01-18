@@ -1,7 +1,7 @@
 import ReactGA from "react-ga";
 
 export const initGA = () => {
-  const analyticsId = process.env.NEXT_GA_ANALYTICS || "";
+  const analyticsId = process.env.NEXT_PUBLIC_GA_ANALYTICS || "";
   ReactGA.initialize(analyticsId);
 };
 
