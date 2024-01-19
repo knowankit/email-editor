@@ -8,6 +8,8 @@ import RightSidebar from "@/components/right-sidebar";
 import { useEffect, useState } from "react";
 import NotSupportedOnMobile from "@/components/not-supported-mobile";
 import HomePageHeader from "@/components/home-page-header";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
+import Head from "next/head";
 
 const EmailEditor = () => {
   const [isMobile, setMobile] = useState<"mobile" | "desktop" | "">("");
@@ -26,6 +28,7 @@ const EmailEditor = () => {
 
   return (
     <>
+      <GoogleAnalytics />
       <Box px="1rem">
         <HomePageHeader />
         <Controls />
