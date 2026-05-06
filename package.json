@@ -18,7 +18,7 @@
     "@mui/x-data-grid": "^6.12.0",
     "@mui/x-tree-view": "^6.0.0-beta.0",
     "@sendgrid/mail": "^7.7.0",
-    "axios": "^1.12.0",
+    "axios": "^1.15.2",
     "debounce": "^1.2.1",
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.6",
